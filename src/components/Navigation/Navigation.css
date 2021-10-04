@@ -1,0 +1,138 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navigation__options {
+  width: 44px;
+  height: 44px;
+  background-image: url(../../images/Navigation.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: opacity 1s ease;
+  cursor: pointer;
+  margin: auto 0 auto auto;
+}
+
+.navigation__options:hover {
+  opacity: 0.6;
+}
+
+.navigation__popup {
+  height: 100vh;
+  width: 520px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #202020;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navigation__close {
+  font-size: 55px;
+  font-weight: 400;
+  transform: rotate(45deg);
+  color: #ffffff;
+  background-color: #202020;
+  transition: opacity 1s ease;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 20px 0 auto;
+  border: none;
+}
+
+.navigation__close:hover {
+  opacity: 0.6;
+}
+
+.navigation__popup-links {
+  display: flex;
+  flex-direction: column;
+  margin: 130px auto 0;
+}
+
+.navigation__popup-link {
+  margin: 0 auto 28px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navigation__popup-link:nth-child(2) {
+  padding-bottom: 4px;
+  border-bottom: 2px solid #fff;
+  margin: 0 auto 22px;
+}
+
+.navigation__links {
+  display: flex;
+  margin: auto auto auto 44px;
+}
+
+.navigation__link {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 15px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.navigation__link:nth-child(2) {
+  font-weight: 400;
+}
+
+.navigation__link:hover {
+  opacity: 0.6;
+}
+
+.navigation__profile {
+  display: flex;
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 22px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.navigation__profile:hover {
+  opacity: 0.6;
+}
+
+.navigation__icon {
+  width: 12px;
+  height: 14px;
+  margin-right: 7px;
+}
+
+.navigation__text {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+@media (max-width: 767px) {
+  .navigation__options {
+    width: 40px;
+    height: 43px;
+  }
+  .navigation__popup {
+    width: 100%;
+  }
+  .navigation__close {
+    margin: 0 11px 0 auto;
+  }
+  .navigation__popup-links {
+    margin: 100px auto 0;
+  }
+}

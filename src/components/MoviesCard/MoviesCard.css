@@ -1,0 +1,67 @@
+.movie {
+  background-color: #222;
+}
+
+.movie__group {
+  display: flex;
+}
+
+.movie__title {
+  margin: 14px auto 0 14px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.movie__subtitle {
+  margin: 9px auto 0 14px;
+  color: #8b8b8b;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.movie__icon {
+  width: 30px;
+  height: 30px;
+  margin: 19px 14px 0 auto;
+  border-radius: 36px;
+  border: none;
+  cursor: pointer;
+}
+
+.movie__icon:hover {
+  opacity: 0.6;
+}
+
+.movie__icon_off {
+  background: url("../../images/Find-off.svg") center no-repeat;
+  background-color: #313131;
+}
+
+.movie__icon_on {
+  background: url("../../images/Find-on.svg") center no-repeat;
+  background-color: #3ddc84;
+}
+
+.movie__icon_delete {
+  background: url("../../images/Find-delete.svg") center no-repeat;
+  background-color: #313131;
+}
+
+.movie__image {
+  margin: 14px auto 0;
+  object-fit: cover;
+  width: 364px;
+}
+
+@media (max-width: 1279px) {
+  .movie__image {
+    width: 339px;
+  }
+}
+
+@media (max-width: 767px) {
+  .movie__image {
+    width: 300px;
+  }
+}

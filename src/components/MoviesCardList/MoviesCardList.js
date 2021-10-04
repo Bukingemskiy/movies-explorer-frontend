@@ -8,7 +8,9 @@ import movies from "../../utils/initial-сards.js";
 function MoviesCardList() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const [isMoreButton, setMoreButton] = React.useState("more__button");
+  const [isMoreButton, setMoreButton] = React.useState(
+    "more__button_invisible"
+  );
   const savedMovies = movies.filter((movie) => movie.saved === true);
   const cardList = document.getElementsByClassName("movie");
   let numberOfMovies = 12;

@@ -13,20 +13,43 @@ function MoviesCardList() {
   );
   const savedMovies = movies.filter((movie) => movie.saved === true);
   const cardList = document.getElementsByClassName("movie");
+  const width = window.innerWidth;
   let numberOfMovies = 12;
 
-  if ((window.screen.width < 1280) & (window.screen.width > 767)) {
-    numberOfMovies = 8;
-  } else if (window.screen.width < 768) {
-    numberOfMovies = 5;
-  }
+  handleNumberOfMovies();
 
   window.onload = function () {
+    handleWidth();
+  };
+
+  function handleNumberOfMovies() {
+    if ((width < 1280) & (width > 767)) {
+      numberOfMovies = 8;
+    } else if (width < 768) {
+      numberOfMovies = 5;
+    } else if (width > 1279) {
+      numberOfMovies = 12;
+    }
+  }
+
+  window.addEventListener("resize", handleWidth);
+
+  function handleWidth() {
     handleMoreButton();
     for (let i = numberOfMovies; i < cardList.length; i++) {
-      cardList[i].style.display = "none";
+      if (numberOfMovies <= cardList.length) {
+        for (let j = 0; j < numberOfMovies; j++) {
+          cardList[j].style.display = "block";
+          cardList[i].style.display = "none";
+        }
+      } else {
+        for (let j = 0; j < cardList.length; j++) {
+          cardList[j].style.display = "block";
+          cardList[i].style.display = "none";
+        }
+      }
     }
-  };
+  }
 
   function handleMoreButton() {
     if (numberOfMovies > cardList.length) {
@@ -37,7 +60,13 @@ function MoviesCardList() {
   }
 
   function openMore() {
-    numberOfMovies += numberOfMovies;
+    if ((width < 1280) & (width > 767)) {
+      numberOfMovies += 8;
+    } else if (width < 768) {
+      numberOfMovies += 5;
+    } else if (width > 1279) {
+      numberOfMovies += 12;
+    }
     handleMoreButton();
     if (numberOfMovies <= cardList.length) {
       for (let i = 0; i < numberOfMovies; i++) {

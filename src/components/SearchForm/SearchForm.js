@@ -1,7 +1,11 @@
 import "./SearchForm.css";
 
+window.addEventListener("resize", function () {
+  window.location.reload();
+});
+
 function SearchForm() {
-  if (window.screen.width < 767) {
+  if (window.innerWidth < 768) {
     return (
       <section className="search">
         <form className="search__form">

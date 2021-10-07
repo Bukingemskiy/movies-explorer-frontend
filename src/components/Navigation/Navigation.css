@@ -6,19 +6,7 @@
 }
 
 .navigation__options {
-  width: 44px;
-  height: 44px;
-  background-image: url(../../images/Navigation.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: opacity 1s ease;
-  cursor: pointer;
-  margin: auto 0 auto auto;
-}
-
-.navigation__options:hover {
-  opacity: 0.6;
+  display: none;
 }
 
 .navigation__popup {
@@ -104,6 +92,10 @@
   color: #fff;
 }
 
+.navigation__profile_popup {
+  margin: auto auto 90px;
+}
+
 .navigation__profile:hover {
   opacity: 0.6;
 }
@@ -119,6 +111,37 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
+}
+
+@media (max-width: 1023px) {
+  .navigation__profile {
+    display: none;
+  }
+
+  .navigation__profile_popup {
+    display: flex;
+  }
+
+  .navigation__link {
+    display: none;
+  }
+
+  .navigation__options {
+    display: block;
+    width: 44px;
+    height: 44px;
+    background-image: url(../../images/Navigation.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 1s ease;
+    cursor: pointer;
+    margin: auto 0 auto auto;
+  }
+
+  .navigation__options:hover {
+    opacity: 0.6;
+  }
 }
 
 @media (max-width: 767px) {

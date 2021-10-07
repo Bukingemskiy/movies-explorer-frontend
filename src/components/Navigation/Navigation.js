@@ -5,7 +5,7 @@ import IconProfile from "../../images/Profile.svg";
 
 function Navigation() {
   const [popupVisible, setPopupVisible] = React.useState("none");
-  const [optionsVisible, setOptionsVisible] = React.useState("block");
+  const [optionsVisible, setOptionsVisible] = React.useState("none");
 
   function openPopup() {
     setPopupVisible("flex");
@@ -17,16 +17,37 @@ function Navigation() {
     setOptionsVisible("block");
   }
 
-  if (window.screen.width < 1024) {
-    return (
-      <section className="navigation">
+  return (
+    <nav className="navigation">
+      <div className="navigation__links">
+        <Link to="/movies" className="navigation__link">
+          Фильмы
+        </Link>
+        <Link to="/saved-movies" className="navigation__link">
+          Сохранённые фильмы
+        </Link>
+      </div>
+      <div onClick={openPopup} className="navigation__options"></div>
+      <Link to="/profile" className="navigation__profile">
+        <img
+          src={IconProfile}
+          alt="Иконка аккаунта"
+          className="navigation__icon"
+        />
+        <p className="navigation__text">Аккаунт</p>
+      </Link>
+      {(popupVisible === "flex") & (optionsVisible === "none") && (
         <div
           style={{
             display: popupVisible,
           }}
           className="navigation__popup"
         >
-          <button onClick={closePopup} className="navigation__close">
+          <button
+            type="button"
+            className="navigation__close"
+            onClick={closePopup}
+          >
             +
           </button>
           <div className="navigation__popup-links">
@@ -41,11 +62,8 @@ function Navigation() {
             </Link>
           </div>
           <Link
-            style={{
-              margin: "auto auto 90px",
-            }}
             to="/profile"
-            className="navigation__profile"
+            className="navigation__profile navigation__profile_popup"
           >
             <img
               src={IconProfile}
@@ -55,37 +73,9 @@ function Navigation() {
             <p className="navigation__text">Аккаунт</p>
           </Link>
         </div>
-        <div
-          style={{
-            display: optionsVisible,
-          }}
-          onClick={openPopup}
-          className="navigation__options"
-        ></div>
-      </section>
-    );
-  } else {
-    return (
-      <section className="navigation">
-        <div className="navigation__links">
-          <Link to="/movies" className="navigation__link">
-            Фильмы
-          </Link>
-          <Link to="/saved-movies" className="navigation__link">
-            Сохранённые фильмы
-          </Link>
-        </div>
-        <Link to="/profile" className="navigation__profile">
-          <img
-            src={IconProfile}
-            alt="Иконка аккаунта"
-            className="navigation__icon"
-          />
-          <p className="navigation__text">Аккаунт</p>
-        </Link>
-      </section>
-    );
-  }
+      )}
+    </nav>
+  );
 }
 
 export default Navigation;

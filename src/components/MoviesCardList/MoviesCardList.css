@@ -2,7 +2,6 @@
   padding: 80px 70px 30px;
   display: grid;
   grid-template-columns: repeat(3, 364px);
-  grid-template-rows: repeat(auto, 1fr);
   column-gap: 24px;
   row-gap: 30px;
   justify-content: center;
@@ -39,7 +38,6 @@
   .movies {
     padding: 70px 30px 30px;
     grid-template-columns: repeat(2, 339px);
-    grid-template-rows: repeat(auto, 1fr);
     column-gap: 30px;
     row-gap: 36px;
   }

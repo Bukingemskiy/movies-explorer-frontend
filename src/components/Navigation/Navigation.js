@@ -5,7 +5,7 @@ import IconProfile from "../../images/Profile.svg";
 
 function Navigation() {
   const [popupVisible, setPopupVisible] = React.useState("none");
-  const [optionsVisible, setOptionsVisible] = React.useState("none");
+  const [, setOptionsVisible] = React.useState("none");
 
   function openPopup() {
     setPopupVisible("flex");
@@ -36,7 +36,7 @@ function Navigation() {
         />
         <p className="navigation__text">Аккаунт</p>
       </Link>
-      {(popupVisible === "flex") & (optionsVisible === "none") && (
+      {popupVisible === "flex" && (
         <div
           style={{
             display: popupVisible,

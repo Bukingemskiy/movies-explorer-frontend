@@ -1,13 +1,29 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import Logo from "../Logo/Logo.js";
 
-function Login() {
+function Login(props) {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onLogin(email, password);
+  }
   return (
     <section className="login">
       <Logo />
       <h2 className="login__title">Рады видеть!</h2>
-      <form className="login__form">
+      <form className="login__form" onSubmit={handleSubmit}>
         <fieldset className="login__fields">
           <div className="login__field">
             <p className="login__field-name">E-mail</p>
@@ -15,7 +31,8 @@ function Login() {
               className="login__input"
               type="email"
               name="email"
-              placeholder="pochta@yandex.ru"
+              placeholder="E-mail"
+              onChange={handleChangeEmail}
               required
             />
             <span className="login__error"></span>
@@ -27,6 +44,8 @@ function Login() {
               type="password"
               name="password"
               minLength="8"
+              placeholder="Пароль"
+              onChange={handleChangePassword}
               required
             />
             <span className="login__error"></span>

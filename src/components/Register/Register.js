@@ -60,6 +60,7 @@ function Register(props) {
               className="register__input"
               type="password"
               name="password"
+              placeholder="Пароль"
               minLength="8"
               onChange={handleChangePassword}
               required

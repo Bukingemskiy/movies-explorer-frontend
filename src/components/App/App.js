@@ -38,7 +38,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        history.push("/");
+        history.push("/movies");
       })
       .catch((err) => {
         console.log(`${err}`);

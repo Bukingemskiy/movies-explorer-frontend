@@ -23,7 +23,7 @@ function App() {
       .signUp(name, email, password)
       .then((res) => {
         if (res) {
-          history.push("/sign-in");
+          history.push("/signin");
         } else {
           console.log("Что-то пошло не так!");
         }
@@ -59,13 +59,13 @@ function App() {
             <Login onLogin={handleLogin} />
           </Route>
           <Route exact path="/movies">
-            {loggedIn ? <Movies /> : <Redirect to="/sign-in" />}
+            {loggedIn ? <Movies /> : <Redirect to="/signin" />}
           </Route>
           <Route exact path="/saved-movies">
-            {loggedIn ? <SavedMovies /> : <Redirect to="/sign-in" />}
+            {loggedIn ? <SavedMovies /> : <Redirect to="/signin" />}
           </Route>
           <Route exact path="/profile">
-            {loggedIn ? <Profile /> : <Redirect to="/sign-in" />}
+            {loggedIn ? <Profile /> : <Redirect to="/signin" />}
           </Route>
           <Route path="*">
             <NotFound />

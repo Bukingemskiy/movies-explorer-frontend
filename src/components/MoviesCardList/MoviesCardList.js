@@ -8,6 +8,7 @@ import movies from "../../utils/initial-сards.js";
 function MoviesCardList() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isMoreButton, setMoreButton] = React.useState(
     "more__button_invisible"
   );
@@ -15,12 +16,6 @@ function MoviesCardList() {
   const cardList = document.getElementsByClassName("movie");
   const width = window.innerWidth;
   let numberOfMovies = 12;
-
-  handleNumberOfMovies();
-
-  window.onload = function () {
-    handleWidth();
-  };
 
   function handleNumberOfMovies() {
     if ((width < 1280) & (width > 767)) {
@@ -32,7 +27,15 @@ function MoviesCardList() {
     }
   }
 
-  window.addEventListener("resize", handleWidth);
+  handleNumberOfMovies();
+
+  function handleMoreButton() {
+    if (numberOfMovies > cardList.length) {
+      setMoreButton("more__button more__button_invisible");
+    } else {
+      setMoreButton("more__button");
+    }
+  }
 
   function handleWidth() {
     handleMoreButton();
@@ -51,21 +54,23 @@ function MoviesCardList() {
     }
   }
 
-  function handleMoreButton() {
-    if (numberOfMovies > cardList.length) {
-      setMoreButton("more__button more__button_invisible");
-    } else {
-      setMoreButton("more__button");
-    }
+  window.onload = function () {
+    handleWidth();
+  };
+
+  function resize() {
+    setIsLoading(true);
+    setTimeout(handleWidth, 100);
+    setIsLoading(false);
   }
 
+  window.onresize = resize;
+
   function openMore() {
-    if ((width < 1280) & (width > 767)) {
-      numberOfMovies += 8;
-    } else if (width < 768) {
-      numberOfMovies += 5;
-    } else if (width > 1279) {
-      numberOfMovies += 12;
+    if (width > 1279) {
+      numberOfMovies += 3;
+    } else {
+      numberOfMovies += 2;
     }
     handleMoreButton();
     if (numberOfMovies <= cardList.length) {
@@ -81,7 +86,7 @@ function MoviesCardList() {
 
   return (
     <>
-      <Preloader />
+      <Preloader isLoading={isLoading} />
       <section className="movies">
         {isSavedMovies
           ? savedMovies.map((movie) => (

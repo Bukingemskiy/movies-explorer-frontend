@@ -1,10 +1,31 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 import Logo from "../Logo/Logo.js";
 
-function Register() {
+function Register(props) {
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onRegister(name, email, password);
+  }
   return (
-    <section className="register">
+    <section className="register" onSubmit={handleSubmit}>
       <Logo />
       <h2 className="register__title">Добро пожаловать!</h2>
       <form className="register__form">
@@ -15,7 +36,8 @@ function Register() {
               className="register__input"
               type="text"
               name="name"
-              placeholder="Виталий"
+              placeholder="Имя"
+              onChange={handleChangeName}
               required
             />
             <span className="register__error"></span>
@@ -26,7 +48,8 @@ function Register() {
               className="register__input"
               type="email"
               name="email"
-              placeholder="pochta@yandex.ru"
+              placeholder="Email"
+              onChange={handleChangeEmail}
               required
             />
             <span className="register__error"></span>
@@ -37,8 +60,8 @@ function Register() {
               className="register__input"
               type="password"
               name="password"
-              placeholder="••••••••••••••"
               minLength="8"
+              onChange={handleChangePassword}
               required
             />
             <span className="register__error">Что-то пошло не так...</span>

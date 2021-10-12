@@ -8,29 +8,15 @@ import Movies from "../Movies/Movies.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 import Profile from "../Profile/Profile.js";
 import NotFound from "../NotFound/NotFound";
-import mainApi from "../../utils/MainApi.js";
-import moviesApi from "../../utils/MoviesApi.js";
+//import mainApi from "../../utils/MainApi.js";
+//import moviesApi from "../../utils/MoviesApi.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import * as auth from "../../utils/auth.js";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
-  const [movies, setMovies] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [isMoviesLoading, setIsMoviesLoading] = React.useState(false);
   const history = useHistory();
-
-  function updatePage() {
-    setIsMoviesLoading(true);
-    Promise.all([mainApi.getUserData(), moviesApi.getCards()])
-      .then(([userInfo, userMovies]) => {
-        setCurrentUser(userInfo.data);
-        setMovies(userMovies.data);
-        setLoggedIn(true);
-      })
-      .catch((err) => console.log(`${err}`))
-      .finally(() => setIsMoviesLoading(false));
-  }
 
   function handleRegister(name, email, password) {
     return auth
@@ -52,7 +38,6 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        updatePage();
         history.push("/");
       })
       .catch((err) => {

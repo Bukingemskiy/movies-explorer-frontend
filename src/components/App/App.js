@@ -32,9 +32,9 @@ function App() {
       .finally(() => setIsMoviesLoading(false));
   }
 
-  function handleRegister(email, password) {
+  function handleRegister(name, email, password) {
     return auth
-      .signUp(email, password)
+      .signUp(name, email, password)
       .then((res) => {
         if (res) {
           history.push("/sign-in");

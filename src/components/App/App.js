@@ -16,6 +16,7 @@ import * as auth from "../../utils/auth.js";
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [movies, setMovies] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isMoviesLoading, setIsMoviesLoading] = React.useState(false);
   const history = useHistory();
@@ -75,12 +76,27 @@ function App() {
       });
   }
 
+  function handleUpdateUser(data) {
+    setIsLoading(true);
+    mainApi
+      .editProfile(data)
+      .then((user) => {
+        setCurrentUser(user.data);
+      })
+      .catch((err) => console.log(`${err}`))
+      .finally(() => setIsLoading(false));
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path="/">
-            <Main />
+            {loggedIn ? (
+              <Movies isMoviesLoading={isMoviesLoading} movies={movies} />
+            ) : (
+              <Main />
+            )}
           </Route>
           <Route exact path="/signup">
             <Register onRegister={handleRegister} />
@@ -100,7 +116,11 @@ function App() {
           </Route>
           <Route exact path="/profile">
             {loggedIn ? (
-              <Profile onLogOut={logOut} />
+              <Profile
+                isLoading={isLoading}
+                onUpdateUser={handleUpdateUser}
+                onLogOut={logOut}
+              />
             ) : (
               <Redirect to="/signin" />
             )}

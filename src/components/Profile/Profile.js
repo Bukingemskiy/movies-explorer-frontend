@@ -33,7 +33,7 @@ function Profile(props) {
     <>
       <Header />
       <section className="profile">
-        <h2 className="profile__title">Привет, {name}!</h2>
+        <h2 className="profile__title">{`Привет, ${name}!`}</h2>
         <form onSubmit={handleSubmit} className="profile__form">
           <fieldset className="profile__fields">
             <div className="profile__field">
@@ -42,8 +42,8 @@ function Profile(props) {
                 className="profile__input"
                 type="text"
                 name="name"
+                value={name || ""}
                 onChange={handleChangeName}
-                placeholder="Имя"
               />
             </div>
             <div className="profile__field">
@@ -52,8 +52,8 @@ function Profile(props) {
                 className="profile__input"
                 type="email"
                 name="email"
+                value={email || ""}
                 onChange={handleChangeEmail}
-                placeholder="E-mail"
               />
             </div>
           </fieldset>

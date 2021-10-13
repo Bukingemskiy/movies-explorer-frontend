@@ -13,7 +13,6 @@ class MoviesApi {
 
   getMovies() {
     return fetch(this._address, {
-      credentials: "include",
       headers: this._headers,
     }).then((res) => this._getAnswer(res));
   }

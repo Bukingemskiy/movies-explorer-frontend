@@ -9,7 +9,7 @@ function Profile(props) {
   const [email, setEmail] = React.useState("");
 
   React.useEffect(() => {
-    setName(currentUser.data.name);
+    setName(currentUser.name);
     setEmail(currentUser.email);
   }, [currentUser]);
 

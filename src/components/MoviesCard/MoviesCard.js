@@ -10,10 +10,10 @@ function MoviesCard(props) {
   const handleClickSave = () => setIsSaved(!isSaved);
 
   return (
-    <article className="movie" _id={props.movie._id}>
+    <article className="movie" _id={props.movie.id}>
       <div className="movie__group">
         <div className="movie__description">
-          <h2 className="movie__title">{props.movie.name}</h2>
+          <h2 className="movie__title">{props.movie.nameRU}</h2>
           <p className="movie__subtitle">{props.movie.duration}</p>
         </div>
         {isSavedMovies ? (
@@ -31,7 +31,7 @@ function MoviesCard(props) {
       <img
         className="movie__image"
         src={props.movie.image}
-        alt={`Кадр из фильма ${props.movie.name}`}
+        alt={`Кадр из фильма ${props.movie.nameRU}`}
       />
     </article>
   );

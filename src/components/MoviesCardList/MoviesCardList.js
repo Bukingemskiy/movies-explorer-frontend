@@ -27,8 +27,6 @@ function MoviesCardList() {
     }
   }
 
-  handleNumberOfMovies();
-
   function handleMoreButton() {
     if (numberOfMovies > cardList.length) {
       setMoreButton("more__button more__button_invisible");
@@ -54,9 +52,8 @@ function MoviesCardList() {
     }
   }
 
-  window.onload = function () {
-    handleWidth();
-  };
+  handleNumberOfMovies();
+  handleWidth();
 
   function resize() {
     setIsLoading(true);

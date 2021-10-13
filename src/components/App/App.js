@@ -92,11 +92,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path="/">
-            {loggedIn ? (
-              <Movies isMoviesLoading={isMoviesLoading} movies={movies} />
-            ) : (
-              <Main />
-            )}
+            <Main />
           </Route>
           <Route exact path="/signup">
             <Register onRegister={handleRegister} />

@@ -38,6 +38,7 @@ function App() {
   }, []);
 
   console.log(movies);
+  console.log(currentUser);
 
   function handleRegister(name, email, password) {
     return auth

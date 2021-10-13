@@ -6,7 +6,7 @@ function MoviesCard(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
 
-  const [isSaved, setIsSaved] = React.useState(props.movie.saved);
+  const [isSaved, setIsSaved] = React.useState(false);
   const handleClickSave = () => setIsSaved(!isSaved);
 
   return (

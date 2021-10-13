@@ -37,6 +37,8 @@ function App() {
     updatePage();
   }, []);
 
+  console.log(movies);
+
   function handleRegister(name, email, password) {
     return auth
       .signUp(name, email, password)

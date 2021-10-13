@@ -35,7 +35,7 @@ function App() {
 
   React.useEffect(() => {
     updatePage();
-  }, []);
+  }, [history, loggedIn]);
 
   console.log(loggedIn);
 

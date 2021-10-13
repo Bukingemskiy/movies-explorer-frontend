@@ -30,7 +30,7 @@ function MoviesCard(props) {
       </div>
       <img
         className="movie__image"
-        src={props.movie.image.url}
+        src={`https://api.nomoreparties.co${props.movie.image.url}`}
         alt={`Кадр из фильма ${props.movie.nameRU}`}
       />
     </article>

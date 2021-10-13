@@ -102,17 +102,26 @@ function App() {
           </Route>
           <Route exact path="/movies">
             {loggedIn ? (
-              <Movies isMoviesLoading={isMoviesLoading} movies={movies} />
+              <Movies
+                loggedIn={loggedIn}
+                isMoviesLoading={isMoviesLoading}
+                movies={movies}
+              />
             ) : (
               <Redirect to="/" />
             )}
           </Route>
           <Route exact path="/saved-movies">
-            {loggedIn ? <SavedMovies /> : <Redirect to="/" />}
+            {loggedIn ? (
+              <SavedMovies loggedIn={loggedIn} />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route exact path="/profile">
             {loggedIn ? (
               <Profile
+                loggedIn={loggedIn}
                 isLoading={isLoading}
                 onUpdateUser={handleUpdateUser}
                 onLogOut={logOut}

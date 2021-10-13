@@ -9,33 +9,25 @@ import SavedMovies from "../SavedMovies/SavedMovies.js";
 import Profile from "../Profile/Profile.js";
 import NotFound from "../NotFound/NotFound";
 import mainApi from "../../utils/MainApi.js";
-import moviesApi from "../../utils/MoviesApi.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import * as auth from "../../utils/auth.js";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
-  const [movies, setMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [isMoviesLoading, setIsMoviesLoading] = React.useState(false);
   const history = useHistory();
 
-  function updatePage() {
-    setIsMoviesLoading(true);
-    Promise.all([mainApi.getUserData(), moviesApi.getMovies()])
-      .then(([userInfo, userMovies]) => {
-        setCurrentUser(userInfo.data);
-        setMovies(userMovies.data);
-        setLoggedIn(true);
-      })
-      .catch((err) => console.log(`${err}`))
-      .finally(() => setIsMoviesLoading(false));
-  }
-
   React.useEffect(() => {
-    updatePage();
-  }, []);
+    if (loggedIn) {
+      mainApi
+        .getUser()
+        .then((userInfo) => {
+          setCurrentUser(userInfo.data);
+        })
+        .catch((err) => console.log(`${err}`));
+    }
+  }, [history, loggedIn]);
 
   function handleRegister(name, email, password) {
     return auth
@@ -57,7 +49,9 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        updatePage();
+        mainApi.getUser().then((userInfo) => {
+          setCurrentUser(userInfo.data);
+        });
         history.push("/movies");
       })
       .catch((err) => {
@@ -101,14 +95,10 @@ function App() {
             <Login onLogin={handleLogin} />
           </Route>
           <Route exact path="/movies">
-            {loggedIn ? (
-              <Movies isMoviesLoading={isMoviesLoading} movies={movies} />
-            ) : (
-              <Redirect to="/signin" />
-            )}
+            {loggedIn ? <Movies /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/saved-movies">
-            {loggedIn ? <SavedMovies /> : <Redirect to="/signin" />}
+            {loggedIn ? <SavedMovies /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/profile">
             {loggedIn ? (
@@ -118,7 +108,7 @@ function App() {
                 onLogOut={logOut}
               />
             ) : (
-              <Redirect to="/signin" />
+              <Redirect to="/" />
             )}
           </Route>
           <Route path="*">

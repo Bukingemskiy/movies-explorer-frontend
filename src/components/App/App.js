@@ -26,7 +26,7 @@ function App() {
     Promise.all([mainApi.getUserData(), moviesApi.getMovies()])
       .then(([userInfo, userMovies]) => {
         setCurrentUser(userInfo.data);
-        setMovies(userMovies.data);
+        setMovies(userMovies);
         setLoggedIn(true);
       })
       .catch((err) => console.log(`${err}`))

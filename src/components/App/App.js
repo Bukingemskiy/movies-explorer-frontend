@@ -17,8 +17,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [movies, setMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [loggedIn, setLoggedIn] = React.useState(false);
   const [isMoviesLoading, setIsMoviesLoading] = React.useState(false);
+  const loggedIn = mainApi.loggedIn();
   const history = useHistory();
 
   function updatePage() {
@@ -27,7 +27,6 @@ function App() {
       .then(([userInfo, userMovies]) => {
         setCurrentUser(userInfo.data);
         setMovies(userMovies);
-        setLoggedIn(true);
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsMoviesLoading(false));
@@ -58,7 +57,6 @@ function App() {
     return auth
       .signIn(email, password)
       .then(() => {
-        setLoggedIn(true);
         updatePage();
         history.push("/movies");
       })
@@ -70,9 +68,7 @@ function App() {
   function logOut() {
     auth
       .signOut()
-      .then(() => {
-        setLoggedIn(false);
-      })
+      .then(() => {})
       .catch((err) => {
         console.log(`${err}`);
       });

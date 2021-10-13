@@ -1,7 +1,8 @@
 class MainApi {
-  constructor({ address, headers }) {
+  constructor({ address, headers, token }) {
     this._address = address;
     this._headers = headers;
+    this._token = token;
   }
 
   _getAnswer(res) {
@@ -9,6 +10,10 @@ class MainApi {
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  loggedIn() {
+    return !!this._token;
   }
 
   getUserData() {

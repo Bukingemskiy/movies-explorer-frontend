@@ -1,13 +1,40 @@
+import React from "react";
 import "./Profile.css";
 import Header from "../Header/Header.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function Profile(props) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onUpdateUser({
+      name: name,
+      email: email,
+    });
+  }
+
   return (
     <>
       <Header />
       <section className="profile">
-        <h2 className="profile__title">Привет, Виталий!</h2>
-        <form className="profile__form">
+        <h2 className="profile__title">Привет, {name}!</h2>
+        <form onSubmit={handleSubmit} className="profile__form">
           <fieldset className="profile__fields">
             <div className="profile__field">
               <p className="profile__field-name">Имя</p>
@@ -15,7 +42,8 @@ function Profile(props) {
                 className="profile__input"
                 type="text"
                 name="name"
-                placeholder="Виталий"
+                onChange={handleChangeName}
+                placeholder="Имя"
               />
             </div>
             <div className="profile__field">
@@ -24,7 +52,8 @@ function Profile(props) {
                 className="profile__input"
                 type="email"
                 name="email"
-                placeholder="pochta@yandex.ru"
+                onChange={handleChangeEmail}
+                placeholder="E-mail"
               />
             </div>
           </fieldset>

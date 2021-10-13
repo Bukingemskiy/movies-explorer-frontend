@@ -19,6 +19,10 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
+    updatePage();
+  });
+
+  function updatePage() {
     if (loggedIn) {
       mainApi
         .getUser()
@@ -27,7 +31,7 @@ function App() {
         })
         .catch((err) => console.log(`${err}`));
     }
-  }, [history, loggedIn]);
+  }
 
   function handleRegister(name, email, password) {
     return auth
@@ -49,9 +53,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        mainApi.getUser().then((userInfo) => {
-          setCurrentUser(userInfo.data);
-        });
+        updatePage();
         history.push("/movies");
       })
       .catch((err) => {

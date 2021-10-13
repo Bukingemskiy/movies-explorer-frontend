@@ -1,7 +1,7 @@
 import "./Profile.css";
 import Header from "../Header/Header.js";
 
-function Profile() {
+function Profile(props) {
   return (
     <>
       <Header />
@@ -35,7 +35,11 @@ function Profile() {
             Редактировать
           </button>
         </form>
-        <button className="profile__button profile__button_exit" type="button">
+        <button
+          onClick={props.onLogOut}
+          className="profile__button profile__button_exit"
+          type="button"
+        >
           Выйти из аккаунта
         </button>
       </section>

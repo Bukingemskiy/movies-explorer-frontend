@@ -38,7 +38,18 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        history.push("/movies");
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
+  function logOut() {
+    auth
+      .signOut()
+      .then(() => {
+        setLoggedIn(false);
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -65,7 +76,11 @@ function App() {
             {loggedIn ? <SavedMovies /> : <Redirect to="/signin" />}
           </Route>
           <Route exact path="/profile">
-            {loggedIn ? <Profile /> : <Redirect to="/signin" />}
+            {loggedIn ? (
+              <Profile onLogOut={logOut} />
+            ) : (
+              <Redirect to="/signin" />
+            )}
           </Route>
           <Route path="*">
             <NotFound />

@@ -65,7 +65,7 @@ function Register(props) {
               onChange={handleChangePassword}
               required
             />
-            <span className="register__error">Что-то пошло не так...</span>
+            <span className="register__error"></span>
           </div>
         </fieldset>
         <button className="register__button" type="submit">

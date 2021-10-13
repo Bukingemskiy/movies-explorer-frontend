@@ -37,6 +37,8 @@ function App() {
     updatePage();
   }, []);
 
+  console.log(loggedIn);
+
   function handleRegister(name, email, password) {
     return auth
       .signUp(name, email, password)
@@ -102,26 +104,17 @@ function App() {
           </Route>
           <Route exact path="/movies">
             {loggedIn ? (
-              <Movies
-                loggedIn={loggedIn}
-                isMoviesLoading={isMoviesLoading}
-                movies={movies}
-              />
+              <Movies isMoviesLoading={isMoviesLoading} movies={movies} />
             ) : (
               <Redirect to="/" />
             )}
           </Route>
           <Route exact path="/saved-movies">
-            {loggedIn ? (
-              <SavedMovies loggedIn={loggedIn} />
-            ) : (
-              <Redirect to="/" />
-            )}
+            {loggedIn ? <SavedMovies /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/profile">
             {loggedIn ? (
               <Profile
-                loggedIn={loggedIn}
                 isLoading={isLoading}
                 onUpdateUser={handleUpdateUser}
                 onLogOut={logOut}

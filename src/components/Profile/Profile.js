@@ -9,9 +9,9 @@ function Profile(props) {
   const [email, setEmail] = React.useState("");
 
   React.useEffect(() => {
-    setName(currentUser.data.name);
+    setName(currentUser.name);
     setEmail(currentUser.email);
-  }, [currentUser.data.name, currentUser.email]);
+  }, [currentUser.name, currentUser.email]);
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -42,7 +42,7 @@ function Profile(props) {
                 className="profile__input"
                 type="text"
                 name="name"
-                value={name || ""}
+                value={name}
                 onChange={handleChangeName}
               />
             </div>
@@ -52,7 +52,7 @@ function Profile(props) {
                 className="profile__input"
                 type="email"
                 name="email"
-                value={email || ""}
+                value={email}
                 onChange={handleChangeEmail}
               />
             </div>

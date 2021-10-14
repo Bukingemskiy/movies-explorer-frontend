@@ -9,32 +9,29 @@ import SavedMovies from "../SavedMovies/SavedMovies.js";
 import Profile from "../Profile/Profile.js";
 import NotFound from "../NotFound/NotFound";
 import mainApi from "../../utils/MainApi.js";
-import moviesApi from "../../utils/MoviesApi.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import * as auth from "../../utils/auth.js";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
-  const [movies, setMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isMoviesLoading, setIsMoviesLoading] = React.useState(false);
-  const loggedIn = mainApi.loggedIn();
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
-  function updatePage() {
-    setIsMoviesLoading(true);
-    Promise.all([mainApi.getUserData(), moviesApi.getMovies()])
-      .then(([userInfo, userMovies]) => {
-        setCurrentUser(userInfo.data);
-        setMovies(userMovies);
+  function handleUpdateUser(data) {
+    setIsLoading(true);
+    mainApi
+      .editProfile(data)
+      .then((user) => {
+        setCurrentUser(user.data);
       })
       .catch((err) => console.log(`${err}`))
-      .finally(() => setIsMoviesLoading(false));
+      .finally(() => setIsLoading(false));
   }
 
   React.useEffect(() => {
-    updatePage();
-  }, [history, loggedIn]);
+    handleUpdateUser();
+  }, []);
 
   console.log(loggedIn);
 
@@ -57,7 +54,8 @@ function App() {
     return auth
       .signIn(email, password)
       .then(() => {
-        updatePage();
+        setLoggedIn(true);
+        handleUpdateUser();
         history.push("/movies");
       })
       .catch((err) => {
@@ -68,21 +66,12 @@ function App() {
   function logOut() {
     auth
       .signOut()
-      .then(() => {})
+      .then(() => {
+        setLoggedIn(false);
+      })
       .catch((err) => {
         console.log(`${err}`);
       });
-  }
-
-  function handleUpdateUser(data) {
-    setIsLoading(true);
-    mainApi
-      .editProfile(data)
-      .then((user) => {
-        setCurrentUser(user.data);
-      })
-      .catch((err) => console.log(`${err}`))
-      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -99,11 +88,7 @@ function App() {
             <Login onLogin={handleLogin} />
           </Route>
           <Route exact path="/movies">
-            {loggedIn ? (
-              <Movies isMoviesLoading={isMoviesLoading} movies={movies} />
-            ) : (
-              <Redirect to="/" />
-            )}
+            {loggedIn ? <Movies /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/saved-movies">
             {loggedIn ? <SavedMovies /> : <Redirect to="/" />}

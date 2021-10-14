@@ -18,10 +18,10 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
-  function handleUpdateUser(data) {
+  function updatePage() {
     setIsLoading(true);
     mainApi
-      .editProfile(data)
+      .getUserData()
       .then((user) => {
         setCurrentUser(user.data);
       })
@@ -30,7 +30,7 @@ function App() {
   }
 
   React.useEffect(() => {
-    handleUpdateUser();
+    updatePage();
   }, []);
 
   console.log(loggedIn);
@@ -55,7 +55,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        handleUpdateUser();
+        updatePage();
         history.push("/movies");
       })
       .catch((err) => {
@@ -72,6 +72,17 @@ function App() {
       .catch((err) => {
         console.log(`${err}`);
       });
+  }
+
+  function handleUpdateUser(data) {
+    setIsLoading(true);
+    mainApi
+      .editProfile(data)
+      .then((user) => {
+        setCurrentUser(user.data);
+      })
+      .catch((err) => console.log(`${err}`))
+      .finally(() => setIsLoading(false));
   }
 
   return (

@@ -2,11 +2,11 @@ import "./Header.css";
 import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 
-function Header() {
+function Header(props) {
   return (
     <section className="header">
-      <Logo />
-      <Navigation />
+      <Logo loggedIn={props.loggedIn} />
+      <Navigation loggedIn={props.loggedIn} />
     </section>
   );
 }

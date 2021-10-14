@@ -4,14 +4,13 @@ import SearchForm from "../SearchForm/SearchForm.js";
 import MoviesCardList from "../MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
 
-function SavedMovies() {
-
+function SavedMovies(props) {
   return (
     <>
-      <Header />
-      <SearchForm />
-      <MoviesCardList />
-      <Footer />
+      <Header loggedIn={props.loggedIn} />
+      <SearchForm loggedIn={props.loggedIn} />
+      <MoviesCardList loggedIn={props.loggedIn} />
+      <Footer loggedIn={props.loggedIn} />
     </>
   );
 }

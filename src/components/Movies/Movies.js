@@ -5,7 +5,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
 import moviesApi from "../../utils/MoviesApi.js";
 
-function Movies() {
+function Movies(props) {
   const [movies, setMovies] = React.useState([]);
   const [, setIsMoviesLoading] = React.useState(false);
 
@@ -26,10 +26,10 @@ function Movies() {
 
   return (
     <>
-      <Header />
-      <SearchForm />
-      <MoviesCardList movies={movies} />
-      <Footer />
+      <Header loggedIn={props.loggedIn} />
+      <SearchForm loggedIn={props.loggedIn} />
+      <MoviesCardList loggedIn={props.loggedIn} movies={movies} />
+      <Footer loggedIn={props.loggedIn} />
     </>
   );
 }

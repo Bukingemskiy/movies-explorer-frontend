@@ -31,7 +31,7 @@ function Profile(props) {
 
   return (
     <>
-      <Header loggedIn={props.loggedIn} />
+      <Header />
       <section className="profile">
         <h2 className="profile__title">Привет, {name}!</h2>
         <form onSubmit={handleSubmit} className="profile__form">

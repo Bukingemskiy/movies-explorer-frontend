@@ -1,7 +1,7 @@
 import "./SearchForm.css";
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox.js";
 
-function SearchForm(props) {
+function SearchForm() {
   return (
     <section className="search">
       <div className="search__box">
@@ -19,7 +19,7 @@ function SearchForm(props) {
             Найти
           </button>
         </form>
-        <FilterCheckBox loggedIn={props.loggedIn} />
+        <FilterCheckBox />
       </div>
       <div className="search__border-bottom"></div>
     </section>

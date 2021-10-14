@@ -85,22 +85,14 @@ function MoviesCardList(props) {
 
   return (
     <>
-      <Preloader loggedIn={props.loggedIn} isLoading={isLoading} />
+      <Preloader isLoading={isLoading} />
       <section className="movies">
         {isSavedMovies
           ? props.movies.map((movie) => (
-              <MoviesCard
-                loggedIn={props.loggedIn}
-                movie={movie}
-                key={movie._id}
-              />
+              <MoviesCard movie={movie} key={movie._id} />
             ))
           : props.movies.map((movie) => (
-              <MoviesCard
-                loggedIn={props.loggedIn}
-                movie={movie}
-                key={movie.id}
-              />
+              <MoviesCard movie={movie} key={movie.id} />
             ))}
       </section>
       <section className="more">

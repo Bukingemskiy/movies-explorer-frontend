@@ -13,122 +13,117 @@ import mainApi from "../../utils/MainApi.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import * as auth from "../../utils/auth.js";
 
-function App() {
-  const [currentUser, setCurrentUser] = React.useState({});
-
+function App(initialLoggedIn) {
   const useLoggedInState = createPersistedState(false);
-  // eslint-disable-next-line no-unused-vars
-  const useCounter = (initialLoggedIn) => {
-    const [loggedIn, setLoggedIn] = useLoggedInState(initialLoggedIn);
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [loggedIn, setLoggedIn] = useLoggedInState(initialLoggedIn);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const history = useHistory();
 
-    const [isLoading, setIsLoading] = React.useState(false);
-    const history = useHistory();
+  function updatePage() {
+    setIsLoading(true);
+    mainApi
+      .getUserData()
+      .then((user) => {
+        setCurrentUser(user.data);
+      })
+      .catch((err) => console.log(`${err}`))
+      .finally(() => setIsLoading(false));
+  }
 
-    function updatePage() {
-      setIsLoading(true);
-      mainApi
-        .getUserData()
-        .then((user) => {
-          setCurrentUser(user.data);
-        })
-        .catch((err) => console.log(`${err}`))
-        .finally(() => setIsLoading(false));
-    }
+  React.useEffect(() => {
+    updatePage();
+  }, []);
 
-    React.useEffect(() => {
-      updatePage();
-    }, []);
+  console.log(loggedIn);
 
-    console.log(loggedIn);
+  function handleRegister(name, email, password) {
+    return auth
+      .signUp(name, email, password)
+      .then((res) => {
+        if (res) {
+          history.push("/signin");
+        } else {
+          console.log("Что-то пошло не так!");
+        }
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
 
-    function handleRegister(name, email, password) {
-      return auth
-        .signUp(name, email, password)
-        .then((res) => {
-          if (res) {
-            history.push("/signin");
-          } else {
-            console.log("Что-то пошло не так!");
-          }
-        })
-        .catch((err) => {
-          console.log(`${err}`);
-        });
-    }
+  function handleLogin(email, password) {
+    return auth
+      .signIn(email, password)
+      .then(() => {
+        setLoggedIn(true);
+        updatePage();
+        history.push("/movies");
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
 
-    function handleLogin(email, password) {
-      return auth
-        .signIn(email, password)
-        .then(() => {
-          setLoggedIn(true);
-          updatePage();
-          history.push("/movies");
-        })
-        .catch((err) => {
-          console.log(`${err}`);
-        });
-    }
+  function logOut() {
+    auth
+      .signOut()
+      .then(() => {
+        setLoggedIn(false);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
 
-    function logOut() {
-      auth
-        .signOut()
-        .then(() => {
-          setLoggedIn(false);
-        })
-        .catch((err) => {
-          console.log(`${err}`);
-        });
-    }
+  function handleUpdateUser(data) {
+    setIsLoading(true);
+    mainApi
+      .editProfile(data)
+      .then((user) => {
+        setCurrentUser(user.data);
+      })
+      .catch((err) => console.log(`${err}`))
+      .finally(() => setIsLoading(false));
+  }
 
-    function handleUpdateUser(data) {
-      setIsLoading(true);
-      mainApi
-        .editProfile(data)
-        .then((user) => {
-          setCurrentUser(user.data);
-        })
-        .catch((err) => console.log(`${err}`))
-        .finally(() => setIsLoading(false));
-    }
-
-    return (
-      <div className="page">
-        <CurrentUserContext.Provider value={currentUser}>
-          <Switch>
-            <Route exact path="/">
-              <Main />
-            </Route>
-            <Route exact path="/signup">
-              <Register onRegister={handleRegister} />
-            </Route>
-            <Route exact path="/signin">
-              <Login onLogin={handleLogin} />
-            </Route>
-            <Route exact path="/movies">
-              {loggedIn ? <Movies /> : <Redirect to="/" />}
-            </Route>
-            <Route exact path="/saved-movies">
-              {loggedIn ? <SavedMovies /> : <Redirect to="/" />}
-            </Route>
-            <Route exact path="/profile">
-              {loggedIn ? (
-                <Profile
-                  isLoading={isLoading}
-                  onUpdateUser={handleUpdateUser}
-                  onLogOut={logOut}
-                />
-              ) : (
-                <Redirect to="/" />
-              )}
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </CurrentUserContext.Provider>
-      </div>
-    );
-  };
+  return (
+    <div className="page">
+      <CurrentUserContext.Provider value={currentUser}>
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route exact path="/signup">
+            <Register onRegister={handleRegister} />
+          </Route>
+          <Route exact path="/signin">
+            <Login onLogin={handleLogin} />
+          </Route>
+          <Route exact path="/movies">
+            {loggedIn ? <Movies /> : <Redirect to="/" />}
+          </Route>
+          <Route exact path="/saved-movies">
+            {loggedIn ? <SavedMovies /> : <Redirect to="/" />}
+          </Route>
+          <Route exact path="/profile">
+            {loggedIn ? (
+              <Profile
+                isLoading={isLoading}
+                onUpdateUser={handleUpdateUser}
+                onLogOut={logOut}
+              />
+            ) : (
+              <Redirect to="/" />
+            )}
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </CurrentUserContext.Provider>
+    </div>
+  );
 }
 
 export default App;

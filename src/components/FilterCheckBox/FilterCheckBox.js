@@ -7,13 +7,9 @@ function FilterCheckBox(props) {
 
   return (
     <div className="search__filter">
-      <input
-        className="search__filter-icon"
-        type="checkbox"
-        onChange={handleFilterCheckboxChange}
-      >
-        <div className="search__icon-ring"></div>
-      </input>
+      <div className="search__filter-icon" onClick={handleFilterCheckboxChange}>
+        <input type="checkbox" className="search__icon-ring"></input>
+      </div>
       <p className="search__filter-text">Короткометражки</p>
     </div>
   );

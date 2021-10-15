@@ -23,6 +23,8 @@ function MoviesCardList(props) {
     }
   }
 
+  console.log(props.movies);
+
   handleNumberOfMovies();
 
   function handleMoreButton() {

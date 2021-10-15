@@ -31,26 +31,34 @@ function Movies() {
     updateMovies();
   }, []);
 
+  console.log(movies);
+
   function handleSearchMovies(search, searchCheckbox) {
     setIsMoviesLoading(true);
     setIsErrorActive(false);
     setNotFound(false);
     if (isSavedMovies) {
+      console.log(movies);
       let filterd = filterMovies(movies, search, searchCheckbox);
       setNotFound(filterd.length === 0);
       setMovies(filterd);
+      console.log(movies);
       setIsMoviesLoading(false);
     } else {
       if (moviesCache.length === 0) {
+        console.log(movies);
         let filterd = filterMovies(movies, search, searchCheckbox);
         setNotFound(filterd.length === 0);
         setMoviesCache(filterd);
         setMovies(filterd);
+        console.log(movies);
         setIsMoviesLoading(false);
       } else {
+        console.log(movies);
         let filterd = filterMovies(moviesCache, search, searchCheckbox);
         setNotFound(filterd.length === 0);
         setMovies(filterd);
+        console.log(movies);
         setIsMoviesLoading(false);
       }
     }

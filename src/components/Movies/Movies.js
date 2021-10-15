@@ -39,7 +39,7 @@ function Movies() {
     setNotFound(false);
     if (isSavedMovies) {
       console.log(movies);
-      let filterd = filterMovies(movies, search, searchCheckbox);
+      let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
       setNotFound(filterd.length === 0);
       setMovies(filterd);
       console.log(movies);
@@ -47,7 +47,7 @@ function Movies() {
     } else {
       if (moviesCache.length === 0) {
         console.log(movies);
-        let filterd = filterMovies(movies, search, searchCheckbox);
+        let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
         setNotFound(filterd.length === 0);
         setMoviesCache(filterd);
         setMovies(filterd);
@@ -55,7 +55,11 @@ function Movies() {
         setIsMoviesLoading(false);
       } else {
         console.log(movies);
-        let filterd = filterMovies(moviesCache, search, searchCheckbox);
+        let filterd = filterMovies.filterMovies(
+          moviesCache,
+          search,
+          searchCheckbox
+        );
         setNotFound(filterd.length === 0);
         setMovies(filterd);
         console.log(movies);

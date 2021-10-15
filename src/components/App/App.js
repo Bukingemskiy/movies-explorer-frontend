@@ -15,8 +15,8 @@ import * as auth from "../../utils/auth.js";
 
 function App(initialLoggedIn) {
   const useLoggedInState = createPersistedState(false);
-  const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = useLoggedInState(initialLoggedIn);
+  const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const history = useHistory();
 
@@ -34,8 +34,6 @@ function App(initialLoggedIn) {
   React.useEffect(() => {
     updatePage();
   }, []);
-
-  console.log(loggedIn);
 
   function handleRegister(name, email, password) {
     return auth

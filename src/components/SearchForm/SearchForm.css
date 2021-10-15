@@ -47,6 +47,11 @@
   color: #ee3465;
   font-size: 10px;
   line-height: 12px;
+  display: none;
+}
+
+.search__error_visible {
+  display: block;
 }
 
 .search__button {

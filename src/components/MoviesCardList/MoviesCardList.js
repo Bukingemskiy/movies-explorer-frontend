@@ -1,12 +1,9 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
 import Preloader from "../Preloader/Preloader.js";
 import MoviesCard from "../MoviesCard/MoviesCard.js";
 
 function MoviesCardList(props) {
-  const location = useLocation();
-  const isSavedMovies = location.pathname === "/saved-movies";
   const [isLoading, setIsLoading] = React.useState(false);
   const [isMoreButton, setMoreButton] = React.useState(
     "more__button_invisible"
@@ -87,7 +84,7 @@ function MoviesCardList(props) {
     <>
       <Preloader isLoading={isLoading} />
       <section className="movies">
-        {isSavedMovies
+        {props.isSavedMovies
           ? props.movies.map((movie) => (
               <MoviesCard movie={movie} key={movie._id} />
             ))
@@ -96,10 +93,8 @@ function MoviesCardList(props) {
             ))}
       </section>
       <section className="more">
-        {isSavedMovies ? (
-          <button className={isMoreButton} onClick={openMore}>
-            Ещё
-          </button>
+        {props.isSavedMovies ? (
+          <></>
         ) : (
           <button className={isMoreButton} onClick={openMore}>
             Ещё

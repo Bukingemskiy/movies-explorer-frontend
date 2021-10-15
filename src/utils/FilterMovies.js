@@ -1,7 +1,6 @@
-function filterMovies(movies, searchMovie, shortMovies) {
-  const searchValue = searchMovie.toLowerCase().trim();
-
+export const filterMovies = (movies, searchMovie, shortMovies) => {
   function checkString(string) {
+    const searchValue = searchMovie.toLowerCase().trim();
     return string ? string.includes(searchValue) : false;
   }
 
@@ -16,6 +15,4 @@ function filterMovies(movies, searchMovie, shortMovies) {
   });
   console.log(foundMovies);
   return foundMovies;
-}
-
-export default filterMovies;
+};

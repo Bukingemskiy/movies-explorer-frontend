@@ -11,60 +11,37 @@ function Movies() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [movies, setMovies] = React.useState([]);
-  const [, setIsMoviesLoading] = React.useState(false);
+  const [isMoviesLoading, setIsMoviesLoading] = React.useState(false);
   const [, setNotFound] = React.useState(false);
   const [, setIsErrorActive] = React.useState(false);
   const [moviesCache, setMoviesCache] = React.useState([]);
 
-  function updateMovies() {
-    setIsMoviesLoading(true);
-    moviesApi
-      .getMovies()
-      .then((movies) => {
-        setMovies(movies);
-      })
-      .catch((err) => console.log(`${err}`))
-      .finally(() => setIsMoviesLoading(false));
-  }
-
-  React.useEffect(() => {
-    updateMovies();
-  }, []);
-
-  console.log(movies);
-
   function handleSearchMovies(search, searchCheckbox) {
-    setIsMoviesLoading(true);
     setIsErrorActive(false);
     setNotFound(false);
+    setMovies([]);
     if (isSavedMovies) {
       console.log(movies);
       let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
       setNotFound(filterd.length === 0);
       setMovies(filterd);
-      console.log(movies);
-      setIsMoviesLoading(false);
     } else {
-      if (moviesCache.length === 0) {
-        console.log(movies);
-        let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
-        setNotFound(filterd.length === 0);
-        setMoviesCache(filterd);
-        setMovies(filterd);
-        console.log(movies);
-        setIsMoviesLoading(false);
-      } else {
-        console.log(movies);
-        let filterd = filterMovies.filterMovies(
-          moviesCache,
-          search,
-          searchCheckbox
-        );
-        setNotFound(filterd.length === 0);
-        setMovies(filterd);
-        console.log(movies);
-        setIsMoviesLoading(false);
-      }
+      setIsMoviesLoading(true);
+      moviesApi
+        .getMovies()
+        .then((movies) => {
+          setMovies(movies);
+          let filterd = filterMovies.filterMovies(
+            movies,
+            search,
+            searchCheckbox
+          );
+          setNotFound(filterd.length === 0);
+          setMoviesCache(filterd);
+          setMovies(filterd);
+        })
+        .catch((err) => console.log(`${err}`))
+        .finally(() => setIsMoviesLoading(false));
     }
   }
 
@@ -72,7 +49,11 @@ function Movies() {
     <>
       <Header />
       <SearchForm onSearchMovies={handleSearchMovies} />
-      <MoviesCardList movies={movies} isSavedMovies={isSavedMovies} />
+      <MoviesCardList
+        movies={movies}
+        isSavedMovies={isSavedMovies}
+        isMoviesLoading={isMoviesLoading}
+      />
       <Footer />
     </>
   );

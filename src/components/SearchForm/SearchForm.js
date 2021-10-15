@@ -46,7 +46,10 @@ function SearchForm(props) {
             Найти
           </button>
         </form>
-        <FilterCheckBox handleCheckbox={handleCheckbox} />
+        <FilterCheckBox
+          searchCheckbox={searchCheckbox}
+          handleCheckbox={handleCheckbox}
+        />
       </div>
       <div className="search__border-bottom"></div>
     </section>

@@ -13,6 +13,6 @@ export const filterMovies = (movies, searchMovie, shortMovies) => {
     const string5 = checkString(movie.year);
     return string1 || string2 || string3 || string4 || string5;
   });
-  console.log(foundMovies);
+
   return foundMovies;
 };

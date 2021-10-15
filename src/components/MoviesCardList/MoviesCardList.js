@@ -23,8 +23,6 @@ function MoviesCardList(props) {
     }
   }
 
-  console.log(props.movies);
-
   handleNumberOfMovies();
 
   function handleMoreButton() {
@@ -84,7 +82,7 @@ function MoviesCardList(props) {
 
   return (
     <>
-      <Preloader isLoading={isLoading} />
+      <Preloader isMoviesLoading={props.isMoviesLoading} />
       <section className="movies">
         {props.isSavedMovies
           ? props.movies.map((movie) => (

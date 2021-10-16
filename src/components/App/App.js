@@ -35,21 +35,6 @@ function App(initialLoggedIn) {
     updatePage();
   }, []);
 
-  function handleRegister(name, email, password) {
-    return auth
-      .signUp(name, email, password)
-      .then((res) => {
-        if (res) {
-          history.push("/signin");
-        } else {
-          console.log("Что-то пошло не так!");
-        }
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      });
-  }
-
   function handleLogin(email, password) {
     return auth
       .signIn(email, password)
@@ -57,6 +42,21 @@ function App(initialLoggedIn) {
         setLoggedIn(true);
         updatePage();
         history.push("/movies");
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
+  function handleRegister(name, email, password) {
+    return auth
+      .signUp(name, email, password)
+      .then((res) => {
+        if (res) {
+          handleLogin(email, password);
+        } else {
+          console.log("Что-то пошло не так!");
+        }
       })
       .catch((err) => {
         console.log(`${err}`);

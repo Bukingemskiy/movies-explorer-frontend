@@ -23,6 +23,7 @@ function Register(props) {
   function handleSubmit(e) {
     e.preventDefault();
     props.onRegister(name, email, password);
+    props.onLogin(email, password);
   }
   return (
     <section className="register" onSubmit={handleSubmit}>

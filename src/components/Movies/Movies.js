@@ -11,6 +11,7 @@ function Movies() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [movies, setMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [isMoviesLoading, setIsMoviesLoading] = React.useState(false);
   const [, setNotFound] = React.useState(false);
   const [, setIsErrorActive] = React.useState(false);
@@ -20,13 +21,17 @@ function Movies() {
     setIsErrorActive(false);
     setNotFound(false);
     setMovies([]);
+    setIsMoviesLoading(true);
     if (isSavedMovies) {
-      console.log(movies);
-      let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
+      let filterd = filterMovies.filterMovies(
+        savedMovies,
+        search,
+        searchCheckbox
+      );
       setNotFound(filterd.length === 0);
       setMovies(filterd);
+      setIsMoviesLoading(false);
     } else {
-      setIsMoviesLoading(true);
       moviesApi
         .getMovies()
         .then((movies) => {
@@ -48,7 +53,7 @@ function Movies() {
   return (
     <>
       <Header />
-      <SearchForm onSearchMovies={handleSearchMovies} />
+      <SearchForm movies={movies} onSearchMovies={handleSearchMovies} />
       <MoviesCardList
         movies={movies}
         isSavedMovies={isSavedMovies}

@@ -18,6 +18,9 @@ function FilterCheckBox(props) {
       setIconRing("search__icon-ring");
       props.handleCheckbox(false);
     }
+    if (props.movies.lenght > 0) {
+      props.onSearchMovies();
+    }
   }
 
   return (

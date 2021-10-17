@@ -104,6 +104,7 @@ function App(initialLoggedIn) {
     mainApi
       .editProfile(data)
       .then((user) => {
+        console.log(user);
         setCurrentUser(user.data);
       })
       .catch((err) => console.log(`${err}`))
@@ -137,7 +138,7 @@ function App(initialLoggedIn) {
       .makeMovies(movie)
       .then((movieInfo) => {
         console.log(movieInfo);
-        setSavedMovies([movieInfo, ...savedMovies]);
+        setSavedMovies([...savedMovies, movieInfo]);
         console.log(movieInfo);
         console.log(movie);
       })

@@ -20,15 +20,13 @@ function MoviesCard(props) {
     duration: props.movie.duration || 0,
     year: props.movie.year || "Не указано",
     description: props.movie.description || "Не указано",
-    image: `https://api.nomoreparties.co${props.movie.image.url}` || "-----",
+    image: `https://api.nomoreparties.co${props.movie.image.url}`,
     trailer: isValidURL(props.movie.trailerLink)
       ? props.movie.trailerLink
-      : "-----",
+      : `https://api.nomoreparties.co${props.movie.image.url}`,
     nameRU: props.movie.nameRU || "Не указано",
     nameEN: props.movie.nameEN || "Не указано",
-    thumbnail:
-      `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}` ||
-      "-----",
+    thumbnail: `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
     movieId: props.movie.id,
     id: props.movie.id,
     saved: isSaved,

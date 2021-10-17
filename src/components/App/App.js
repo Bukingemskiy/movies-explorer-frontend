@@ -133,14 +133,14 @@ function App(initialLoggedIn) {
     }
   }
 
-  function createMovie(movie) {
+  function createMovie(data) {
     mainApi
-      .makeMovies(movie)
+      .makeMovies(data)
       .then((movieInfo) => {
         console.log(movieInfo);
         setSavedMovies([movieInfo.data, ...savedMovies]);
         console.log(movieInfo);
-        console.log(movie);
+        console.log(data);
       })
       .catch((err) => console.log(err));
   }

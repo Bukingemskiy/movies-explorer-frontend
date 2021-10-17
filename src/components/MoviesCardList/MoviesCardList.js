@@ -81,21 +81,19 @@ function MoviesCardList(props) {
     }
   }
 
-  console.log(props.savedMovies);
-  console.log(props.foundMovies);
-  console.log(props.movies);
-
   return (
     <>
       <Preloader isLoading={props.isLoading} />
       <section className="movies">
-        {isSavedMovies
-          ? props.savedMovies.map((movie) => (
-              <MoviesCard movie={movie} key={movie._id} />
-            ))
-          : props.foundMovies.map((movie) => (
-              <MoviesCard movie={movie} key={movie.id} />
-            ))}
+        {props.renderMovies.map((movie) => (
+          <MoviesCard
+            savedMovies={props.savedMovies}
+            deleteMovie={props.deleteMovie}
+            createMovie={props.createMovie}
+            movie={movie}
+            key={movie.id ? movie.id : movie.movieId}
+          />
+        ))}
       </section>
       <section className="more">
         {isSavedMovies ? (

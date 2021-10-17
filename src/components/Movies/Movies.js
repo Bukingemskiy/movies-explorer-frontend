@@ -8,11 +8,15 @@ function Movies(props) {
   return (
     <>
       <Header />
-      <SearchForm movies={props.movies} onSearchMovies={props.onSearchMovies} />
+      <SearchForm
+        movies={props.foundMovies}
+        onSearchMovies={props.onSearchMovies}
+      />
       <MoviesCardList
-        movies={props.movies}
+        deleteMovie={props.deleteMovie}
+        createMovie={props.createMovie}
         savedMovies={props.savedMovies}
-        foundMovies={props.foundMovies}
+        renderMovies={props.renderMovies}
         isLoading={props.isLoading}
       />
       <Footer />

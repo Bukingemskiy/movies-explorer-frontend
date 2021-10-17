@@ -137,6 +137,28 @@ function App(initialLoggedIn) {
     }
   }
 
+  function createMovie(movie) {
+    mainApi
+      .makeMovies(movie)
+      .then((movieInfo) => {
+        setSavedMovies([movieInfo, ...savedMovies]);
+        console.log(movieInfo);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function deleteMovie(movieId) {
+    mainApi
+      .deleteMovie(movieId)
+      .then(() => {
+        const newMovies = savedMovies.filter(
+          (savedMovie) => savedMovie._id !== movieId
+        );
+        setSavedMovies(newMovies);
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -156,7 +178,10 @@ function App(initialLoggedIn) {
                 isLoading={isLoading}
                 savedMovies={savedMovies}
                 foundMovies={foundMovies}
+                renderMovies={isSavedMovies ? savedMovies : foundMovies}
                 movies={movies}
+                createMovie={createMovie}
+                deleteMovie={deleteMovie}
                 onSearchMovies={handleSearchMovies}
               />
             ) : (
@@ -164,7 +189,19 @@ function App(initialLoggedIn) {
             )}
           </Route>
           <Route exact path="/saved-movies">
-            {loggedIn ? <SavedMovies /> : <Redirect to="/" />}
+            {loggedIn ? (
+              <SavedMovies
+                isLoading={isLoading}
+                savedMovies={savedMovies}
+                foundMovies={foundMovies}
+                renderMovies={isSavedMovies ? savedMovies : foundMovies}
+                createMovie={createMovie}
+                deleteMovie={deleteMovie}
+                onSearchMovies={handleSearchMovies}
+              />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route exact path="/profile">
             {loggedIn ? (

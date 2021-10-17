@@ -139,6 +139,7 @@ function App(initialLoggedIn) {
       .then((movieInfo) => {
         console.log(movieInfo);
         setSavedMovies(movieInfo.data);
+        console.log(movieInfo.data);
         console.log(movieInfo);
         console.log(data);
       })
@@ -176,7 +177,7 @@ function App(initialLoggedIn) {
                 isLoading={isLoading}
                 savedMovies={savedMovies}
                 foundMovies={foundMovies}
-                renderMovies={isSavedMovies ? savedMovies : foundMovies}
+                renderMovies={foundMovies}
                 movies={movies}
                 createMovie={createMovie}
                 deleteMovie={deleteMovie}
@@ -192,7 +193,7 @@ function App(initialLoggedIn) {
                 isLoading={isLoading}
                 savedMovies={savedMovies}
                 foundMovies={foundMovies}
-                renderMovies={isSavedMovies ? savedMovies : foundMovies}
+                renderMovies={savedMovies}
                 createMovie={createMovie}
                 deleteMovie={deleteMovie}
                 onSearchMovies={handleSearchMovies}

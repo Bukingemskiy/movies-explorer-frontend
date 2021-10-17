@@ -7,13 +7,6 @@ function MoviesCard(props) {
   const isSavedMovies = location.pathname === "/saved-movies";
   const [isSaved, setIsSaved] = React.useState(false);
 
-  function isValidURL(string) {
-    const res = string.match(
-      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g
-    );
-    return res !== null;
-  }
-
   let movie = {
     country: props.movie.country || "Не указано",
     director: props.movie.director || "Не указано",
@@ -21,9 +14,7 @@ function MoviesCard(props) {
     year: props.movie.year || "Не указано",
     description: props.movie.description || "Не указано",
     image: `https://api.nomoreparties.co${props.movie.image.url}`,
-    trailer: isValidURL(props.movie.trailerLink)
-      ? props.movie.trailerLink
-      : `https://api.nomoreparties.co${props.movie.image.url}`,
+    trailer: props.movie.trailerLink,
     nameRU: props.movie.nameRU || "Не указано",
     nameEN: props.movie.nameEN || "Не указано",
     thumbnail: `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,

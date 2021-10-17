@@ -27,23 +27,23 @@ class MainApi {
     }).then((res) => this._getAnswer(res));
   }
 
-  makeMovies(movie) {
+  makeMovies(data) {
     return fetch(`${this._address}/movies`, {
       credentials: "include",
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: movie.image,
-        trailer: movie.trailer,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-        thumbnail: movie.thumbnail,
-        movieId: movie.movieId,
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: data.image,
+        trailer: data.trailer,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,
+        thumbnail: data.thumbnail,
+        movieId: data.movieId,
       }),
     }).then((res) => this._getAnswer(res));
   }

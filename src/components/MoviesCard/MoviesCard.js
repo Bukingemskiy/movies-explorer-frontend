@@ -28,22 +28,6 @@ function MoviesCard(props) {
     props.deleteMovie(props.movie._id);
   };
 
-  React.useEffect(() => {
-    if (props.savedMovies.length > 0) {
-      if (!isSaved) {
-        setIsSaved(
-          props.savedMovies.some(
-            (savedMovie) =>
-              savedMovie.movieId === props.movie.id &&
-              savedMovie.owner === currentUser._id
-          )
-        );
-      } else {
-        setIsSaved(false);
-      }
-    }
-  }, [currentUser._id, isSaved, props.movie.id, props.savedMovies]);
-
   return (
     <article className="movie" _id={props.movie.id}>
       <div className="movie__group">

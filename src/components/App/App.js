@@ -137,27 +137,144 @@ function App(initialLoggedIn) {
     }
   }
 
-  function createMovie(movie) {
-    mainApi
-      .makeMovies(movie)
-      .then((movieInfo) => {
-        setSavedMovies([movieInfo.data, ...savedMovies]);
-        console.log(movieInfo.data);
-      })
-      .catch((err) => console.log(err));
-  }
+  const createMovie = (movie) => {
+    setIsLoading(true);
+    const localMovies = JSON.parse(localStorage.getItem("movies"));
+    const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
+    const localFoundMovies = JSON.parse(localStorage.getItem("foundMovies"));
 
-  function deleteMovie(movieId) {
+    const movieCopy = localMovies.filter((i) => i.id === movie.id)[0];
+
+    const {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      nameRU,
+      nameEN,
+      id,
+    } = movieCopy;
+
+    const movieToAdd = {
+      country: country || "---",
+      director: director || "---",
+      duration: duration || 0,
+      year: year || "----",
+      description: description || "----",
+      image: `https://api.nomoreparties.co${image.url}`,
+      trailer: trailerLink,
+      thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
+      nameRU: nameRU || "----",
+      nameEN: nameEN || "----",
+      movieId: id,
+    };
+
     mainApi
-      .deleteMovie(movieId)
-      .then(() => {
-        const newMovies = savedMovies.filter(
-          (savedMovie) => savedMovie._id !== movieId
+      .makeMovies(movieToAdd)
+      .then((newMovie) => {
+        const newLocalSavedMovies = [
+          ...localSavedMovies,
+          {
+            nameRU: newMovie.nameRU,
+            id: newMovie.id,
+            movieId: newMovie.movieId,
+            trailer: newMovie.trailer,
+            duration: newMovie.duration,
+            image: newMovie.image,
+          },
+        ];
+
+        localStorage.setItem(
+          "savedMovies",
+          JSON.stringify(newLocalSavedMovies)
         );
-        setSavedMovies(newMovies);
+        setSavedMovies(newLocalSavedMovies);
+
+        const newMovies = localMovies.map((movie) =>
+          movie.id === newMovie.movieId
+            ? Object.assign(movie, { saved: true }, { _id: newMovie._id })
+            : movie
+        );
+        const newMoviesFound = movies.map((movie) =>
+          movie.id === newMovie.movieId
+            ? Object.assign(movie, { saved: true }, { _id: newMovie._id })
+            : movie
+        );
+        const newLocalMoviesFound = localFoundMovies.map((movie) =>
+          movie.id === newMovie.movieId
+            ? Object.assign(movie, { saved: true }, { _id: newMovie._id })
+            : movie
+        );
+        setMovies(newMoviesFound);
+        localStorage.setItem("movies", JSON.stringify(newMovies));
+        localStorage.setItem(
+          "moviesFound",
+          JSON.stringify(newLocalMoviesFound)
+        );
       })
-      .catch((err) => console.log(err));
-  }
+      .catch(() =>
+        setIsErrorActive(
+          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+        )
+      )
+      .finally(() => setIsLoading(false));
+  };
+
+  const deleteMovie = (movie) => {
+    setIsLoading(true);
+    const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
+    const localMovies = JSON.parse(localStorage.getItem("movies"));
+    const localFoundMovies = JSON.parse(localStorage.getItem("foundMovies"));
+    const id = movie.id;
+
+    mainApi
+      .deleteMovie(id)
+      .then((deletedMovie) => {
+        const newLocalSavedMovies = localSavedMovies.filter(
+          (m) => m.id !== deletedMovie.message.id
+        );
+        localStorage.setItem(
+          "savedMovies",
+          JSON.stringify(newLocalSavedMovies)
+        );
+
+        setSavedMovies(newLocalSavedMovies);
+
+        const newMovies = localMovies.map((movie) =>
+          movie.id === deletedMovie.message.movieId
+            ? Object.assign(movie, { saved: false })
+            : movie
+        );
+        const newMoviesFound = movies.map((movie) =>
+          movie.id === deletedMovie.message.movieId
+            ? Object.assign(movie, { saved: false })
+            : movie
+        );
+        const newLocalMoviesFound = localFoundMovies.map((movie) =>
+          movie.id === deletedMovie.message.movieId
+            ? Object.assign(movie, { saved: false })
+            : movie
+        );
+        setMovies(newMoviesFound);
+        localStorage.setItem("movies", JSON.stringify(newMovies));
+        localStorage.setItem(
+          "foundMovies",
+          JSON.stringify(newLocalMoviesFound)
+        );
+      })
+      .catch((err) => {
+        setIsErrorActive(
+          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+        );
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <div className="page">

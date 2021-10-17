@@ -138,7 +138,7 @@ function App(initialLoggedIn) {
       .makeMovies(data)
       .then((movieInfo) => {
         console.log(movieInfo);
-        setSavedMovies([movieInfo.data, ...savedMovies]);
+        setSavedMovies(movieInfo.data);
         console.log(movieInfo);
         console.log(data);
       })

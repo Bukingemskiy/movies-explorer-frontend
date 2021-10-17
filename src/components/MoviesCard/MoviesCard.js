@@ -10,22 +10,28 @@ function MoviesCard(props) {
   const [isSaved, setIsSaved] = React.useState(false);
 
   console.log(props.movie);
+  console.log(props.savedMovies);
 
   const handleClickSave = () => {
     if (!isSaved) {
+      console.log(props.movie);
       props.createMovie(props.movie);
       setIsSaved(true);
+      console.log(props.savedMovies);
     } else {
+      console.log(props.savedMovies);
       const movieItem = props.savedMovies.filter(
         (savedMovie) => savedMovie.movieId === props.movie.id
       );
-      props.deleteMovie(movieItem[0]._id);
+      console.log(props.movie);
+      console.log(props.movie.id);
+      props.deleteMovie(movieItem[0].id);
       setIsSaved(false);
     }
   };
 
   const handleClickDelete = () => {
-    props.deleteMovie(props.movie._id);
+    props.deleteMovie(props.movie.id);
   };
 
   return (

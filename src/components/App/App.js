@@ -29,7 +29,6 @@ function App(initialLoggedIn) {
   const history = useHistory();
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
-  const [moviesCache, setMoviesCache] = React.useState([]);
 
   function updateMovies() {
     setIsLoading(true);
@@ -128,92 +127,33 @@ function App(initialLoggedIn) {
     } else {
       let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
       setNotFound(filterd.length === 0);
-      setMoviesCache(filterd);
       setFoundMovies(filterd);
       setIsLoading(false);
     }
   }
 
-  const createMovie = (movie) => {
-    setIsLoading(true);
-
-    const movieCopy = movies.filter((i) => i.id === movie.id)[0];
-
-    const {
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image,
-      trailerLink,
-      nameRU,
-      nameEN,
-      id,
-    } = movieCopy;
-
-    const movieToAdd = {
-      country: country || "---",
-      director: director || "---",
-      duration: duration || 0,
-      year: year || "----",
-      description: description || "----",
-      image: `https://api.nomoreparties.co${image.url}`,
-      trailer: trailerLink,
-      thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
-      nameRU: nameRU || "----",
-      nameEN: nameEN || "----",
-      movieId: id,
-    };
-
+  function createMovie(movie) {
     mainApi
-      .makeMovies(movieToAdd)
-      .then((newMovie) => {
-        const newSavedMovies = [
-          ...savedMovies,
-          {
-            nameRU: newMovie.nameRU,
-            id: newMovie.id,
-            movieId: newMovie.movieId,
-            trailer: newMovie.trailer,
-            duration: newMovie.duration,
-            image: newMovie.image,
-          },
-        ];
-
-        setSavedMovies(newSavedMovies);
+      .makeMovies(movie)
+      .then((movieInfo) => {
+        setSavedMovies([movieInfo, ...savedMovies]);
+        console.log(movieInfo);
+        console.log(movie);
       })
-      .catch(() =>
-        setIsErrorActive(
-          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-        )
-      )
-      .finally(() => setIsLoading(false));
-  };
+      .catch((err) => console.log(err));
+  }
 
-  const deleteMovie = (movie) => {
-    setIsLoading(true);
-    const id = movie.id;
-
+  function deleteMovie(movieId) {
     mainApi
-      .deleteMovie(id)
-      .then((deletedMovie) => {
-        const newLocalSavedMovies = savedMovies.filter(
-          (m) => m.id !== deletedMovie.message.id
+      .deleteMovie(movieId)
+      .then(() => {
+        const newMovies = savedMovies.filter(
+          (savedMovie) => savedMovie._id !== movieId
         );
-
-        setSavedMovies(newLocalSavedMovies);
+        setSavedMovies(newMovies);
       })
-      .catch((err) => {
-        setIsErrorActive(
-          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-        );
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div className="page">

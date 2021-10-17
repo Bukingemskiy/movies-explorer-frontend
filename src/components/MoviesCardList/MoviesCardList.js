@@ -1,14 +1,15 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
 import Preloader from "../Preloader/Preloader.js";
 import MoviesCard from "../MoviesCard/MoviesCard.js";
 
 function MoviesCardList(props) {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const location = useLocation();
+  const isSavedMovies = location.pathname === "/saved-movies";
   const [isMoreButton, setMoreButton] = React.useState(
     "more__button_invisible"
   );
-  // const savedMovies = movies.filter((movie) => movie.saved === true);
   const cardList = document.getElementsByClassName("movie");
   const width = window.innerWidth;
   let numberOfMovies = 12;
@@ -55,9 +56,9 @@ function MoviesCardList(props) {
   };
 
   function resize() {
-    setIsLoading(true);
+    //  setIsLoading(true);
     setTimeout(handleWidth, 100);
-    setIsLoading(false);
+    //  setIsLoading(false);
   }
 
   window.onresize = resize;
@@ -80,20 +81,24 @@ function MoviesCardList(props) {
     }
   }
 
+  console.log(props.savedMovies);
+  console.log(props.foundMovies);
+  console.log(props.movies);
+
   return (
     <>
-      <Preloader isMoviesLoading={props.isMoviesLoading} />
+      <Preloader isLoading={props.isLoading} />
       <section className="movies">
-        {props.isSavedMovies
-          ? props.movies.map((movie) => (
+        {isSavedMovies
+          ? props.savedMovies.map((movie) => (
               <MoviesCard movie={movie} key={movie._id} />
             ))
-          : props.movies.map((movie) => (
+          : props.foundMovies.map((movie) => (
               <MoviesCard movie={movie} key={movie.id} />
             ))}
       </section>
       <section className="more">
-        {props.isSavedMovies ? (
+        {isSavedMovies ? (
           <></>
         ) : (
           <button className={isMoreButton} onClick={openMore}>

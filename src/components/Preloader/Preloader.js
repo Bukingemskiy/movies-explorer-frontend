@@ -4,9 +4,7 @@ import "./Preloader.css";
 const Preloader = (props) => {
   return (
     <div
-      className={`preloader ${
-        props.isMoviesLoading ? "" : "preloader__invisible"
-      }`}
+      className={`preloader ${props.isLoading ? "" : "preloader__invisible"}`}
     >
       <div className="preloader__container">
         <span className="preloader__round"></span>

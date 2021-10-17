@@ -18,8 +18,14 @@ function FilterCheckBox(props) {
       setIconRing("search__icon-ring");
       props.handleCheckbox(false);
     }
-    if (props.movies.lenght > 0) {
-      props.onSearchMovies();
+    if (props.movies.length !== 0 && isFilterIcon === "search__filter-icon") {
+      props.onSearchMovies(props.search, true);
+    } else if (
+      props.movies.length !== 0 &&
+      isFilterIcon === "search__filter-icon search__filter-icon_on"
+    ) {
+      props.onSearchMovies(props.search, false);
+    } else {
     }
   }
 

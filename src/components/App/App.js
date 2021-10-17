@@ -177,7 +177,7 @@ function App(initialLoggedIn) {
                 isLoading={isLoading}
                 savedMovies={savedMovies}
                 foundMovies={foundMovies}
-                renderMovies={foundMovies}
+                renderMovies={isSavedMovies ? savedMovies : foundMovies}
                 movies={movies}
                 createMovie={createMovie}
                 deleteMovie={deleteMovie}
@@ -193,7 +193,7 @@ function App(initialLoggedIn) {
                 isLoading={isLoading}
                 savedMovies={savedMovies}
                 foundMovies={foundMovies}
-                renderMovies={savedMovies}
+                renderMovies={isSavedMovies ? savedMovies : foundMovies}
                 createMovie={createMovie}
                 deleteMovie={deleteMovie}
                 onSearchMovies={handleSearchMovies}

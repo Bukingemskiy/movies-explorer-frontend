@@ -11,35 +11,13 @@ function MoviesCard(props) {
 
   console.log(props.movie);
 
-  let movie = {
-    country: props.movie.country || "Не указано",
-    director: props.movie.director || "Не указано",
-    duration: props.movie.duration || 0,
-    year: props.movie.year || "Не указано",
-    description: props.movie.description || "Не указано",
-    image:
-      props.movie.image === null ||
-      `https://api.nomoreparties.co${props.movie.image.url}`,
-    trailer: props.saved ? props.movie.trailer : props.movie.trailerLink,
-    nameRU: props.movie.nameRU || "Не указано",
-    nameEN: props.movie.nameEN || "Не указано",
-    thumbnail:
-      (props.saved && props.movie.thumbnail === null) ||
-      `https://api.nomoreparties.co${props.movie.image.url}`,
-    movieId: props.saved ? props.movie.movieId : props.movie.id,
-    id: props.movie.id,
-    saved: isSaved,
-  };
-
-  console.log(movie);
-
   const handleClickSave = () => {
     if (!isSaved) {
-      props.createMovie(movie);
+      props.createMovie(props.movie);
       setIsSaved(true);
     } else {
       const movieItem = props.savedMovies.filter(
-        (savedMovie) => savedMovie.movieId === movie.id
+        (savedMovie) => savedMovie.movieId === props.movie.id
       );
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
@@ -47,7 +25,7 @@ function MoviesCard(props) {
   };
 
   const handleClickDelete = () => {
-    props.deleteMovie(movie._id);
+    props.deleteMovie(props.movie._id);
   };
 
   React.useEffect(() => {
@@ -56,7 +34,7 @@ function MoviesCard(props) {
         setIsSaved(
           props.savedMovies.some(
             (savedMovie) =>
-              savedMovie.movieId === movie.id &&
+              savedMovie.movieId === props.movie.id &&
               savedMovie.owner === currentUser._id
           )
         );
@@ -64,7 +42,7 @@ function MoviesCard(props) {
         setIsSaved(false);
       }
     }
-  }, [currentUser._id, isSaved, movie.id, props.savedMovies]);
+  }, [currentUser._id, isSaved, props.movie.id, props.savedMovies]);
 
   return (
     <article className="movie" _id={props.movie.id}>

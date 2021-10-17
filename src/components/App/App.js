@@ -136,6 +136,7 @@ function App(initialLoggedIn) {
     mainApi
       .makeMovies(movie)
       .then((movieInfo) => {
+        console.log(movieInfo);
         setSavedMovies([movieInfo, ...savedMovies]);
         console.log(movieInfo);
         console.log(movie);
@@ -148,7 +149,7 @@ function App(initialLoggedIn) {
       .deleteMovie(movieId)
       .then(() => {
         const newMovies = savedMovies.filter(
-          (savedMovie) => savedMovie._id !== movieId
+          (savedMovie) => savedMovie.id !== movieId
         );
         setSavedMovies(newMovies);
       })

@@ -35,7 +35,7 @@ function MoviesCard(props) {
   };
 
   return (
-    <article className="movie" _id={props.movie.id}>
+    <article className="movie" id={props.movie.id}>
       <div className="movie__group">
         <div className="movie__description">
           <h2 className="movie__title">{props.movie.nameRU}</h2>

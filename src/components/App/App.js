@@ -30,8 +30,6 @@ function App(initialLoggedIn) {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [moviesCache, setMoviesCache] = React.useState([]);
-  const storageOfFoundMovies = localStorage.getItem("foundMovies");
-  const storageOfSavedMovies = localStorage.getItem("savedMovies");
 
   function updateMovies() {
     setIsLoading(true);
@@ -39,7 +37,6 @@ function App(initialLoggedIn) {
       .getMovies()
       .then((movies) => {
         setMovies(movies);
-        localStorage.setItem("movies", JSON.stringify(movies));
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
@@ -139,11 +136,8 @@ function App(initialLoggedIn) {
 
   const createMovie = (movie) => {
     setIsLoading(true);
-    const localMovies = JSON.parse(localStorage.getItem("movies"));
-    const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
-    const localFoundMovies = JSON.parse(localStorage.getItem("foundMovies"));
 
-    const movieCopy = localMovies.filter((i) => i.id === movie.id)[0];
+    const movieCopy = movies.filter((i) => i.id === movie.id)[0];
 
     const {
       country,
@@ -175,8 +169,8 @@ function App(initialLoggedIn) {
     mainApi
       .makeMovies(movieToAdd)
       .then((newMovie) => {
-        const newLocalSavedMovies = [
-          ...localSavedMovies,
+        const newSavedMovies = [
+          ...savedMovies,
           {
             nameRU: newMovie.nameRU,
             id: newMovie.id,
@@ -187,33 +181,7 @@ function App(initialLoggedIn) {
           },
         ];
 
-        localStorage.setItem(
-          "savedMovies",
-          JSON.stringify(newLocalSavedMovies)
-        );
-        setSavedMovies(newLocalSavedMovies);
-
-        const newMovies = localMovies.map((movie) =>
-          movie.id === newMovie.movieId
-            ? Object.assign(movie, { saved: true }, { _id: newMovie._id })
-            : movie
-        );
-        const newMoviesFound = movies.map((movie) =>
-          movie.id === newMovie.movieId
-            ? Object.assign(movie, { saved: true }, { _id: newMovie._id })
-            : movie
-        );
-        const newLocalMoviesFound = localFoundMovies.map((movie) =>
-          movie.id === newMovie.movieId
-            ? Object.assign(movie, { saved: true }, { _id: newMovie._id })
-            : movie
-        );
-        setMovies(newMoviesFound);
-        localStorage.setItem("movies", JSON.stringify(newMovies));
-        localStorage.setItem(
-          "moviesFound",
-          JSON.stringify(newLocalMoviesFound)
-        );
+        setSavedMovies(newSavedMovies);
       })
       .catch(() =>
         setIsErrorActive(
@@ -225,45 +193,16 @@ function App(initialLoggedIn) {
 
   const deleteMovie = (movie) => {
     setIsLoading(true);
-    const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
-    const localMovies = JSON.parse(localStorage.getItem("movies"));
-    const localFoundMovies = JSON.parse(localStorage.getItem("foundMovies"));
     const id = movie.id;
 
     mainApi
       .deleteMovie(id)
       .then((deletedMovie) => {
-        const newLocalSavedMovies = localSavedMovies.filter(
+        const newLocalSavedMovies = savedMovies.filter(
           (m) => m.id !== deletedMovie.message.id
-        );
-        localStorage.setItem(
-          "savedMovies",
-          JSON.stringify(newLocalSavedMovies)
         );
 
         setSavedMovies(newLocalSavedMovies);
-
-        const newMovies = localMovies.map((movie) =>
-          movie.id === deletedMovie.message.movieId
-            ? Object.assign(movie, { saved: false })
-            : movie
-        );
-        const newMoviesFound = movies.map((movie) =>
-          movie.id === deletedMovie.message.movieId
-            ? Object.assign(movie, { saved: false })
-            : movie
-        );
-        const newLocalMoviesFound = localFoundMovies.map((movie) =>
-          movie.id === deletedMovie.message.movieId
-            ? Object.assign(movie, { saved: false })
-            : movie
-        );
-        setMovies(newMoviesFound);
-        localStorage.setItem("movies", JSON.stringify(newMovies));
-        localStorage.setItem(
-          "foundMovies",
-          JSON.stringify(newLocalMoviesFound)
-        );
       })
       .catch((err) => {
         setIsErrorActive(

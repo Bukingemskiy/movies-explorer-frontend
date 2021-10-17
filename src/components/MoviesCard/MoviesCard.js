@@ -1,37 +1,35 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
-import Poster from "../../images/Photo.jpg";
 
 function MoviesCard(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const currentUser = React.useContext(CurrentUserContext);
   const [isSaved, setIsSaved] = React.useState(false);
+
+  function isValidURL(string) {
+    const res = string.match(
+      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    );
+    return res !== null;
+  }
+
   let movie = {
     country: props.movie.country || "Не указано",
     director: props.movie.director || "Не указано",
     duration: props.movie.duration || 0,
     year: props.movie.year || "Не указано",
     description: props.movie.description || "Не указано",
-    image:
-      props.movie.image === null || (!props.saved && !props.movie.image.url)
-        ? `${Poster}`
-        : props.saved
-        ? props.movie.image
-        : "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTgxMjcxNzEwODk5NzA5Mjg4/gettyimages-1304643306.jpg",
-    trailer: props.saved ? props.movie.trailer : props.movie.trailerLink,
+    image: `https://api.nomoreparties.co${props.movie.image.url}` || null,
+    trailer: isValidURL(props.movie.trailerLink)
+      ? props.movie.trailerLink
+      : null,
     nameRU: props.movie.nameRU || "Не указано",
     nameEN: props.movie.nameEN || "Не указано",
     thumbnail:
-      (props.saved && props.movie.thumbnail === null) ||
-      (!props.saved && props.movie.image === null)
-        ? `${Poster}`
-        : props.saved
-        ? props.movie.thumbnail
-        : "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTgxMjcxNzEwODk5NzA5Mjg4/gettyimages-1304643306.jpg",
-    movieId: props.saved ? props.movie.movieId : props.movie.id,
+      `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}` ||
+      null,
+    movieId: props.movie.id,
     id: props.movie.id,
     saved: isSaved,
   };
@@ -62,11 +60,11 @@ function MoviesCard(props) {
   };
 
   return (
-    <article className="movie" id={props.movie.id}>
+    <article className="movie" id={movie.id}>
       <div className="movie__group">
         <div className="movie__description">
-          <h2 className="movie__title">{props.movie.nameRU}</h2>
-          <p className="movie__subtitle">{props.movie.duration}</p>
+          <h2 className="movie__title">{movie.nameRU}</h2>
+          <p className="movie__subtitle">{movie.duration}</p>
         </div>
         {isSavedMovies ? (
           <button
@@ -87,7 +85,7 @@ function MoviesCard(props) {
       <img
         className="movie__image"
         src={`https://api.nomoreparties.co${props.movie.image.url}`}
-        alt={`Кадр из фильма ${props.movie.nameRU}`}
+        alt={`Кадр из фильма ${movie.nameRU}`}
       />
     </article>
   );

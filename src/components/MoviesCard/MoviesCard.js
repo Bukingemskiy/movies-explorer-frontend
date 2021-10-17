@@ -28,7 +28,7 @@ function MoviesCard(props) {
     nameEN: props.movie.nameEN || "Не указано",
     thumbnail: `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
     movieId: props.movie.id,
-    id: props.movie.id,
+    _id: props.movie._id,
     saved: isSaved,
   };
 
@@ -44,21 +44,21 @@ function MoviesCard(props) {
     } else {
       console.log(props.savedMovies);
       const movieItem = props.savedMovies.filter(
-        (savedMovie) => savedMovie.movieId === movie.id
+        (savedMovie) => savedMovie._id === movie._id
       );
       console.log(movie);
-      console.log(movie.id);
-      props.deleteMovie(movieItem[0].id);
+      console.log(movie._id);
+      props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
     }
   };
 
   const handleClickDelete = () => {
-    props.deleteMovie(movie.id);
+    props.deleteMovie(movie._id);
   };
 
   return (
-    <article className="movie" id={movie.id}>
+    <article className="movie" _id={movie._id}>
       <div className="movie__group">
         <div className="movie__description">
           <h2 className="movie__title">{movie.nameRU}</h2>

@@ -141,8 +141,8 @@ function App(initialLoggedIn) {
     mainApi
       .makeMovies(movie)
       .then((movieInfo) => {
-        setSavedMovies([movieInfo, ...savedMovies]);
-        console.log(movieInfo);
+        setSavedMovies([movieInfo.data, ...savedMovies]);
+        console.log(movieInfo.data);
       })
       .catch((err) => console.log(err));
   }

@@ -28,14 +28,14 @@ function MoviesCard(props) {
       : `https://api.nomoreparties.co${props.movie.image.url}`,
     nameRU: props.movie.nameRU || "Не указано",
     nameEN: props.movie.nameEN || "Не указано",
-    thumbnail: props.movie.image.formats.thumbnail.url
-      ? `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`
-      : `https://api.nomoreparties.co${props.movie.image.url}`,
+    thumbnail: props.movie.image.url,
     movieId: props.movie.id,
     _id: props.movie._id,
     saved: isSaved,
   };
 
+  console.log(movie.thumbnail);
+  console.log(props.movie.image.formats.thumbnail.url);
   console.log(props.movie);
   console.log(movie);
   console.log(props.savedMovies);

@@ -28,32 +28,20 @@ function MoviesCard(props) {
       : `https://api.nomoreparties.co${props.movie.image.url}`,
     nameRU: props.movie.nameRU || "Не указано",
     nameEN: props.movie.nameEN || "Не указано",
-    thumbnail: `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
+    thumbnail: `https://api.nomoreparties.co${props.movie.url}`,
     movieId: props.movie.id,
     _id: props.movie._id,
     saved: isSaved,
   };
 
-  console.log(movie.thumbnail);
-  console.log(props.movie.image.formats.thumbnail.url);
-  console.log(props.movie);
-  console.log(movie);
-  console.log(props.savedMovies);
-
   const handleClickSave = () => {
     if (!isSaved) {
-      console.log(movie);
       props.createMovie(movie);
       setIsSaved(true);
-      console.log(props.savedMovies);
     } else {
-      console.log(props.savedMovies);
       const movieItem = props.savedMovies.filter(
         (savedMovie) => savedMovie.movieId === movie.movieId
       );
-      console.log(movie);
-      console.log(movie.movieId);
-      console.log(movieItem[0]);
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
     }

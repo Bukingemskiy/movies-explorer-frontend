@@ -7,6 +7,7 @@ import MoviesCard from "../MoviesCard/MoviesCard.js";
 function MoviesCardList(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
+  const [, setIsLoading] = React.useState(false);
   const [isMoreButton, setMoreButton] = React.useState(
     "more__button_invisible"
   );
@@ -56,9 +57,9 @@ function MoviesCardList(props) {
   };
 
   function resize() {
-    //  setIsLoading(true);
+    setIsLoading(true);
     setTimeout(handleWidth, 100);
-    //  setIsLoading(false);
+    setIsLoading(false);
   }
 
   window.onresize = resize;
@@ -80,8 +81,6 @@ function MoviesCardList(props) {
       }
     }
   }
-
-  console.log(props.renderMovies);
 
   return (
     <>

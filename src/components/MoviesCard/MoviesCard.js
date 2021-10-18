@@ -35,10 +35,11 @@ function MoviesCard(props) {
     } else {
       console.log(props.savedMovies);
       const movieItem = props.savedMovies.filter(
-        (savedMovie) => savedMovie._id === movie._id
+        (savedMovie) => savedMovie.movieId === movie.movieId
       );
       console.log(movie);
-      console.log(movie._id);
+      console.log(movie.movieId);
+      console.log(movieItem[0]);
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
     }

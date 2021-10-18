@@ -148,10 +148,12 @@ function App(initialLoggedIn) {
     mainApi
       .deleteMovie(movieId)
       .then(() => {
+        console.log(movieId);
         const newMovies = savedMovies.filter(
-          (savedMovie) => savedMovie.id !== movieId
+          (savedMovie) => savedMovie._id !== movieId
         );
         setSavedMovies(newMovies);
+        console.log(newMovies);
       })
       .catch((err) => console.log(err));
   }

@@ -28,7 +28,9 @@ function MoviesCard(props) {
       : `https://api.nomoreparties.co${props.movie.image.url}`,
     nameRU: props.movie.nameRU || "Не указано",
     nameEN: props.movie.nameEN || "Не указано",
-    thumbnail: `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
+    thumbnail: props.movie.image.formats.thumbnail.url
+      ? `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`
+      : `https://api.nomoreparties.co${props.movie.image.url}`,
     movieId: props.movie.id,
     _id: props.movie._id,
     saved: isSaved,
@@ -86,7 +88,7 @@ function MoviesCard(props) {
       </div>
       <img
         className="movie__image"
-        src={`https://api.nomoreparties.co${movie.image}`}
+        src={movie.image}
         alt={`Кадр из фильма ${movie.nameRU}`}
       />
     </article>

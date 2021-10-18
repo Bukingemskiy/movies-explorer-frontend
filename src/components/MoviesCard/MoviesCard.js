@@ -7,6 +7,15 @@ function MoviesCard(props) {
   const isSavedMovies = location.pathname === "/saved-movies";
   const [isSaved, setIsSaved] = React.useState(false);
 
+  function isURL(str) {
+    try {
+      new URL(str);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   let movie = {
     country: props.movie.country || "Не указано",
     director: props.movie.director || "Не указано",
@@ -14,15 +23,18 @@ function MoviesCard(props) {
     year: props.movie.year || "Не указано",
     description: props.movie.description || "Не указано",
     image: `https://api.nomoreparties.co${props.movie.image.url}`,
-    trailer: props.movie.trailerLink,
+    trailer: isURL(props.movie.trailerLink)
+      ? props.movie.trailerLink
+      : `https://api.nomoreparties.co${props.movie.image.url}`,
     nameRU: props.movie.nameRU || "Не указано",
     nameEN: props.movie.nameEN || "Не указано",
-    thumbnail: `https://api.nomoreparties.co${props.movie.image.url}`,
+    thumbnail: `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
     movieId: props.movie.id,
     _id: props.movie._id,
     saved: isSaved,
   };
 
+  console.log(props.movie);
   console.log(movie);
   console.log(props.savedMovies);
 
@@ -74,7 +86,7 @@ function MoviesCard(props) {
       </div>
       <img
         className="movie__image"
-        src={`https://api.nomoreparties.co${props.movie.image.url}`}
+        src={`https://api.nomoreparties.co${movie.image}`}
         alt={`Кадр из фильма ${movie.nameRU}`}
       />
     </article>

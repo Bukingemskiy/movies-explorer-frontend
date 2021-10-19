@@ -104,7 +104,6 @@ function App(initialLoggedIn) {
     mainApi
       .editProfile(data)
       .then((user) => {
-        console.log(user);
         setCurrentUser(user.data);
       })
       .catch((err) => console.log(`${err}`))
@@ -137,9 +136,7 @@ function App(initialLoggedIn) {
     mainApi
       .makeMovies(data)
       .then((movieInfo) => {
-        console.log(movieInfo);
         setSavedMovies([movieInfo.data, ...savedMovies]);
-        console.log(movieInfo.data);
       })
       .catch((err) => console.log(err));
   }
@@ -148,12 +145,10 @@ function App(initialLoggedIn) {
     mainApi
       .deleteMovie(movieId)
       .then(() => {
-        console.log(movieId);
         const newMovies = savedMovies.filter(
           (savedMovie) => savedMovie._id !== movieId
         );
         setSavedMovies(newMovies);
-        console.log(newMovies);
       })
       .catch((err) => console.log(err));
   }

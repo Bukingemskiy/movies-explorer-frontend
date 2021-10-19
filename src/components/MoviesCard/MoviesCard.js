@@ -28,7 +28,7 @@ function MoviesCard(props) {
       : `https://api.nomoreparties.co${props.movie.image.url}`,
     nameRU: props.movie.nameRU || "Не указано",
     nameEN: props.movie.nameEN || "Не указано",
-    thumbnail: `https://api.nomoreparties.co${props.movie.url}`,
+    thumbnail: `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
     movieId: props.movie.id,
     _id: props.movie._id,
     saved: isSaved,

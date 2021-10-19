@@ -25,7 +25,11 @@ function MoviesCard(props) {
     image: isSavedMovies
       ? props.movie.image
       : `https://api.nomoreparties.co${props.movie.image.url}`,
-    trailer: isURL(props.movie.trailerLink)
+    trailer: isSavedMovies
+      ? isURL(props.movie.trailer)
+        ? props.movie.trailer
+        : props.movie.image
+      : isURL(props.movie.trailerLink)
       ? props.movie.trailerLink
       : `https://api.nomoreparties.co${props.movie.image.url}`,
     nameRU: props.movie.nameRU || "Не указано",
@@ -80,11 +84,18 @@ function MoviesCard(props) {
           />
         )}
       </div>
-      <img
-        className="movie__image"
-        src={movie.image}
-        alt={`Кадр из фильма ${movie.nameRU}`}
-      />
+      <a
+        className="movie__link"
+        href={props.movie.thumbnail}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          className="movie__image"
+          src={movie.image}
+          alt={`Кадр из фильма ${movie.nameRU}`}
+        />
+      </a>
     </article>
   );
 }

@@ -48,6 +48,10 @@
   background-color: #313131;
 }
 
+.movie__link:hover {
+  opacity: 0.6;
+}
+
 .movie__image {
   margin: 14px auto 0;
   object-fit: cover;

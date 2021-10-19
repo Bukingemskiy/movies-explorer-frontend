@@ -86,7 +86,7 @@ function MoviesCard(props) {
       </div>
       <a
         className="movie__link"
-        href={props.movie.trailer}
+        href={movie.trailer}
         target="_blank"
         rel="noreferrer"
       >

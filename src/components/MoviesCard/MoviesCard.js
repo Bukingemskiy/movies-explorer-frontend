@@ -22,7 +22,9 @@ function MoviesCard(props) {
     duration: props.movie.duration || 0,
     year: props.movie.year || "Не указано",
     description: props.movie.description || "Не указано",
-    image: `https://api.nomoreparties.co${props.movie.image.url}`,
+    image: isSavedMovies
+      ? props.movie.image
+      : `https://api.nomoreparties.co${props.movie.image.url}`,
     trailer: isURL(props.movie.trailerLink)
       ? props.movie.trailerLink
       : `https://api.nomoreparties.co${props.movie.image.url}`,
@@ -35,6 +37,8 @@ function MoviesCard(props) {
     _id: props.movie._id,
     saved: isSaved,
   };
+
+  console.log(movie);
 
   const handleClickSave = () => {
     if (!isSaved) {

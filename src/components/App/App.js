@@ -29,7 +29,7 @@ function App(initialLoggedIn) {
   const history = useHistory();
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
-  const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
+  const cacheMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
 
   console.log(cacheSavedMovies);
@@ -41,6 +41,7 @@ function App(initialLoggedIn) {
       .getMovies()
       .then((movies) => {
         setMovies(movies);
+        localStorage.setItem("localMovies", JSON.stringify(movies));
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
@@ -131,7 +132,7 @@ function App(initialLoggedIn) {
     } else {
       let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
       setFoundMovies(filterd);
-      localStorage.setItem("localMovies", JSON.stringify(filterd));
+      localStorage.setItem("localFoundMovies", JSON.stringify(filterd));
       setIsLoading(false);
     }
   }
@@ -182,7 +183,7 @@ function App(initialLoggedIn) {
             isLoading={isLoading}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
-            renderMovies={cacheMovies === null ? [] : cacheMovies}
+            renderMovies={cacheMovies.length !== 0 ? cacheMovies : []}
             movies={movies}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
@@ -193,7 +194,7 @@ function App(initialLoggedIn) {
             component={SavedMovies}
             loggedIn={loggedIn}
             isLoading={isLoading}
-            savedMovies={cacheSavedMovies || null}
+            savedMovies={cacheSavedMovies.length > 0 ? cacheSavedMovies : []}
             foundMovies={foundMovies}
             renderMovies={savedMovies}
             createMovie={createMovie}

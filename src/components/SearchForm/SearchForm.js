@@ -1,14 +1,19 @@
 import React from "react";
 import "./SearchForm.css";
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox.js";
+import { useLocation } from "react-router-dom";
 
 function SearchForm(props) {
+  const location = useLocation();
+  const isSavedMovies = location.pathname === "/saved-movies";
   const [search, setSearch] = React.useState("");
   const [searchCheckbox, setSearchCheckbox] = React.useState(false);
   const [searchValid, setSearchValid] = React.useState(true);
+  const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
 
   function handleSearchChange(e) {
     setSearch(e.target.value);
+    localStorage.setItem("localSearch", JSON.stringify(e.target.value));
     setSearchValid(e.target.checkValidity());
   }
 
@@ -31,7 +36,13 @@ function SearchForm(props) {
             type="text"
             name="search"
             placeholder="Фильм"
-            value={search || ""}
+            value={
+              isSavedMovies
+                ? ""
+                : search.length !== 0
+                ? search
+                : cacheSearch || ""
+            }
             onChange={handleSearchChange}
             required
           />

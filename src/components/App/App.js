@@ -183,7 +183,7 @@ function App(initialLoggedIn) {
             isLoading={isLoading}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
-            renderMovies={cacheMovies.length !== null ? cacheMovies : []}
+            renderMovies={cacheMovies !== null ? cacheMovies : []}
             movies={movies}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
@@ -196,9 +196,7 @@ function App(initialLoggedIn) {
             isLoading={isLoading}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
-            renderMovies={
-              cacheSavedMovies.length !== null ? cacheSavedMovies : []
-            }
+            renderMovies={cacheSavedMovies !== null ? cacheSavedMovies : []}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

@@ -42,8 +42,6 @@ function MoviesCard(props) {
     saved: isSaved,
   };
 
-  console.log(movie);
-
   const handleClickSave = () => {
     if (!isSaved) {
       props.createMovie(movie);

@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import createPersistedState from "use-persisted-state";
-import { Route, Switch, useHistory, Redirect } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Login from "../Login/Login.js";
 import Register from "../Register/Register.js";
@@ -10,6 +10,7 @@ import Movies from "../Movies/Movies.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 import Profile from "../Profile/Profile.js";
 import NotFound from "../NotFound/NotFound";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import mainApi from "../../utils/MainApi.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import * as filterMovies from "../../utils/FilterMovies.js";
@@ -29,6 +30,8 @@ function App(initialLoggedIn) {
   const history = useHistory();
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
+  const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
+  const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
 
   function updateMovies() {
     setIsLoading(true);
@@ -36,6 +39,7 @@ function App(initialLoggedIn) {
       .getMovies()
       .then((movies) => {
         setMovies(movies);
+        localStorage.setItem("localMovies", movies);
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
@@ -45,7 +49,7 @@ function App(initialLoggedIn) {
     updateMovies();
   }, []);
 
-  function updatePage() {
+  function updateUserData() {
     setIsLoading(true);
     mainApi
       .getUserData()
@@ -57,7 +61,7 @@ function App(initialLoggedIn) {
   }
 
   React.useEffect(() => {
-    updatePage();
+    updateUserData();
   }, []);
 
   function handleLogin(email, password) {
@@ -65,7 +69,7 @@ function App(initialLoggedIn) {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        updatePage();
+        updateUserData();
         history.push("/movies");
       })
       .catch((err) => {
@@ -93,6 +97,7 @@ function App(initialLoggedIn) {
       .signOut()
       .then(() => {
         setLoggedIn(false);
+        localStorage.clear();
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -128,6 +133,7 @@ function App(initialLoggedIn) {
       let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
       setNotFound(filterd.length === 0);
       setFoundMovies(filterd);
+      localStorage.setItem("localMovies", filterd);
       setIsLoading(false);
     }
   }
@@ -137,6 +143,10 @@ function App(initialLoggedIn) {
       .makeMovies(data)
       .then((movieInfo) => {
         setSavedMovies([movieInfo.data, ...savedMovies]);
+        localStorage.setItem("localSavedMovies", [
+          movieInfo.data,
+          ...savedMovies,
+        ]);
       })
       .catch((err) => console.log(err));
   }
@@ -149,6 +159,7 @@ function App(initialLoggedIn) {
           (savedMovie) => savedMovie._id !== movieId
         );
         setSavedMovies(newMovies);
+        localStorage.setItem("localSavedMovies", newMovies);
       })
       .catch((err) => console.log(err));
   }
@@ -166,48 +177,39 @@ function App(initialLoggedIn) {
           <Route exact path="/signin">
             <Login onLogin={handleLogin} />
           </Route>
-          <Route exact path="/movies">
-            {loggedIn ? (
-              <Movies
-                isLoading={isLoading}
-                savedMovies={savedMovies}
-                foundMovies={foundMovies}
-                renderMovies={foundMovies}
-                movies={movies}
-                createMovie={createMovie}
-                deleteMovie={deleteMovie}
-                onSearchMovies={handleSearchMovies}
-              />
-            ) : (
-              <Redirect to="/" />
-            )}
-          </Route>
-          <Route exact path="/saved-movies">
-            {loggedIn ? (
-              <SavedMovies
-                isLoading={isLoading}
-                savedMovies={savedMovies}
-                foundMovies={foundMovies}
-                renderMovies={savedMovies}
-                createMovie={createMovie}
-                deleteMovie={deleteMovie}
-                onSearchMovies={handleSearchMovies}
-              />
-            ) : (
-              <Redirect to="/" />
-            )}
-          </Route>
-          <Route exact path="/profile">
-            {loggedIn ? (
-              <Profile
-                isLoading={isLoading}
-                onUpdateUser={handleUpdateUser}
-                onLogOut={logOut}
-              />
-            ) : (
-              <Redirect to="/" />
-            )}
-          </Route>
+          <ProtectedRoute
+            path="/movies"
+            component={Movies}
+            loggedIn={loggedIn}
+            isLoading={isLoading}
+            savedMovies={savedMovies}
+            foundMovies={foundMovies}
+            renderMovies={cacheMovies}
+            movies={movies}
+            createMovie={createMovie}
+            deleteMovie={deleteMovie}
+            onSearchMovies={handleSearchMovies}
+          />
+          <ProtectedRoute
+            path="/saved-movies"
+            component={SavedMovies}
+            loggedIn={loggedIn}
+            isLoading={isLoading}
+            savedMovies={savedMovies}
+            foundMovies={foundMovies}
+            renderMovies={savedMovies}
+            createMovie={createMovie}
+            deleteMovie={deleteMovie}
+            onSearchMovies={handleSearchMovies}
+          />
+          <ProtectedRoute
+            path="/profile"
+            component={Profile}
+            loggedIn={loggedIn}
+            isLoading={isLoading}
+            onUpdateUser={handleUpdateUser}
+            onLogOut={logOut}
+          />
           <Route path="*">
             <NotFound />
           </Route>

@@ -183,7 +183,7 @@ function App(initialLoggedIn) {
             isLoading={isLoading}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
-            renderMovies={cacheMovies}
+            renderMovies={cacheMovies === null ? [] : cacheMovies}
             movies={movies}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
@@ -194,7 +194,7 @@ function App(initialLoggedIn) {
             component={SavedMovies}
             loggedIn={loggedIn}
             isLoading={isLoading}
-            savedMovies={cacheSavedMovies}
+            savedMovies={cacheSavedMovies === null ? [] : cacheSavedMovies}
             foundMovies={foundMovies}
             renderMovies={savedMovies}
             createMovie={createMovie}

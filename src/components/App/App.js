@@ -41,7 +41,6 @@ function App(initialLoggedIn) {
       .getMovies()
       .then((movies) => {
         setMovies(movies);
-        localStorage.setItem("localMovies", JSON.stringify(movies));
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
@@ -194,7 +193,7 @@ function App(initialLoggedIn) {
             component={SavedMovies}
             loggedIn={loggedIn}
             isLoading={isLoading}
-            savedMovies={cacheSavedMovies === null ? [] : cacheSavedMovies}
+            savedMovies={cacheSavedMovies || null}
             foundMovies={foundMovies}
             renderMovies={savedMovies}
             createMovie={createMovie}

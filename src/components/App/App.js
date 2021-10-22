@@ -41,7 +41,7 @@ function App(initialLoggedIn) {
       .getMovies()
       .then((movies) => {
         setMovies(movies);
-        localStorage.setItem("localMovies", movies);
+        localStorage.setItem("localMovies", JSON.stringify(movies));
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
@@ -132,7 +132,7 @@ function App(initialLoggedIn) {
     } else {
       let filterd = filterMovies.filterMovies(movies, search, searchCheckbox);
       setFoundMovies(filterd);
-      localStorage.setItem("localMovies", filterd);
+      localStorage.setItem("localMovies", JSON.stringify(filterd));
       setIsLoading(false);
     }
   }
@@ -142,10 +142,10 @@ function App(initialLoggedIn) {
       .makeMovies(data)
       .then((movieInfo) => {
         setSavedMovies([movieInfo.data, ...savedMovies]);
-        localStorage.setItem("localSavedMovies", [
-          movieInfo.data,
-          ...savedMovies,
-        ]);
+        localStorage.setItem(
+          "localSavedMovies",
+          JSON.stringify([movieInfo.data, ...savedMovies])
+        );
       })
       .catch((err) => console.log(err));
   }
@@ -158,7 +158,7 @@ function App(initialLoggedIn) {
           (savedMovie) => savedMovie._id !== movieId
         );
         setSavedMovies(newMovies);
-        localStorage.setItem("localSavedMovies", newMovies);
+        localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
       })
       .catch((err) => console.log(err));
   }

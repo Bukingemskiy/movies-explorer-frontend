@@ -38,7 +38,7 @@ function SearchForm(props) {
             placeholder="Фильм"
             value={
               isSavedMovies
-                ? ""
+                ? search || ""
                 : search.length !== 0
                 ? search
                 : cacheSearch || ""

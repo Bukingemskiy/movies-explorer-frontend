@@ -32,9 +32,6 @@ function App(initialLoggedIn) {
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
 
-  console.log(cacheSavedMovies);
-  console.log(cacheFoundMovies);
-
   function updateMovies() {
     setIsLoading(true);
     moviesApi

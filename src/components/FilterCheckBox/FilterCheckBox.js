@@ -27,6 +27,7 @@ function FilterCheckBox(props) {
       props.onSearchMovies(props.search, false);
     } else {
     }
+    window.location.reload();
   }
 
   return (

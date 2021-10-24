@@ -43,16 +43,19 @@ function MoviesCard(props) {
   };
 
   const handleClickSave = () => {
+    const movieItem = props.savedMovies.filter(
+      (savedMovie) => savedMovie.movieId === movie.movieId
+    );
     if (!isSaved) {
       props.createMovie(movie);
       setIsSaved(true);
     } else {
-      const movieItem = props.savedMovies.filter(
-        (savedMovie) => savedMovie.movieId === movie.movieId
-      );
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
     }
+    props.setMovies((movies) =>
+      movies.map((m) => (m._id === movie._id ? movieItem.data : m))
+    );
   };
 
   const handleClickDelete = () => {

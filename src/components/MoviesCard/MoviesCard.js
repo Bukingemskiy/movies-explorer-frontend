@@ -54,7 +54,7 @@ function MoviesCard(props) {
       setIsSaved(false);
     }
     props.setMovies((movies) =>
-      movies.map((m) => (m._id === movie._id ? movieItem.data : m))
+      movies.map((m) => (m.nameRU === movie.nameRU ? movieItem.data : m))
     );
   };
 

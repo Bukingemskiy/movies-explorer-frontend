@@ -6,7 +6,6 @@ import Footer from "../Footer/Footer.js";
 
 function SavedMovies(props) {
   console.log(props.renderMovies);
-  window.location.reload(true);
 
   return (
     <>

@@ -5,6 +5,8 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
 
 function Movies(props) {
+  window.location.reload(true);
+
   return (
     <>
       <Header />

@@ -15,6 +15,8 @@ function MoviesCardList(props) {
   const width = window.innerWidth;
   let numberOfMovies = 12;
 
+  window.location.reload(true);
+
   function handleNumberOfMovies() {
     if ((width < 1280) & (width > 767)) {
       numberOfMovies = 8;

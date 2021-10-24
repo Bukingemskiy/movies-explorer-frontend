@@ -27,12 +27,10 @@ function App(initialLoggedIn) {
   const [movies, setMovies] = React.useState([]);
   const [, setIsErrorActive] = React.useState(false);
   const history = useHistory();
-  const [savedMovies, setSavedMovies] = React.useState(
-    JSON.parse(localStorage.getItem("localSavedMovies"))
-  );
-  const [foundMovies, setFoundMovies] = React.useState(
-    JSON.parse(localStorage.getItem("localFoundMovies"))
-  );
+  const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
+  const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
+  const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
+  const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
   function updateMovies() {
     setIsLoading(true);
@@ -122,7 +120,7 @@ function App(initialLoggedIn) {
     setIsLoading(true);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
-        savedMovies,
+        cacheSavedMovies,
         search,
         searchCheckbox
       );

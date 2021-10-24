@@ -13,8 +13,10 @@ function SearchForm(props) {
 
   function handleSearchChange(e) {
     setSearch(e.target.value);
-    localStorage.setItem("localSearch", JSON.stringify(e.target.value));
     setSearchValid(e.target.checkValidity());
+    if (!isSavedMovies) {
+      localStorage.setItem("localSearch", JSON.stringify(e.target.value));
+    }
   }
 
   function handleSearchMovies(e) {

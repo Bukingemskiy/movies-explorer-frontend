@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 import createPersistedState from "use-persisted-state";
 import "./MoviesCard.css";
 
-function MoviesCard(props) {
+function MoviesCard(props, initialIsSaved) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const useIsSavedState = createPersistedState(false);
-  const [isSaved, setIsSaved] = useIsSavedState(props.initialIsSaved);
+  const [isSaved, setIsSaved] = useIsSavedState(initialIsSaved);
 
   function isURL(str) {
     try {

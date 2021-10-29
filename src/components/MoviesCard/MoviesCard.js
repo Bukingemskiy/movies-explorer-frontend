@@ -40,22 +40,27 @@ function MoviesCard(props) {
       : `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
     movieId: props.movie.id,
     _id: props.movie._id,
-    saved: isSaved,
+    saved: cacheIsSaved,
   };
 
+  console.log(cacheIsSaved);
+
   const handleClickSave = () => {
-    const movieItem = props.savedMovies.filter(
-      (savedMovie) => savedMovie.movieId === movie.movieId
-    );
     if (!isSaved) {
       props.createMovie(movie);
       setIsSaved(true);
       localStorage.setItem("localIsSaved", JSON.stringify(true));
     } else {
+      const movieItem = props.savedMovies.filter(
+        (savedMovie) => savedMovie.movieId === movie.movieId
+      );
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
       localStorage.setItem("localIsSaved", JSON.stringify(false));
     }
+    const movieItem = props.savedMovies.filter(
+      (savedMovie) => savedMovie.movieId === movie.movieId
+    );
     props.setMovies((movies) =>
       movies.map((m) => (m.nameRU === movie.nameRU ? movieItem.data : m))
     );

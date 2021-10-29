@@ -145,7 +145,7 @@ function App(initialLoggedIn) {
       .makeMovies(data)
       .then((movieInfo) => {
         console.log(movieInfo);
-        console.log(SavedMovies);
+        console.log(savedMovies);
         setSavedMovies(
           savedMovies !== []
             ? [movieInfo.data, ...savedMovies]

@@ -1,12 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function MoviesCard(props) {
+  const currentUser = React.useContext(CurrentUserContext);
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [isSaved, setIsSaved] = React.useState(false);
-  const cacheIsSaved = JSON.parse(localStorage.getItem("localIsSaved"));
 
   function isURL(str) {
     try {
@@ -40,27 +41,19 @@ function MoviesCard(props) {
       : `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
     movieId: props.movie.id,
     _id: props.movie._id,
-    saved: cacheIsSaved,
   };
 
-  console.log(cacheIsSaved);
-
   const handleClickSave = () => {
-    if (!isSaved) {
-      props.createMovie(movie);
-      setIsSaved(true);
-      localStorage.setItem("localIsSaved", JSON.stringify(true));
-    } else {
-      const movieItem = props.savedMovies.filter(
-        (savedMovie) => savedMovie.movieId === movie.movieId
-      );
-      props.deleteMovie(movieItem[0]._id);
-      setIsSaved(false);
-      localStorage.setItem("localIsSaved", JSON.stringify(false));
-    }
     const movieItem = props.savedMovies.filter(
       (savedMovie) => savedMovie.movieId === movie.movieId
     );
+    if (!isSaved) {
+      props.createMovie(movie);
+      setIsSaved(true);
+    } else {
+      props.deleteMovie(movieItem[0]._id);
+      setIsSaved(false);
+    }
     props.setMovies((movies) =>
       movies.map((m) => (m.nameRU === movie.nameRU ? movieItem.data : m))
     );
@@ -69,6 +62,22 @@ function MoviesCard(props) {
   const handleClickDelete = () => {
     props.deleteMovie(movie._id);
   };
+
+  React.useEffect(() => {
+    if (props.savedMovies.length > 0) {
+      if (!isSaved) {
+        setIsSaved(
+          props.savedMovies.some(
+            (savedMovie) =>
+              savedMovie.movieId === movie._id &&
+              savedMovie.owner === currentUser._id
+          )
+        );
+      } else {
+        setIsSaved(false);
+      }
+    }
+  }, [currentUser._id, isSaved, movie._id, props.savedMovies]);
 
   return (
     <article className="movie" _id={movie._id}>
@@ -86,7 +95,7 @@ function MoviesCard(props) {
         ) : (
           <button
             className={`movie__icon  ${
-              cacheIsSaved ? "movie__icon_on" : "movie__icon_off"
+              isSaved ? "movie__icon_on" : "movie__icon_off"
             }`}
             type="button"
             onClick={handleClickSave}

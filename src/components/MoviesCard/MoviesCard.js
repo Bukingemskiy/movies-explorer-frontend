@@ -44,6 +44,8 @@ function MoviesCard(props, initialIsSaved) {
     saved: isSaved,
   };
 
+  console.log(isSaved);
+
   const handleClickSave = () => {
     const movieItem = props.savedMovies.filter(
       (savedMovie) => savedMovie.movieId === movie.movieId
@@ -52,6 +54,7 @@ function MoviesCard(props, initialIsSaved) {
       props.createMovie(movie);
       setIsSaved(true);
     } else {
+      console.log(movieItem);
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
     }

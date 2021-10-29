@@ -15,6 +15,8 @@ function SearchForm(props, initialSearchCheckbox) {
   const [searchValid, setSearchValid] = React.useState(true);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
 
+  console.log(searchCheckbox);
+
   function handleSearchChange(e) {
     setSearch(e.target.value);
     setSearchValid(e.target.checkValidity());

@@ -147,14 +147,14 @@ function App(initialLoggedIn) {
         console.log(movieInfo);
         console.log(savedMovies);
         setSavedMovies(
-          savedMovies !== []
+          savedMovies !== null
             ? [movieInfo.data, ...savedMovies]
             : [movieInfo.data]
         );
         localStorage.setItem(
           "localSavedMovies",
           JSON.stringify(
-            savedMovies !== []
+            savedMovies !== null
               ? [movieInfo.data, ...savedMovies]
               : [movieInfo.data]
           )

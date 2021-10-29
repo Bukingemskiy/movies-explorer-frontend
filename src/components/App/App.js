@@ -144,10 +144,20 @@ function App(initialLoggedIn) {
     mainApi
       .makeMovies(data)
       .then((movieInfo) => {
-        setSavedMovies([movieInfo.data, ...savedMovies]);
+        console.log(movieInfo);
+        console.log(SavedMovies);
+        setSavedMovies(
+          savedMovies !== []
+            ? [movieInfo.data, ...savedMovies]
+            : [movieInfo.data]
+        );
         localStorage.setItem(
           "localSavedMovies",
-          JSON.stringify([movieInfo.data, ...savedMovies])
+          JSON.stringify(
+            savedMovies !== []
+              ? [movieInfo.data, ...savedMovies]
+              : [movieInfo.data]
+          )
         );
       })
       .catch((err) => console.log(err));

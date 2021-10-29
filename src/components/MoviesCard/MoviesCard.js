@@ -1,13 +1,12 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import createPersistedState from "use-persisted-state";
 import "./MoviesCard.css";
 
-function MoviesCard(props, initialIsSaved) {
+function MoviesCard(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const useIsSavedState = createPersistedState(false);
-  const [isSaved, setIsSaved] = useIsSavedState(initialIsSaved);
+  const [isSaved, setIsSaved] = React.useState(false);
+  const cacheIsSaved = JSON.parse(localStorage.getItem("localIsSaved"));
 
   function isURL(str) {
     try {
@@ -44,8 +43,6 @@ function MoviesCard(props, initialIsSaved) {
     saved: isSaved,
   };
 
-  console.log(isSaved);
-
   const handleClickSave = () => {
     const movieItem = props.savedMovies.filter(
       (savedMovie) => savedMovie.movieId === movie.movieId
@@ -53,10 +50,11 @@ function MoviesCard(props, initialIsSaved) {
     if (!isSaved) {
       props.createMovie(movie);
       setIsSaved(true);
+      localStorage.setItem("localIsSaved", JSON.stringify(true));
     } else {
-      console.log(movieItem);
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
+      localStorage.setItem("localIsSaved", JSON.stringify(false));
     }
     props.setMovies((movies) =>
       movies.map((m) => (m.nameRU === movie.nameRU ? movieItem.data : m))
@@ -83,7 +81,7 @@ function MoviesCard(props, initialIsSaved) {
         ) : (
           <button
             className={`movie__icon  ${
-              isSaved ? "movie__icon_on" : "movie__icon_off"
+              cacheIsSaved ? "movie__icon_on" : "movie__icon_off"
             }`}
             type="button"
             onClick={handleClickSave}

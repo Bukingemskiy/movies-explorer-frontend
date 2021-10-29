@@ -2,20 +2,14 @@ import React from "react";
 import "./SearchForm.css";
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox.js";
 import { useLocation } from "react-router-dom";
-import createPersistedState from "use-persisted-state";
 
-function SearchForm(props, initialSearchCheckbox) {
+function SearchForm(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [search, setSearch] = React.useState("");
-  const useSearchCheckboxState = createPersistedState(false);
-  const [searchCheckbox, setSearchCheckbox] = useSearchCheckboxState(
-    initialSearchCheckbox
-  );
+  const [searchCheckbox, setSearchCheckbox] = React.useState(false);
   const [searchValid, setSearchValid] = React.useState(true);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
-
-  console.log(searchCheckbox);
 
   function handleSearchChange(e) {
     setSearch(e.target.value);

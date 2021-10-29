@@ -1,10 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function MoviesCard(props) {
-  const currentUser = React.useContext(CurrentUserContext);
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [isSaved, setIsSaved] = React.useState(false);
@@ -41,6 +39,7 @@ function MoviesCard(props) {
       : `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
     movieId: props.movie.id,
     _id: props.movie._id,
+    saved: isSaved,
   };
 
   const handleClickSave = () => {
@@ -63,22 +62,6 @@ function MoviesCard(props) {
     props.deleteMovie(movie._id);
   };
 
-  React.useEffect(() => {
-    if (props.savedMovies.length > 0) {
-      if (!isSaved) {
-        setIsSaved(
-          props.savedMovies.some(
-            (savedMovie) =>
-              savedMovie.movieId === movie._id &&
-              savedMovie.owner === currentUser._id
-          )
-        );
-      } else {
-        setIsSaved(false);
-      }
-    }
-  }, [currentUser._id, isSaved, movie._id, props.savedMovies]);
-
   return (
     <article className="movie" _id={movie._id}>
       <div className="movie__group">
@@ -95,7 +78,7 @@ function MoviesCard(props) {
         ) : (
           <button
             className={`movie__icon  ${
-              isSaved ? "movie__icon_on" : "movie__icon_off"
+              movie.saved ? "movie__icon_on" : "movie__icon_off"
             }`}
             type="button"
             onClick={handleClickSave}

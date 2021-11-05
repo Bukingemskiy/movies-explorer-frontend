@@ -144,8 +144,6 @@ function App(initialLoggedIn) {
     mainApi
       .makeMovies(data)
       .then((movieInfo) => {
-        console.log(movieInfo);
-        console.log(savedMovies);
         setSavedMovies(
           savedMovies !== null
             ? [movieInfo.data, ...savedMovies]
@@ -175,6 +173,8 @@ function App(initialLoggedIn) {
       })
       .catch((err) => console.log(err));
   }
+
+  React.useEffect(() => {}, [savedMovies, movies]);
 
   return (
     <div className="page">

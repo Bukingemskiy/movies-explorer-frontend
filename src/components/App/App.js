@@ -118,7 +118,7 @@ function App(initialLoggedIn) {
   function handleSearchMovies(search, searchCheckbox) {
     setIsErrorActive(false);
     setSavedMovies(cacheSavedMovies);
-    setFoundMovies([]);
+    setFoundMovies(cacheFoundMovies);
     setIsLoading(true);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(

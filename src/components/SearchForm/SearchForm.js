@@ -65,6 +65,7 @@ function SearchForm(props) {
         <FilterCheckBox
           movies={props.movies}
           search={search}
+          cacheSearch={cacheSearch}
           onSearchMovies={props.onSearchMovies}
           searchCheckbox={searchCheckbox}
           handleCheckbox={handleCheckbox}

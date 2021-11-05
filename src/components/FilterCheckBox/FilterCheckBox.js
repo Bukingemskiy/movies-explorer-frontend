@@ -1,7 +1,10 @@
 import React from "react";
 import "./FilterCheckBox.css";
+import { useLocation } from "react-router-dom";
 
 function FilterCheckBox(props) {
+  const location = useLocation();
+  const isSavedMovies = location.pathname === "/saved-movies";
   const [isFilterIcon, setFilterIcon] = React.useState("search__filter-icon");
   const [isIconRing, setIconRing] = React.useState("search__icon-ring");
 
@@ -19,12 +22,18 @@ function FilterCheckBox(props) {
       props.handleCheckbox(false);
     }
     if (props.movies.length !== 0 && isFilterIcon === "search__filter-icon") {
-      props.onSearchMovies(props.search, true);
+      props.onSearchMovies(
+        !isSavedMovies ? props.cacheSearch : props.search,
+        true
+      );
     } else if (
       props.movies.length !== 0 &&
       isFilterIcon === "search__filter-icon search__filter-icon_on"
     ) {
-      props.onSearchMovies(props.search, false);
+      props.onSearchMovies(
+        !isSavedMovies ? props.cacheSearch : props.search,
+        false
+      );
     } else {
     }
   }

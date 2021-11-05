@@ -180,7 +180,7 @@ function App(initialLoggedIn) {
       .catch((err) => console.log(err));
   }
 
-  React.useEffect(() => {}, [savedMovies, movies]);
+  React.useEffect(() => {}, [savedMovies, foundMovies]);
 
   return (
     <div className="page">

@@ -140,7 +140,7 @@ function App(initialLoggedIn) {
       console.log(filterd.length);
       localStorage.setItem(
         "localFoundMovies",
-        JSON.stringify(filterd.length !== 0 ? filterd : cacheMovies)
+        JSON.stringify(filterd.length !== 0 ? filterd : cacheFoundMovies)
       );
       setIsLoading(false);
     }

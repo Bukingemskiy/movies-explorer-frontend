@@ -28,9 +28,6 @@ function SearchForm(props) {
     setSearchCheckbox(isToggle);
   }
 
-  console.log(cacheSearch);
-  console.log(search);
-
   return (
     <section className="search">
       <div className="search__box">

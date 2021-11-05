@@ -26,12 +26,11 @@ function FilterCheckBox(props) {
         !isSavedMovies ? props.cacheSearch : props.search,
         true
       );
-    } else if (isFilterIcon === "search__filter-icon search__filter-icon_on") {
+    } else {
       props.onSearchMovies(
         !isSavedMovies ? props.cacheSearch : props.search,
         false
       );
-    } else {
     }
   }
 

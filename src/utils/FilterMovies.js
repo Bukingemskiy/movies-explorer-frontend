@@ -1,7 +1,5 @@
 export const filterMovies = (movies, searchMovie, shortMovies) => {
   function checkString(string) {
-    console.log(searchMovie);
-    console.log(shortMovies);
     const searchValue = searchMovie.toLowerCase().trim();
     return string ? string.includes(searchValue) : false;
   }

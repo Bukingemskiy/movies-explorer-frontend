@@ -135,7 +135,12 @@ function App(initialLoggedIn) {
         searchCheckbox
       );
       setFoundMovies(filterd);
-      localStorage.setItem("localFoundMovies", JSON.stringify(filterd));
+      console.log(filterd);
+      console.log(cacheMovies);
+      localStorage.setItem(
+        "localFoundMovies",
+        JSON.stringify(filterd !== null ? filterd : cacheMovies)
+      );
       setIsLoading(false);
     }
   }

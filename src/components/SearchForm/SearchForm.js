@@ -21,7 +21,7 @@ function SearchForm(props) {
 
   function handleSearchMovies(e) {
     e.preventDefault();
-    props.onSearchMovies(search, searchCheckbox);
+    props.onSearchMovies(!isSavedMovies ? cacheSearch : search, searchCheckbox);
   }
 
   function handleCheckbox(isToggle) {

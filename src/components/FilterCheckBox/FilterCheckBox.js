@@ -21,15 +21,12 @@ function FilterCheckBox(props) {
       setIconRing("search__icon-ring");
       props.handleCheckbox(false);
     }
-    if (props.movies.length !== 0 && isFilterIcon === "search__filter-icon") {
+    if (isFilterIcon === "search__filter-icon") {
       props.onSearchMovies(
         !isSavedMovies ? props.cacheSearch : props.search,
         true
       );
-    } else if (
-      props.movies.length !== 0 &&
-      isFilterIcon === "search__filter-icon search__filter-icon_on"
-    ) {
+    } else if (isFilterIcon === "search__filter-icon search__filter-icon_on") {
       props.onSearchMovies(
         !isSavedMovies ? props.cacheSearch : props.search,
         false

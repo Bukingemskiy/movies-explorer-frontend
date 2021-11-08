@@ -32,44 +32,20 @@ function App(initialLoggedIn) {
   const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
-  function isURL(str) {
-    try {
-      new URL(str);
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
-  React.useEffect(() => {
+  function updateMovies() {
     setIsLoading(true);
     moviesApi
       .getMovies()
       .then((movies) => {
-        movies.forEach(function (item) {
-          item.image = isSavedMovies
-            ? item.image
-            : `https://api.nomoreparties.co${item.image.url}`;
-          item.trailer = isSavedMovies
-            ? isURL(item.trailer)
-              ? item.trailer
-              : item.image
-            : isURL(item.trailerLink)
-            ? item.trailerLink
-            : `https://api.nomoreparties.co${item.image.url}`;
-          item.thumbnail = isSavedMovies
-            ? item.thumbnail
-            : `https://api.nomoreparties.co${item.image.formats.thumbnail.url}`;
-          item.movieId = item.id;
-          item.saved = false;
-        });
+        movies.forEach((item) => (item.saved = false));
         localStorage.setItem("localMovies", JSON.stringify(movies));
         console.log(movies);
-        console.log(cacheMovies);
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
-  }, [cacheMovies, isSavedMovies]);
+  }
+
+  updateMovies();
 
   function updateUserData() {
     setIsLoading(true);

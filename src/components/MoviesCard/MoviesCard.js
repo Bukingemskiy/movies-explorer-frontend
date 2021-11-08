@@ -6,6 +6,41 @@ function MoviesCard(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
 
+  function isURL(str) {
+    try {
+      new URL(str);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  let movie = {
+    country: props.movie.country || "Не указано",
+    director: props.movie.director || "Не указано",
+    duration: props.movie.duration || 0,
+    year: props.movie.year || "Не указано",
+    description: props.movie.description || "Не указано",
+    image: isSavedMovies
+      ? props.movie.image
+      : `https://api.nomoreparties.co${props.movie.image.url}`,
+    trailer: isSavedMovies
+      ? isURL(props.movie.trailer)
+        ? props.movie.trailer
+        : props.movie.image
+      : isURL(props.movie.trailerLink)
+      ? props.movie.trailerLink
+      : `https://api.nomoreparties.co${props.movie.image.url}`,
+    nameRU: props.movie.nameRU || "Не указано",
+    nameEN: props.movie.nameEN || "Не указано",
+    thumbnail: isSavedMovies
+      ? props.movie.thumbnail
+      : `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
+    movieId: props.movie.id,
+    _id: props.movie._id,
+    saved: props.movie.saved,
+  };
+
   const movieDuration =
     props.movie.duration < 60
       ? props.movie.duration + " м."
@@ -15,33 +50,33 @@ function MoviesCard(props) {
         " м.";
 
   const handleClickSave = () => {
-    if (!props.movie.saved) {
-      props.createMovie(props.movie);
+    if (!movie.saved) {
+      props.createMovie(movie);
       props.cacheMovies.forEach(function (savedMovie) {
-        if (savedMovie.id === props.movie.movieId) {
+        if (savedMovie.id === movie.movieId) {
           savedMovie.saved = true;
           console.log(savedMovie);
         }
       });
-      console.log(props.movie);
+      console.log(movie);
     } else {
       const movieItem = props.savedMovies.filter(
-        (savedMovie) => savedMovie.movieId === props.movie.movieId
+        (savedMovie) => savedMovie.movieId === movie.movieId
       );
       props.deleteMovie(movieItem[0]._id);
-      props.movie.saved = false;
+      movie.saved = false;
     }
   };
 
   const handleClickDelete = () => {
-    props.deleteMovie(props.movie._id);
+    props.deleteMovie(movie._id);
   };
 
   React.useEffect(() => {
     if (props.savedMovies.length > 0 && !isSavedMovies) {
       console.log(props.cacheMovies);
       props.cacheMovies.forEach(function (savedMovie) {
-        if (savedMovie.id === props.movie.movieId) {
+        if (savedMovie.id === movie.movieId) {
           savedMovie.saved = true;
           console.log(savedMovie);
         }
@@ -50,10 +85,10 @@ function MoviesCard(props) {
   }, []);
 
   return (
-    <article className="movie" _id={props.movie._id}>
+    <article className="movie" _id={movie._id}>
       <div className="movie__group">
         <div className="movie__description">
-          <h2 className="movie__title">{props.movie.nameRU}</h2>
+          <h2 className="movie__title">{movie.nameRU}</h2>
           <p className="movie__subtitle">{movieDuration}</p>
         </div>
         {isSavedMovies ? (
@@ -65,7 +100,7 @@ function MoviesCard(props) {
         ) : (
           <button
             className={`movie__icon  ${
-              props.movie.saved ? "movie__icon_on" : "movie__icon_off"
+              movie.saved ? "movie__icon_on" : "movie__icon_off"
             }`}
             type="button"
             onClick={handleClickSave}
@@ -74,14 +109,14 @@ function MoviesCard(props) {
       </div>
       <a
         className="movie__link"
-        href={props.movie.trailer}
+        href={movie.trailer}
         target="_blank"
         rel="noreferrer"
       >
         <img
           className="movie__image"
-          src={props.movie.image}
-          alt={`Кадр из фильма ${props.movie.nameRU}`}
+          src={movie.image}
+          alt={`Кадр из фильма ${movie.nameRU}`}
         />
       </a>
     </article>

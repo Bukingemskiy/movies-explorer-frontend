@@ -36,8 +36,8 @@ function MoviesCard(props) {
     thumbnail: isSavedMovies
       ? props.movie.thumbnail
       : `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
-    movieId: props.movie.id,
-    _id: props.movie._id,
+    movieId: props.movie.movieId,
+    _id: props.movie.id,
     saved: false,
   };
 
@@ -68,13 +68,12 @@ function MoviesCard(props) {
 
   React.useEffect(() => {
     if (props.savedMovies.length > 0 && !isSavedMovies) {
-      console.log(props.cacheMovies);
-      const movieItem = props.cacheMovies.filter(
-        (savedMovie) => savedMovie.id === movie.movieId
-      );
+      props.cacheMovies.forEach((m) => {
+        if (m.id === movie._id) {
+          m.saved = true;
+        }
+      });
       console.log(movie);
-      console.log(movieItem);
-      movie.saved = true;
     }
   }, []);
 

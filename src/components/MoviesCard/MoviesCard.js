@@ -1,10 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import "./MoviesCard.css";
 
 function MoviesCard(props) {
-  const currentUser = React.useContext(CurrentUserContext);
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [isSaved, setIsSaved] = React.useState(false);
@@ -44,6 +42,14 @@ function MoviesCard(props) {
     saved: isSaved,
   };
 
+  const movieDuration =
+    props.movie.duration < 60
+      ? props.movie.duration + " м."
+      : Math.trunc(props.movie.duration / 60) +
+        " ч. " +
+        (props.movie.duration % 60) +
+        " м.";
+
   const handleClickSave = () => {
     if (!isSaved) {
       props.createMovie(movie);
@@ -64,25 +70,26 @@ function MoviesCard(props) {
   React.useEffect(() => {
     if (props.savedMovies.length > 0) {
       if (!isSaved) {
+        console.log(props.savedMovies);
+        console.log(props.savedMovies.length);
         setIsSaved(
           props.savedMovies.some(
-            (savedMovie) =>
-              savedMovie.movieId === movie._id &&
-              savedMovie.owner === currentUser._id
+            (savedMovie) => savedMovie.movieId === movie._id
           )
         );
+        console.log(isSaved);
       } else {
         setIsSaved(false);
       }
     }
-  }, [currentUser._id, isSaved, movie._id, props.savedMovies]);
+  }, [isSaved, movie._id, props.savedMovies]);
 
   return (
     <article className="movie" _id={movie._id}>
       <div className="movie__group">
         <div className="movie__description">
           <h2 className="movie__title">{movie.nameRU}</h2>
-          <p className="movie__subtitle">{movie.duration}</p>
+          <p className="movie__subtitle">{movieDuration}</p>
         </div>
         {isSavedMovies ? (
           <button

@@ -50,15 +50,16 @@ function MoviesCard(props) {
         " м.";
 
   const handleClickSave = () => {
-    if (!props.movie.saved) {
+    if (!movie.saved) {
       props.createMovie(movie);
-      props.movie.saved = true;
+      movie.saved = true;
+      console.log(movie);
     } else {
       const movieItem = props.savedMovies.filter(
         (savedMovie) => savedMovie.movieId === movie.movieId
       );
       props.deleteMovie(movieItem[0]._id);
-      props.movie.saved = false;
+      movie.saved = false;
     }
   };
 
@@ -74,7 +75,8 @@ function MoviesCard(props) {
       );
       console.log(movie);
       console.log(movieItem);
-      movie[0].saved = true;
+      movieItem.saved = true;
+      movie.saved = true;
     }
   }, []);
 

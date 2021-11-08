@@ -15,6 +15,7 @@ function Movies(props) {
       <MoviesCardList
         deleteMovie={props.deleteMovie}
         createMovie={props.createMovie}
+        cacheMovies={props.cacheMovies}
         savedMovies={props.savedMovies}
         renderMovies={props.renderMovies}
         isLoading={props.isLoading}

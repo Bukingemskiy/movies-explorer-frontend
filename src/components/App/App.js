@@ -45,7 +45,9 @@ function App(initialLoggedIn) {
       .finally(() => setIsLoading(false));
   }
 
-  updateMovies();
+  React.useEffect(() => {
+    updateMovies();
+  }, []);
 
   function updateUserData() {
     setIsLoading(true);
@@ -195,6 +197,7 @@ function App(initialLoggedIn) {
             component={Movies}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}

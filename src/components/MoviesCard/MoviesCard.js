@@ -61,15 +61,12 @@ function MoviesCard(props) {
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
     }
+    props.updateMovies(movie);
   };
 
   const handleClickDelete = () => {
     props.deleteMovie(movie._id);
   };
-
-  React.useEffect(() => {
-    props.updateMovies(movie);
-  }, []);
 
   return (
     <article className="movie" _id={movie._id}>

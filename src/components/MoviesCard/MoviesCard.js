@@ -5,7 +5,6 @@ import "./MoviesCard.css";
 function MoviesCard(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const [isSaved, setIsSaved] = React.useState(false);
 
   function isURL(str) {
     try {
@@ -51,15 +50,15 @@ function MoviesCard(props) {
         " м.";
 
   const handleClickSave = () => {
-    if (!isSaved) {
+    if (!movie.saved) {
       props.createMovie(movie);
-      setIsSaved(true);
+      movie.saved = true;
     } else {
       const movieItem = props.savedMovies.filter(
         (savedMovie) => savedMovie.movieId === movie.movieId
       );
       props.deleteMovie(movieItem[0]._id);
-      setIsSaved(false);
+      movie.saved = false;
     }
   };
 
@@ -75,7 +74,7 @@ function MoviesCard(props) {
       );
       console.log(movie);
       console.log(movieItem);
-      setIsSaved(true);
+      movie.saved = true;
     }
   }, []);
 

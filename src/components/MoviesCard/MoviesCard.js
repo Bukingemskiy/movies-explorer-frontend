@@ -75,7 +75,7 @@ function MoviesCard(props) {
       );
       console.log(movie);
       console.log(movieItem);
-      movieItem.saved = true;
+      setIsSaved(true);
     }
   }, []);
 

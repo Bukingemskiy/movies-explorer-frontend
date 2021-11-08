@@ -45,10 +45,6 @@ function App(initialLoggedIn) {
       .finally(() => setIsLoading(false));
   }
 
-  React.useEffect(() => {
-    updateMovies();
-  }, []);
-
   function updateUserData() {
     setIsLoading(true);
     mainApi

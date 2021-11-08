@@ -13,7 +13,6 @@ function Movies(props) {
         onSearchMovies={props.onSearchMovies}
       />
       <MoviesCardList
-        cacheMovies={props.cacheMovies}
         deleteMovie={props.deleteMovie}
         createMovie={props.createMovie}
         savedMovies={props.savedMovies}

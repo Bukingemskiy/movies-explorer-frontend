@@ -68,8 +68,8 @@ function MoviesCard(props) {
 
   React.useEffect(() => {
     if (props.savedMovies.length > 0 && !isSavedMovies) {
-      console.log(props.cacheMovies);
-      const movieItem = props.cacheMovies.filter(
+      console.log(props.renderMovies);
+      const movieItem = props.renderMovies.filter(
         (savedMovie) => savedMovie.id === movie.movieId
       );
       console.log(movie);

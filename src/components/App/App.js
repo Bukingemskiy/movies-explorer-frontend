@@ -46,23 +46,23 @@ function App(initialLoggedIn) {
     moviesApi
       .getMovies()
       .then((movies) => {
-        movies.forEach((item) =>
-          (item.image = isSavedMovies
+        movies.forEach(function (item) {
+          item.image = isSavedMovies
             ? item.image
-            : `https://api.nomoreparties.co${item.image.url}`)(
-            (item.trailer = isSavedMovies
-              ? isURL(item.trailer)
-                ? item.trailer
-                : item.image
-              : isURL(item.trailerLink)
-              ? item.trailerLink
-              : `https://api.nomoreparties.co${item.image.url}`)
-          )(
-            (item.thumbnail = isSavedMovies
-              ? item.thumbnail
-              : `https://api.nomoreparties.co${item.image.formats.thumbnail.url}`)
-          )((item.movieId = item.id))((item.saved = false))
-        );
+            : `https://api.nomoreparties.co${item.image.url}`;
+          item.trailer = isSavedMovies
+            ? isURL(item.trailer)
+              ? item.trailer
+              : item.image
+            : isURL(item.trailerLink)
+            ? item.trailerLink
+            : `https://api.nomoreparties.co${item.image.url}`;
+          item.thumbnail = isSavedMovies
+            ? item.thumbnail
+            : `https://api.nomoreparties.co${item.image.formats.thumbnail.url}`;
+          item.movieId = item.id;
+          item.saved = false;
+        });
         localStorage.setItem("localMovies", JSON.stringify(movies));
         console.log(movies);
         console.log(cacheMovies);

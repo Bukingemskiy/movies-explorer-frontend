@@ -5,8 +5,6 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
 
 function SavedMovies(props) {
-  console.log(props.renderMovies);
-
   return (
     <>
       <Header />

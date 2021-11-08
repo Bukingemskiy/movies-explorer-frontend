@@ -32,20 +32,22 @@ function App(initialLoggedIn) {
   const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
-  function updateMovies() {
+  function updateMovies(movie) {
     setIsLoading(true);
     moviesApi
       .getMovies()
       .then((movies) => {
+        movies.forEach((m) => {
+          if (m.id === movie.movieId) {
+            m._id = movie._id;
+            m.saved = false;
+          }
+        });
         localStorage.setItem("localMovies", JSON.stringify(movies));
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
   }
-
-  React.useEffect(() => {
-    updateMovies();
-  }, []);
 
   function updateUserData() {
     setIsLoading(true);
@@ -199,6 +201,7 @@ function App(initialLoggedIn) {
             savedMovies={savedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
+            updateMovies={updateMovies}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

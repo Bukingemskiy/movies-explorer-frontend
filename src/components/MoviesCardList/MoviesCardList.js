@@ -90,6 +90,7 @@ function MoviesCardList(props) {
       <section className="movies">
         {props.renderMovies.map((movie) => (
           <MoviesCard
+            cacheMovies={props.cacheMovies}
             savedMovies={props.savedMovies}
             deleteMovie={props.deleteMovie}
             createMovie={props.createMovie}

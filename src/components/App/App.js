@@ -25,7 +25,6 @@ function App(initialLoggedIn) {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
-  const [movies, setMovies] = React.useState([]);
   const [, setIsErrorActive] = React.useState(false);
   const history = useHistory();
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
@@ -38,7 +37,6 @@ function App(initialLoggedIn) {
     moviesApi
       .getMovies()
       .then((movies) => {
-        setMovies(movies);
         localStorage.setItem("localMovies", JSON.stringify(movies));
       })
       .catch((err) => console.log(`${err}`))
@@ -197,11 +195,10 @@ function App(initialLoggedIn) {
             component={Movies}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
-            movies={movies}
-            setMovies={setMovies}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

@@ -86,6 +86,13 @@ function MoviesCardList(props) {
 
   console.log(props.renderMovies);
 
+  props.renderMovies.map((item) => ({
+    ...item,
+    saved: false,
+  }));
+
+  console.log(props.renderMovies);
+
   return (
     <>
       <Preloader isLoading={props.isLoading} />

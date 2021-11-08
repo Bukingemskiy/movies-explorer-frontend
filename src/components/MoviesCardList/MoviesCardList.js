@@ -86,10 +86,9 @@ function MoviesCardList(props) {
 
   console.log(props.renderMovies);
 
-  props.renderMovies.map((item) => ({
-    ...item,
-    saved: false,
-  }));
+  if (!isSavedMovies) {
+    props.renderMovies.forEach((item) => (item.saved = false));
+  }
 
   console.log(props.renderMovies);
 

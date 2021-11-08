@@ -37,7 +37,10 @@ function App(initialLoggedIn) {
     moviesApi
       .getMovies()
       .then((movies) => {
-        localStorage.setItem("localMovies", JSON.stringify(movies));
+        localStorage.setItem(
+          "localMovies",
+          JSON.stringify(movies, { saved: false })
+        );
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));

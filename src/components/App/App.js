@@ -39,14 +39,13 @@ function App(initialLoggedIn) {
       .then((movies) => {
         movies.forEach((item) => (item.saved = false));
         localStorage.setItem("localMovies", JSON.stringify(movies));
+        console.log(movies);
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
   }
 
-  React.useEffect(() => {
-    updateMovies();
-  }, []);
+  updateMovies();
 
   function updateUserData() {
     setIsLoading(true);

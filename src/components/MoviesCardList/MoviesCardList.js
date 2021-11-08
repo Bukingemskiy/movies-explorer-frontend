@@ -86,12 +86,6 @@ function MoviesCardList(props) {
 
   console.log(props.renderMovies);
 
-  if (!isSavedMovies) {
-    props.renderMovies.forEach((item) => (item.saved = false));
-  }
-
-  console.log(props.renderMovies);
-
   return (
     <>
       <Preloader isLoading={props.isLoading} />

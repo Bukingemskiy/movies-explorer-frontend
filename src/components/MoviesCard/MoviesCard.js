@@ -39,7 +39,7 @@ function MoviesCard(props) {
       : `https://api.nomoreparties.co${props.movie.image.formats.thumbnail.url}`,
     movieId: props.movie.id,
     _id: props.movie._id,
-    saved: props.movie.saved,
+    saved: isSaved,
   };
 
   const movieDuration =
@@ -61,12 +61,23 @@ function MoviesCard(props) {
       props.deleteMovie(movieItem[0]._id);
       setIsSaved(false);
     }
-    props.updateMovies(movie);
   };
 
   const handleClickDelete = () => {
     props.deleteMovie(movie._id);
   };
+
+  React.useEffect(() => {
+    if (props.savedMovies.length > 0 && !isSavedMovies) {
+      console.log(props.cacheMovies);
+      const movieItem = props.cacheMovies.filter(
+        (savedMovie) => savedMovie.id === movie.movieId
+      );
+      console.log(movie);
+      console.log(movieItem);
+      setIsSaved(true);
+    }
+  }, []);
 
   return (
     <article className="movie" _id={movie._id}>

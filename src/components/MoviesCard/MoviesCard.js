@@ -69,20 +69,12 @@ function MoviesCard(props) {
 
   React.useEffect(() => {
     if (props.savedMovies.length > 0) {
-      if (!isSaved) {
-        console.log(props.savedMovies);
-        console.log(props.savedMovies.length);
-        setIsSaved(
-          props.savedMovies.some(
-            (savedMovie) => savedMovie.movieId === movie._id
-          )
-        );
-        console.log(isSaved);
-      } else {
-        setIsSaved(false);
-      }
+      const movieItem = props.movies.filter(
+        (savedMovie) => savedMovie.id === movie.movieId
+      );
+      movieItem.saved = true;
     }
-  }, [isSaved, movie._id, props.savedMovies]);
+  }, [movie.movieId, props.movies, props.savedMovies.length]);
 
   return (
     <article className="movie" _id={movie._id}>

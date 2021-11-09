@@ -36,17 +36,18 @@ function App(initialLoggedIn) {
     setIsLoading(true);
     moviesApi
       .getMovies()
-      .then((movies) =>
+      .then((movies) => {
+        const newMovies = movies.forEach((item) => (item.saved = false));
         savedMovies.length > 0
           ? savedMovies.forEach((el) => {
-              const items = movies.map((i) =>
+              const items = newMovies.map((i) =>
                 i.id === el.movieId ? Object.assign(i, { saved: true }) : i
               );
               localStorage.setItem("localMovies", JSON.stringify(items));
               console.log(items);
             })
-          : localStorage.setItem("localMovies", JSON.stringify(movies))
-      )
+          : localStorage.setItem("localMovies", JSON.stringify(newMovies));
+      })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
   }

@@ -34,23 +34,21 @@ function App(initialLoggedIn) {
 
   function updateMovies() {
     setIsLoading(true);
-    moviesApi.getMovies().then((res) =>
-      res
-        .forEach((item) => (item.saved = false))
-        .then((movies) =>
-          savedMovies.length > 0
-            ? savedMovies.forEach((el) => {
-                const items = movies.map((i) =>
-                  i.id === el.movieId ? Object.assign(i, { saved: true }) : i
-                );
-                localStorage.setItem("localMovies", JSON.stringify(items));
-                console.log(items);
-              })
-            : localStorage.setItem("localMovies", JSON.stringify(movies))
-        )
-        .catch((err) => console.log(`${err}`))
-        .finally(() => setIsLoading(false))
-    );
+    moviesApi
+      .getMovies()
+      .then((movies) =>
+        savedMovies.length > 0
+          ? savedMovies.forEach((el) => {
+              const items = movies.map((i) =>
+                i.id === el.movieId ? Object.assign(i, { saved: true }) : i
+              );
+              localStorage.setItem("localMovies", JSON.stringify(items));
+              console.log(items);
+            })
+          : localStorage.setItem("localMovies", JSON.stringify(movies))
+      )
+      .catch((err) => console.log(`${err}`))
+      .finally(() => setIsLoading(false));
   }
 
   React.useEffect(() => {

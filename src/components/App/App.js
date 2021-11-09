@@ -41,7 +41,7 @@ function App(initialLoggedIn) {
         if (savedMovies.length > 0) {
           console.log(movies);
           const newMovies = movies.map((i) =>
-            i.id === movie.movieId ? Object.assign({}, i, { saved: true }) : i
+            i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
           );
           console.log(newMovies);
           localStorage.setItem("localMovies", JSON.stringify(newMovies));

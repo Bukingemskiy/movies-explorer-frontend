@@ -52,12 +52,11 @@ function MoviesCard(props) {
   const handleClickSave = () => {
     if (movie.saved !== true) {
       props.createMovie(movie);
-      props.cacheMovies.forEach(function (savedMovie) {
-        if (savedMovie.id === movie.movieId) {
-          movie.saved = true;
-          console.log(savedMovie);
-        }
-      });
+      const items = props.cacheMovies.map((i) =>
+        i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
+      );
+      localStorage.setItem("localMovies", JSON.stringify(items));
+      console.log(items);
       console.log(movie);
     } else {
       const movieItem = props.savedMovies.filter(

@@ -73,15 +73,7 @@ function MoviesCard(props) {
   };
 
   React.useEffect(() => {
-    if (props.savedMovies.length > 0 && !isSavedMovies) {
-      console.log(props.cacheMovies);
-      props.cacheMovies.forEach(function (savedMovie) {
-        if (savedMovie.id === movie.movieId) {
-          savedMovie.saved = true;
-          console.log(savedMovie);
-        }
-      });
-    }
+    props.updateMovies(movie);
   }, []);
 
   return (

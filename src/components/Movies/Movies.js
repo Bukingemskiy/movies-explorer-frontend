@@ -19,6 +19,7 @@ function Movies(props) {
         savedMovies={props.savedMovies}
         renderMovies={props.renderMovies}
         isLoading={props.isLoading}
+        updateMovies={props.updateMovies}
       />
       <Footer />
     </>

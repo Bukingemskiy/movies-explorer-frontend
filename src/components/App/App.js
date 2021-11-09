@@ -32,24 +32,26 @@ function App(initialLoggedIn) {
   const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
-  const movies = cacheMovies.forEach((item) => (item.saved = false));
-  console.log(movies);
-
-  function updateMovies() {
+  function updateMovies(movie) {
     setIsLoading(true);
     moviesApi
       .getMovies()
       .then((movies) => {
-        localStorage.setItem("localMovies", JSON.stringify(movies));
-        console.log(movies);
+        movies.forEach((item) => (item.saved = false));
+        if (savedMovies.length > 0) {
+          console.log(movies);
+          const newMovies = movies.filter((newMovie) => {
+            if (newMovie.id === movie.movieId) newMovie.saved = true;
+            return newMovies;
+          });
+          console.log(newMovies);
+          localStorage.setItem("localMovies", JSON.stringify(newMovies));
+          console.log(movie);
+        }
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
   }
-
-  React.useEffect(() => {
-    updateMovies();
-  }, []);
 
   function updateUserData() {
     setIsLoading(true);
@@ -206,6 +208,7 @@ function App(initialLoggedIn) {
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
+            updateMovies={updateMovies}
           />
           <ProtectedRoute
             path="/saved-movies"

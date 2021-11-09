@@ -50,7 +50,7 @@ function MoviesCard(props) {
         " м.";
 
   const handleClickSave = () => {
-    if (!movie.saved) {
+    if (movie.saved !== true) {
       props.createMovie(movie);
       props.cacheMovies.forEach(function (savedMovie) {
         if (savedMovie.id === movie.movieId) {

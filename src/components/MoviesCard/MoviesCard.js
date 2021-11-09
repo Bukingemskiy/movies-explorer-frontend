@@ -68,6 +68,10 @@ function MoviesCard(props) {
     }
   };
 
+  React.useEffect(() => {
+    handleClickSave();
+  }, []);
+
   const handleClickDelete = () => {
     props.deleteMovie(movie._id);
   };

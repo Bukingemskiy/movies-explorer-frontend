@@ -72,12 +72,6 @@ function MoviesCard(props) {
     props.deleteMovie(movie._id);
   };
 
-  React.useEffect(() => {
-    if (!isSavedMovies) {
-      props.updateMovies(movie);
-    }
-  }, []);
-
   return (
     <article className="movie" _id={movie._id}>
       <div className="movie__group">

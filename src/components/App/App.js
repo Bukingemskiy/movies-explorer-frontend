@@ -32,25 +32,28 @@ function App(initialLoggedIn) {
   const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
-  function updateMovies(movie) {
+  function updateMovies() {
     setIsLoading(true);
     moviesApi
       .getMovies()
-      .then((movies) => {
-        movies.forEach((item) => (item.saved = false));
-        if (savedMovies.length > 0) {
-          console.log(movies);
-          const newMovies = movies.map((i) =>
-            i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
-          );
-          console.log(newMovies);
-          localStorage.setItem("localMovies", JSON.stringify(newMovies));
-          console.log(movie);
-        }
-      })
+      .then((movies) =>
+        savedMovies.length > 0
+          ? savedMovies.forEach((el) => {
+              const items = movies.map((i) =>
+                i.id === el.movieId ? Object.assign(i, { saved: true }) : i
+              );
+              localStorage.setItem("localMovies", JSON.stringify(items));
+              console.log(items);
+            })
+          : localStorage.setItem("localMovies", JSON.stringify(movies))
+      )
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
   }
+
+  React.useEffect(() => {
+    updateMovies();
+  }, []);
 
   function updateUserData() {
     setIsLoading(true);
@@ -207,7 +210,6 @@ function App(initialLoggedIn) {
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
-            updateMovies={updateMovies}
           />
           <ProtectedRoute
             path="/saved-movies"

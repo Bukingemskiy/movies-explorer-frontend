@@ -99,7 +99,6 @@ function MoviesCardList(props) {
             createMovie={props.createMovie}
             movie={movie}
             key={movie.id ? movie.id : movie.movieId}
-            updateMovies={props.updateMovies}
           />
         ))}
       </section>

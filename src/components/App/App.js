@@ -217,7 +217,7 @@ function App(initialLoggedIn) {
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
-            renderMovies={cacheFoundMovies !== null ? cacheFoundMovies : []}
+            renderMovies={foundMovies !== null ? foundMovies : []}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

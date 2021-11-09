@@ -54,7 +54,7 @@ function MoviesCard(props) {
       props.createMovie(movie);
       props.cacheMovies.forEach(function (savedMovie) {
         if (savedMovie.id === movie.movieId) {
-          savedMovie.saved = true;
+          movie.saved = true;
           console.log(savedMovie);
         }
       });

@@ -73,7 +73,9 @@ function MoviesCard(props) {
   };
 
   React.useEffect(() => {
-    props.updateMovies(movie);
+    if (!isSavedMovies) {
+      props.updateMovies(movie);
+    }
   }, []);
 
   return (

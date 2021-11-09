@@ -42,6 +42,9 @@ function App(initialLoggedIn) {
           console.log(movies);
           const newMovies = movies.filter((newMovie) => {
             if (newMovie.id === movie.movieId) newMovie.saved = true;
+            console.log(newMovie);
+            console.log(newMovie.id);
+            console.log(movie.movieId);
             return newMovies;
           });
           console.log(newMovies);

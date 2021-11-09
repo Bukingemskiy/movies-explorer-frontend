@@ -183,7 +183,12 @@ function App(initialLoggedIn) {
       .catch((err) => console.log(err));
   }
 
-  React.useEffect(() => {}, [savedMovies, foundMovies]);
+  React.useEffect(() => {}, [
+    savedMovies,
+    foundMovies,
+    cacheMovies,
+    location.pathname,
+  ]);
 
   return (
     <div className="page">

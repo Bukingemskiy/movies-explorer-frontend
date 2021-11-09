@@ -29,6 +29,7 @@ function App(initialLoggedIn) {
   const history = useHistory();
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
+  const [newMovies, setNewMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
@@ -37,22 +38,27 @@ function App(initialLoggedIn) {
     moviesApi
       .getMovies()
       .then((movies) =>
-        savedMovies.length > 0
-          ? savedMovies.forEach((el) => {
-              const items = movies.map((i) =>
-                i.id === el.movieId ? Object.assign(i, { saved: true }) : i
-              );
-              localStorage.setItem("localMovies", JSON.stringify(items));
-              console.log(items);
-            })
-          : localStorage.setItem("localMovies", JSON.stringify(movies))
+        setNewMovies(movies.forEach((item) => (item.saved = false)))
       )
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
   }
 
-  React.useEffect(() => {
+  function updatePage() {
     updateMovies();
+    savedMovies.length > 0
+      ? savedMovies.forEach((el) => {
+          const items = newMovies.map((i) =>
+            i.id === el.movieId ? Object.assign(i, { saved: true }) : i
+          );
+          localStorage.setItem("localMovies", JSON.stringify(items));
+          console.log(items);
+        })
+      : localStorage.setItem("localMovies", JSON.stringify(newMovies));
+  }
+
+  React.useEffect(() => {
+    updatePage();
   }, []);
 
   function updateUserData() {

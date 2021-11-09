@@ -40,10 +40,11 @@ function App(initialLoggedIn) {
         movies.forEach((item) => (item.saved = false));
         if (savedMovies.length > 0) {
           console.log(movies);
-          for (var i = 0; i < movies.length; i++)
-            if (movies.id[i] === movie.movieId) movies.saved[i] = true;
-          console.log(movies);
-          localStorage.setItem("localMovies", JSON.stringify(movies));
+          const newMovies = movies.map((i) =>
+            i.id === movie.movieId ? Object.assign({}, i, { saved: true }) : i
+          );
+          console.log(newMovies);
+          localStorage.setItem("localMovies", JSON.stringify(newMovies));
           console.log(movie);
         }
       })

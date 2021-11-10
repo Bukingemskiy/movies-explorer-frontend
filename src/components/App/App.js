@@ -33,10 +33,16 @@ function App(initialLoggedIn) {
 
   function updatePage() {
     setIsLoading(true);
-    Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
-      .then(([movies, savedItems]) => {
+    Promise.all([
+      moviesApi.getMovies(),
+      mainApi.getSavedMovies(),
+      mainApi.getUserData(),
+    ])
+      .then(([movies, savedItems, user]) => {
         console.log(savedItems.data);
         setSavedMovies(savedItems.data);
+        setCurrentUser(user.data);
+        console.log(currentUser);
         savedMovies.length > 0
           ? savedMovies.forEach((el) => {
               const items = movies.map((i) =>
@@ -60,29 +66,11 @@ function App(initialLoggedIn) {
     updatePage();
   }, []);
 
-  function updateUserData() {
-    setIsLoading(true);
-    mainApi
-      .getUserData()
-      .then((user) => {
-        setCurrentUser(user.data);
-        console.log(currentUser);
-      })
-      .catch((err) => console.log(`${err}`))
-      .finally(() => setIsLoading(false));
-  }
-
-  React.useEffect(() => {
-    console.log("update user");
-    updateUserData();
-  }, []);
-
   function handleLogin(email, password) {
     return auth
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        updateUserData();
         history.push("/movies");
         console.log(loggedIn);
       })

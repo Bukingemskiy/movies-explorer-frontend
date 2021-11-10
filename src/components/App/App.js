@@ -181,6 +181,15 @@ function App(initialLoggedIn) {
         const newMovies = savedMovies.filter(
           (savedMovie) => savedMovie._id !== movieId
         );
+        const deleteFoundItems = foundMovies.map((i) =>
+          i.id === movieId ? Object.assign(i, { saved: false }) : i
+        );
+        setFoundMovies(deleteFoundItems);
+        console.log(deleteFoundItems);
+        localStorage.setItem(
+          "localFoundMovies",
+          JSON.stringify(deleteFoundItems)
+        );
         console.log(movieId);
         setSavedMovies(newMovies);
         console.log(savedMovies);

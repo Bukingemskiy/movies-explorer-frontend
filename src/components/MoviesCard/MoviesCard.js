@@ -89,11 +89,6 @@ function MoviesCard(props) {
 
   const handleClickDelete = () => {
     console.log(movie._id);
-    const deleteFoundItems = props.foundMovies.map((i) =>
-      i.id === movie.movieId ? Object.assign(i, { saved: false }) : i
-    );
-    console.log(deleteFoundItems);
-    localStorage.setItem("localFoundMovies", JSON.stringify(deleteFoundItems));
     props.deleteMovie(movie._id);
   };
 

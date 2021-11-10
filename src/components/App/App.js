@@ -174,11 +174,11 @@ function App(initialLoggedIn) {
       .catch((err) => console.log(err));
   }
 
-  function deleteMovie(id, movieId) {
+  function deleteMovie(id, nameEN) {
     mainApi
       .deleteMovie(id)
       .then(() => {
-        console.log(movieId);
+        console.log(nameEN);
         console.log(id);
         console.log(savedMovies);
         const newMovies = savedMovies.filter(
@@ -187,7 +187,7 @@ function App(initialLoggedIn) {
         console.log(newMovies);
         console.log(foundMovies);
         const deleteFoundItems = foundMovies.map((i) =>
-          i.id === movieId ? Object.assign(i, { saved: false }) : i
+          i.nameEN === nameEN ? Object.assign(i, { saved: false }) : i
         );
         setFoundMovies(deleteFoundItems);
         console.log(deleteFoundItems);

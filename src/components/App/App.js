@@ -44,10 +44,7 @@ function App(initialLoggedIn) {
   }
 
   React.useEffect(() => {
-    updateMovies();
-  }, []);
-
-  function updatePage() {
+    console.log("update movies");
     console.log(newMovies);
     updateMovies();
     console.log(newMovies);
@@ -62,13 +59,9 @@ function App(initialLoggedIn) {
         })
       : localStorage.setItem("localMovies", JSON.stringify(newMovies));
     console.log(cacheMovies);
-  }
+  }, [cacheMovies, newMovies, savedMovies]);
 
   React.useEffect(() => {
-    updatePage();
-  }, []);
-
-  function updateUserData() {
     setIsLoading(true);
     mainApi
       .getUserData()
@@ -78,18 +71,13 @@ function App(initialLoggedIn) {
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
-  }
-
-  React.useEffect(() => {
-    updateUserData();
-  }, []);
+  }, [currentUser]);
 
   function handleLogin(email, password) {
     return auth
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        updateUserData();
         history.push("/movies");
         console.log(loggedIn);
       })
@@ -211,10 +199,6 @@ function App(initialLoggedIn) {
       })
       .catch((err) => console.log(err));
   }
-
-  React.useEffect(() => {
-    console.log("update page");
-  }, [savedMovies, foundMovies, cacheMovies, location.pathname]);
 
   return (
     <div className="page">

@@ -221,7 +221,7 @@ function App(initialLoggedIn) {
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
-            renderMovies={foundMovies.length > 0 ? foundMovies : []}
+            renderMovies={foundMovies}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
@@ -232,7 +232,7 @@ function App(initialLoggedIn) {
             loggedIn={loggedIn}
             isLoading={isLoading}
             savedMovies={savedMovies}
-            renderMovies={savedMovies.length > 0 ? savedMovies : []}
+            renderMovies={savedMovies}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

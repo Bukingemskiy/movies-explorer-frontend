@@ -33,9 +33,9 @@ function App(initialLoggedIn) {
 
   function updatePage() {
     setIsLoading(true);
-    moviesApi
-      .getMovies()
-      .then((movies) => {
+    Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
+      .then(([movies, savedItems]) => {
+        setSavedMovies(savedItems);
         savedMovies.length > 0
           ? savedMovies.forEach((el) => {
               const items = movies.map((i) =>

@@ -227,7 +227,6 @@ function App(initialLoggedIn) {
             component={Movies}
             loggedIn={loggedIn}
             isLoading={isLoading}
-            cacheFoundMovies={cacheFoundMovies}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             foundMovies={foundMovies}

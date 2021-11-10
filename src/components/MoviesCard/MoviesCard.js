@@ -64,7 +64,6 @@ function MoviesCard(props) {
       );
       console.log(foundItems);
       localStorage.setItem("localFoundMovies", JSON.stringify(foundItems));
-      console.log(props.cacheFoundMovies);
     } else {
       const deleteItems = props.cacheMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: false }) : i
@@ -80,7 +79,6 @@ function MoviesCard(props) {
         "localFoundMovies",
         JSON.stringify(deleteFoundItems)
       );
-      console.log(props.cacheFoundMovies);
       const movieItem = props.savedMovies.filter(
         (savedMovie) => savedMovie.movieId === movie.movieId
       );

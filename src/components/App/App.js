@@ -28,8 +28,8 @@ function App(initialLoggedIn) {
   const history = useHistory();
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
-  const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
-  const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
+  const [savedMovies, setSavedMovies] = React.useState([]);
+  const [foundMovies, setFoundMovies] = React.useState([]);
 
   function updatePage() {
     setIsLoading(true);

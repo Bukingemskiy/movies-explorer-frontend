@@ -77,18 +77,6 @@ function MoviesCard(props) {
 
   const handleClickDelete = () => {
     console.log(movie._id);
-    const items = props.cacheMovies.map((i) =>
-      i.id === movie.movieId ? Object.assign(i, { saved: false }) : i
-    );
-    console.log(items);
-    localStorage.setItem("localMovies", JSON.stringify(items));
-    console.log(props.cacheMovies);
-    const foundItems = props.foundMovies.map((i) =>
-      i.id === movie.movieId ? Object.assign(i, { saved: false }) : i
-    );
-    console.log(foundItems);
-    localStorage.setItem("localFoundMovies", JSON.stringify(foundItems));
-    console.log(props.cacheFoundMovies);
     props.deleteMovie(movie._id);
   };
 

@@ -88,6 +88,7 @@ function MoviesCard(props) {
   };
 
   const handleClickDelete = () => {
+    console.log(movie);
     console.log(movie._id);
     console.log(movie.movieId);
     props.deleteMovie(movie._id, movie.movieId);

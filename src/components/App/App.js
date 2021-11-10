@@ -208,8 +208,8 @@ function App(initialLoggedIn) {
             isLoading={isLoading}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
-            foundMovies={foundMovies !== null ? foundMovies : []}
-            renderMovies={foundMovies}
+            foundMovies={foundMovies}
+            renderMovies={foundMovies !== null ? foundMovies : []}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

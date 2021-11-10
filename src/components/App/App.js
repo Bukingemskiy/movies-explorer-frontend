@@ -174,12 +174,12 @@ function App(initialLoggedIn) {
       .catch((err) => console.log(err));
   }
 
-  function deleteMovie(movieId) {
+  function deleteMovie(id, movieId) {
     mainApi
-      .deleteMovie(movieId)
+      .deleteMovie(id)
       .then(() => {
         const newMovies = savedMovies.filter(
-          (savedMovie) => savedMovie._id !== movieId
+          (savedMovie) => savedMovie._id !== id
         );
         const deleteFoundItems = foundMovies.map((i) =>
           i.id === movieId ? Object.assign(i, { saved: false }) : i
@@ -190,7 +190,7 @@ function App(initialLoggedIn) {
           "localFoundMovies",
           JSON.stringify(deleteFoundItems)
         );
-        console.log(movieId);
+        console.log(id);
         setSavedMovies(newMovies);
         console.log(savedMovies);
         localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));

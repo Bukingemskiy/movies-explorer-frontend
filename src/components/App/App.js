@@ -185,14 +185,6 @@ function App(initialLoggedIn) {
         setSavedMovies(newMovies);
         console.log(savedMovies);
         localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
-        const deleteFoundItems = foundMovies.map((i) =>
-          i.id === movieId ? Object.assign(i, { saved: false }) : i
-        );
-        console.log(deleteFoundItems);
-        localStorage.setItem(
-          "localFoundMovies",
-          JSON.stringify(deleteFoundItems)
-        );
       })
       .catch((err) => console.log(err));
   }

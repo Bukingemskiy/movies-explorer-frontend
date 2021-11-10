@@ -222,7 +222,7 @@ function App(initialLoggedIn) {
             loggedIn={loggedIn}
             isLoading={isLoading}
             savedMovies={savedMovies}
-            renderMovies={savedMovies}
+            renderMovies={savedMovies !== null ? savedMovies : []}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

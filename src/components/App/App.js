@@ -32,7 +32,8 @@ function App(initialLoggedIn) {
   const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
-  function updateMovies() {
+  function updatePage() {
+    console.log(newMovies);
     setIsLoading(true);
     moviesApi
       .getMovies()
@@ -41,11 +42,6 @@ function App(initialLoggedIn) {
       )
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
-  }
-
-  function updatePage() {
-    console.log(newMovies);
-    updateMovies();
     console.log(newMovies);
     savedMovies.length > 0
       ? savedMovies.forEach((el) => {
@@ -62,6 +58,7 @@ function App(initialLoggedIn) {
 
   React.useEffect(() => {
     console.log("update movies");
+    console.log(savedMovies);
     updatePage();
   }, []);
 

@@ -28,32 +28,27 @@ function App(initialLoggedIn) {
   const history = useHistory();
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
-  const [newMovies, setNewMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState(cacheSavedMovies);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
   function updatePage() {
-    console.log(newMovies);
     setIsLoading(true);
     moviesApi
       .getMovies()
       .then((movies) =>
-        setNewMovies(movies.forEach((item) => (item.saved = false)))
+        savedMovies.length > 0
+          ? savedMovies.forEach((el) => {
+              const items = movies.map((i) =>
+                i.id === el.movieId ? Object.assign(i, { saved: true }) : i
+              );
+              localStorage.setItem("localMovies", JSON.stringify(items));
+              console.log(items);
+              console.log(cacheMovies);
+            })
+          : localStorage.setItem("localMovies", JSON.stringify(movies))
       )
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
-    console.log(newMovies);
-    savedMovies.length > 0
-      ? savedMovies.forEach((el) => {
-          const items = newMovies.map((i) =>
-            i.id === el.movieId ? Object.assign(i, { saved: true }) : i
-          );
-          localStorage.setItem("localMovies", JSON.stringify(items));
-          console.log(items);
-          console.log(cacheMovies);
-        })
-      : localStorage.setItem("localMovies", JSON.stringify(newMovies));
-    console.log(cacheMovies);
   }
 
   React.useEffect(() => {

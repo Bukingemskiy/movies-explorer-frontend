@@ -43,6 +43,10 @@ function App(initialLoggedIn) {
       .finally(() => setIsLoading(false));
   }
 
+  React.useEffect(() => {
+    updateMovies();
+  }, []);
+
   function updatePage() {
     console.log(newMovies);
     updateMovies();
@@ -159,6 +163,7 @@ function App(initialLoggedIn) {
         search,
         searchCheckbox
       );
+      console.log(cacheMovies);
       console.log(filterd);
       setFoundMovies(filterd);
       localStorage.setItem(

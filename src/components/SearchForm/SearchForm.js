@@ -34,6 +34,10 @@ function SearchForm(props) {
     setSearchCheckbox(isToggle);
   }
 
+  React.useEffect(() => {
+    console.log("update search");
+  }, [searchCheckbox, location.pathname]);
+
   return (
     <section className="search">
       <div className="search__box">

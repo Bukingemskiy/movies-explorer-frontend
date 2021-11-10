@@ -13,26 +13,36 @@ function FilterCheckBox(props) {
       isFilterIcon === "search__filter-icon" &&
       isIconRing === "search__icon-ring"
     ) {
+      console.log(props.searchCheckbox);
       setFilterIcon("search__filter-icon search__filter-icon_on");
       setIconRing("search__icon-ring search__icon-ring_on");
       props.handleCheckbox(true);
+      console.log(props.searchCheckbox);
     } else {
+      console.log(props.searchCheckbox);
       setFilterIcon("search__filter-icon");
       setIconRing("search__icon-ring");
       props.handleCheckbox(false);
+      console.log(props.searchCheckbox);
     }
     if (isFilterIcon === "search__filter-icon") {
       props.onSearchMovies(
         !isSavedMovies ? props.cacheSearch : props.search,
         true
       );
+      console.log("off");
     } else {
       props.onSearchMovies(
         !isSavedMovies ? props.cacheSearch : props.search,
         false
       );
+      console.log("on");
     }
   }
+
+  React.useEffect(() => {
+    console.log("update checkBox");
+  }, [props.searchCheckbox, location.pathname]);
 
   return (
     <div className="search__filter">

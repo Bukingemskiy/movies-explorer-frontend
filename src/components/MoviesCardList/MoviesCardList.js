@@ -18,22 +18,28 @@ function MoviesCardList(props) {
   function handleNumberOfMovies() {
     if ((width < 1280) & (width > 767)) {
       numberOfMovies = 8;
+      console.log("8");
     } else if (width < 768) {
       numberOfMovies = 5;
+      console.log("5");
     } else if (width > 1279) {
       numberOfMovies = 12;
+      console.log("12");
     }
   }
 
   React.useEffect(() => {
     handleNumberOfMovies();
+    console.log("update number page");
   });
 
   function handleMoreButton() {
     if (numberOfMovies > cardList.length) {
       setMoreButton("more__button more__button_invisible");
+      console.log("invisible");
     } else {
       setMoreButton("more__button");
+      console.log("visible");
     }
   }
 
@@ -45,22 +51,26 @@ function MoviesCardList(props) {
           cardList[j].style.display = "block";
           cardList[i].style.display = "none";
         }
+        console.log("number");
       } else {
         for (let j = 0; j < cardList.length; j++) {
           cardList[j].style.display = "block";
           cardList[i].style.display = "none";
         }
+        console.log("card");
       }
     }
   }
 
   window.onload = function () {
     handleWidth();
+    console.log("update width page");
   };
 
   function resize() {
     setIsLoading(true);
     setTimeout(handleWidth, 100);
+    console.log("100");
     setIsLoading(false);
   }
 
@@ -69,18 +79,22 @@ function MoviesCardList(props) {
   function openMore() {
     if (width > 1279) {
       numberOfMovies += 3;
+      console.log("3");
     } else {
       numberOfMovies += 2;
+      console.log("2");
     }
     handleMoreButton();
     if (numberOfMovies <= cardList.length) {
       for (let i = 0; i < numberOfMovies; i++) {
         cardList[i].style.display = "block";
       }
+      console.log("number");
     } else {
       for (let i = 0; i < cardList.length; i++) {
         cardList[i].style.display = "block";
       }
+      console.log("card");
     }
   }
 
@@ -92,6 +106,7 @@ function MoviesCardList(props) {
       <section className="movies">
         {props.renderMovies.map((movie) => (
           <MoviesCard
+            cacheFoundMovies={props.cacheFoundMovies}
             foundMovies={props.foundMovies}
             cacheMovies={props.cacheMovies}
             renderMovies={props.renderMovies}

@@ -14,6 +14,8 @@ function SearchForm(props) {
   function handleSearchChange(e) {
     setSearch(e.target.value);
     setSearchValid(e.target.checkValidity());
+    console.log(search);
+    console.log(searchValid);
     if (!isSavedMovies) {
       localStorage.setItem("localSearch", JSON.stringify(e.target.value));
     }
@@ -21,10 +23,14 @@ function SearchForm(props) {
 
   function handleSearchMovies(e) {
     e.preventDefault();
+    console.log(cacheSearch);
+    console.log(search);
+    console.log(searchCheckbox);
     props.onSearchMovies(!isSavedMovies ? cacheSearch : search, searchCheckbox);
   }
 
   function handleCheckbox(isToggle) {
+    console.log(isToggle);
     setSearchCheckbox(isToggle);
   }
 

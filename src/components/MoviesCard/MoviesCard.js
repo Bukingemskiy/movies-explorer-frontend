@@ -50,28 +50,33 @@ function MoviesCard(props) {
         " м.";
 
   const handleClickSave = () => {
+    console.log(movie.saved);
     if (movie.saved !== true) {
       props.createMovie(movie);
       const items = props.cacheMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
       );
+      console.log(items);
       localStorage.setItem("localMovies", JSON.stringify(items));
+      console.log(props.cacheMovies);
       const foundItems = props.foundMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
       );
-      localStorage.setItem("localFoundMovies", JSON.stringify(foundItems));
-      console.log(items);
       console.log(foundItems);
+      localStorage.setItem("localFoundMovies", JSON.stringify(foundItems));
+      console.log(props.cacheFoundMovies);
     } else {
       const movieItem = props.savedMovies.filter(
         (savedMovie) => savedMovie.movieId === movie.movieId
       );
+      console.log(movieItem);
       props.deleteMovie(movieItem[0]._id);
       movie.saved = false;
     }
   };
 
   const handleClickDelete = () => {
+    console.log(movie._id);
     props.deleteMovie(movie._id);
   };
 

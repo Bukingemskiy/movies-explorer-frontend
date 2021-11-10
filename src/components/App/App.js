@@ -25,7 +25,6 @@ function App(initialLoggedIn) {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
-  const [, setIsErrorActive] = React.useState(false);
   const history = useHistory();
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
@@ -45,7 +44,9 @@ function App(initialLoggedIn) {
   }
 
   function updatePage() {
+    console.log(newMovies);
     updateMovies();
+    console.log(newMovies);
     savedMovies.length > 0
       ? savedMovies.forEach((el) => {
           const items = newMovies.map((i) =>
@@ -53,8 +54,10 @@ function App(initialLoggedIn) {
           );
           localStorage.setItem("localMovies", JSON.stringify(items));
           console.log(items);
+          console.log(cacheMovies);
         })
       : localStorage.setItem("localMovies", JSON.stringify(newMovies));
+    console.log(cacheMovies);
   }
 
   React.useEffect(() => {
@@ -67,6 +70,7 @@ function App(initialLoggedIn) {
       .getUserData()
       .then((user) => {
         setCurrentUser(user.data);
+        console.log(currentUser);
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
@@ -83,6 +87,7 @@ function App(initialLoggedIn) {
         setLoggedIn(true);
         updateUserData();
         history.push("/movies");
+        console.log(loggedIn);
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -95,6 +100,7 @@ function App(initialLoggedIn) {
       .then((res) => {
         if (res) {
           handleLogin(email, password);
+          console.log(loggedIn);
         } else {
           console.log("Что-то пошло не так!");
         }
@@ -110,6 +116,8 @@ function App(initialLoggedIn) {
       .then(() => {
         setLoggedIn(false);
         localStorage.clear();
+        console.log(loggedIn);
+        console.log(cacheMovies);
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -122,15 +130,19 @@ function App(initialLoggedIn) {
       .editProfile(data)
       .then((user) => {
         setCurrentUser(user.data);
+        console.log(currentUser);
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));
   }
 
   function handleSearchMovies(search, searchCheckbox) {
-    setIsErrorActive(false);
+    console.log(savedMovies);
+    console.log(foundMovies);
     setSavedMovies(cacheSavedMovies);
     setFoundMovies(cacheFoundMovies);
+    console.log(savedMovies);
+    console.log(foundMovies);
     setIsLoading(true);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
@@ -138,6 +150,7 @@ function App(initialLoggedIn) {
         search,
         searchCheckbox
       );
+      console.log(filterd);
       setSavedMovies(filterd);
       setIsLoading(false);
     } else {
@@ -146,11 +159,13 @@ function App(initialLoggedIn) {
         search,
         searchCheckbox
       );
+      console.log(filterd);
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",
         JSON.stringify(filterd.length !== 0 ? filterd : cacheFoundMovies)
       );
+      console.log(cacheFoundMovies);
       setIsLoading(false);
     }
   }
@@ -172,6 +187,7 @@ function App(initialLoggedIn) {
               : [movieInfo.data]
           )
         );
+        console.log(movieInfo);
       })
       .catch((err) => console.log(err));
   }
@@ -183,18 +199,17 @@ function App(initialLoggedIn) {
         const newMovies = savedMovies.filter(
           (savedMovie) => savedMovie._id !== movieId
         );
+        console.log(movieId);
         setSavedMovies(newMovies);
+        console.log(savedMovies);
         localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
       })
       .catch((err) => console.log(err));
   }
 
-  React.useEffect(() => {}, [
-    savedMovies,
-    foundMovies,
-    cacheMovies,
-    location.pathname,
-  ]);
+  React.useEffect(() => {
+    console.log("update page");
+  }, [savedMovies, foundMovies, cacheMovies, location.pathname]);
 
   return (
     <div className="page">
@@ -214,6 +229,7 @@ function App(initialLoggedIn) {
             component={Movies}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            cacheFoundMovies={cacheFoundMovies}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             foundMovies={foundMovies}

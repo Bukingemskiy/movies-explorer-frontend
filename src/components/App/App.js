@@ -191,18 +191,13 @@ function App(initialLoggedIn) {
     mainApi
       .deleteMovie(movieId)
       .then(() => {
-        const items = cacheMovies.map((i) =>
-          i.id === movieId ? Object.assign(i, { saved: false }) : i
+        const newMovies = savedMovies.filter(
+          (savedMovie) => savedMovie._id !== movieId
         );
-        console.log(items);
-        localStorage.setItem("localMovies", JSON.stringify(items));
-        console.log(cacheMovies);
-        const foundItems = foundMovies.map((i) =>
-          i.id === movieId ? Object.assign(i, { saved: false }) : i
-        );
-        console.log(foundItems);
-        localStorage.setItem("localFoundMovies", JSON.stringify(foundItems));
-        console.log(cacheFoundMovies);
+        console.log(movieId);
+        setSavedMovies(newMovies);
+        console.log(savedMovies);
+        localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
       })
       .catch((err) => console.log(err));
   }

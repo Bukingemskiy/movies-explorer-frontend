@@ -41,6 +41,10 @@ function App(initialLoggedIn) {
       .then(([movies, savedItems, user]) => {
         console.log(savedItems.data);
         setSavedMovies(savedItems.data);
+        localStorage.setItem(
+          "localSavedMovies",
+          JSON.stringify(savedItems.data)
+        );
         setCurrentUser(user.data);
         console.log(currentUser);
         savedMovies.length > 0
@@ -51,7 +55,6 @@ function App(initialLoggedIn) {
                   : Object.assign(i, { saved: false })
               );
               localStorage.setItem("localMovies", JSON.stringify(items));
-              localStorage.setItem("localSavedMovies", JSON.stringify(items));
               console.log(items);
               console.log(cacheMovies);
             })

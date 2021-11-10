@@ -51,6 +51,7 @@ function App(initialLoggedIn) {
                   : Object.assign(i, { saved: false })
               );
               localStorage.setItem("localMovies", JSON.stringify(items));
+              localStorage.setItem("localSavedMovies", JSON.stringify(items));
               console.log(items);
               console.log(cacheMovies);
             })
@@ -131,7 +132,7 @@ function App(initialLoggedIn) {
     setIsLoading(true);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
-        savedMovies,
+        cacheSavedMovies,
         search,
         searchCheckbox
       );

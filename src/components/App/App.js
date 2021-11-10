@@ -29,12 +29,13 @@ function App(initialLoggedIn) {
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [foundMovies, setFoundMovies] = React.useState([]);
+  const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
 
   function updatePage() {
     setIsLoading(true);
     Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
       .then(([movies, savedItems]) => {
+        console.log(savedItems);
         setSavedMovies(savedItems);
         savedMovies.length > 0
           ? savedMovies.forEach((el) => {
@@ -230,7 +231,7 @@ function App(initialLoggedIn) {
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
-            renderMovies={foundMovies !== null ? foundMovies : []}
+            renderMovies={foundMovies.length > 0 ? foundMovies : []}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
@@ -241,7 +242,7 @@ function App(initialLoggedIn) {
             loggedIn={loggedIn}
             isLoading={isLoading}
             savedMovies={savedMovies}
-            renderMovies={savedMovies !== null ? savedMovies : []}
+            renderMovies={savedMovies.length > 0 ? savedMovies : []}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

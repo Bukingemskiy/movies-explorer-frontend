@@ -84,7 +84,6 @@ function MoviesCard(props) {
       );
       console.log(movieItem);
       props.deleteMovie(movieItem[0]._id);
-      movie.saved = false;
     }
   };
 

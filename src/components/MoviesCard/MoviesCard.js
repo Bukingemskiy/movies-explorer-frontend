@@ -89,9 +89,9 @@ function MoviesCard(props) {
 
   const handleClickDelete = () => {
     console.log(movie);
-    console.log(movie._id);
+    console.log(movie.director);
     console.log(movie.nameEN);
-    props.deleteMovie(movie._id, movie.nameEN);
+    props.deleteMovie(movie._id, movie.nameEN, movie.director);
   };
 
   React.useEffect(() => {}, [

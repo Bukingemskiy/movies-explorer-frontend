@@ -13,17 +13,17 @@ function FilterCheckBox(props) {
       isFilterIcon === "search__filter-icon" &&
       isIconRing === "search__icon-ring"
     ) {
-      console.log(props.searchCheckbox);
+      console.log(props.cacheCheckbox);
       setFilterIcon("search__filter-icon search__filter-icon_on");
       setIconRing("search__icon-ring search__icon-ring_on");
       props.handleCheckbox(true);
-      console.log(props.searchCheckbox);
+      console.log(props.cacheCheckbox);
     } else {
-      console.log(props.searchCheckbox);
+      console.log(props.cacheCheckbox);
       setFilterIcon("search__filter-icon");
       setIconRing("search__icon-ring");
       props.handleCheckbox(false);
-      console.log(props.searchCheckbox);
+      console.log(props.cacheCheckbox);
     }
     if (isFilterIcon === "search__filter-icon") {
       props.onSearchMovies(
@@ -42,7 +42,7 @@ function FilterCheckBox(props) {
 
   React.useEffect(() => {
     console.log("update checkBox");
-  }, [props.searchCheckbox, location.pathname]);
+  }, [props.cacheCheckbox, location.pathname]);
 
   return (
     <div className="search__filter">

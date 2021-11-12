@@ -49,7 +49,7 @@ function App(initialLoggedIn) {
         console.log(currentUser);
         savedMovies.length > 0
           ? savedMovies.forEach((el) => {
-              const items = movies.forEach((i) =>
+              const items = movies.map((i) =>
                 i.id === el.movieId
                   ? Object.assign(i, { saved: true })
                   : Object.assign(i, { saved: false })
@@ -71,7 +71,7 @@ function App(initialLoggedIn) {
     updatePage();
     console.log(savedMovies);
     console.log(foundMovies);
-  }, [location.pathname, savedMovies, foundMovies]);
+  }, [location.pathname]);
 
   function handleLogin(email, password) {
     return auth

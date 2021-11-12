@@ -7,7 +7,12 @@ function SearchForm(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [search, setSearch] = React.useState("");
-  const [searchCheckbox, setSearchCheckbox] = React.useState(false);
+  const [cacheCheckbox, setCacheCheckbox] = JSON.parse(
+    localStorage.getItem("localCacheCheckbox")
+  );
+  const [searchCheckbox, setSearchCheckbox] = React.useState(
+    cacheCheckbox !== null ? cacheCheckbox : false
+  );
   const [searchValid, setSearchValid] = React.useState(true);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
 
@@ -32,6 +37,9 @@ function SearchForm(props) {
   function handleCheckbox(isToggle) {
     console.log(isToggle);
     setSearchCheckbox(isToggle);
+    setSearchCheckbox(
+      localStorage.setItem("localCacheCheckbox", JSON.stringify(isToggle))
+    );
   }
 
   React.useEffect(() => {

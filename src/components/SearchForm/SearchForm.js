@@ -38,7 +38,7 @@ function SearchForm(props) {
   function handleCheckbox(isToggle) {
     console.log(isToggle);
     setSearchCheckbox(isToggle);
-    if (isSavedMovies) {
+    if (!isSavedMovies) {
       localStorage.setItem("localCacheCheckbox", JSON.stringify(isToggle));
     }
     console.log(cacheCheckbox);

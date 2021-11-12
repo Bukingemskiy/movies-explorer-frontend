@@ -46,7 +46,7 @@ function SearchForm(props) {
 
   React.useEffect(() => {
     console.log("update search");
-  }, [searchCheckbox, location.pathname]);
+  }, [cacheCheckbox, location.pathname]);
 
   return (
     <section className="search">

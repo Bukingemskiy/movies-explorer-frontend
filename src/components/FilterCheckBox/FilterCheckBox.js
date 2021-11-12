@@ -50,7 +50,7 @@ function FilterCheckBox(props) {
       setFilterIcon("search__filter-icon");
       setIconRing("search__icon-ring");
     } else {
-      if (props.searchCheckbox === true) {
+      if (props.cacheCheckbox === true) {
         setFilterIcon("search__filter-icon search__filter-icon_on");
         setIconRing("search__icon-ring search__icon-ring_on");
       } else {

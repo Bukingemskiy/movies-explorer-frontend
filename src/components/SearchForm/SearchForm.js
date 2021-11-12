@@ -7,8 +7,9 @@ function SearchForm(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [search, setSearch] = React.useState("");
-  const [cacheCheckbox, setCacheCheckbox] = JSON.parse(
-    localStorage.getItem("localCacheCheckbox")
+  const cacheCheckbox = JSON.parse(localStorage.getItem("localCacheCheckbox"));
+  const [searchCheckbox, setSearchCheckbox] = React.useState(
+    cacheCheckbox !== null ? cacheCheckbox : false
   );
   const [searchValid, setSearchValid] = React.useState(true);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
@@ -27,20 +28,19 @@ function SearchForm(props) {
     e.preventDefault();
     console.log(cacheSearch);
     console.log(search);
-    console.log(cacheCheckbox);
-    props.onSearchMovies(!isSavedMovies ? cacheSearch : search, cacheCheckbox);
+    console.log(searchCheckbox);
+    props.onSearchMovies(!isSavedMovies ? cacheSearch : search, searchCheckbox);
   }
 
   function handleCheckbox(isToggle) {
     console.log(isToggle);
-    setCacheCheckbox(
-      localStorage.setItem("localCacheCheckbox", JSON.stringify(isToggle))
-    );
+    setSearchCheckbox(isToggle);
+    localStorage.setItem("localCacheCheckbox", JSON.stringify(isToggle));
   }
 
   React.useEffect(() => {
     console.log("update search");
-  }, [cacheCheckbox, location.pathname]);
+  }, [searchCheckbox, location.pathname]);
 
   return (
     <section className="search">
@@ -78,7 +78,7 @@ function SearchForm(props) {
           search={search}
           cacheSearch={cacheSearch}
           onSearchMovies={props.onSearchMovies}
-          cacheCheckbox={cacheCheckbox !== null ? cacheCheckbox : false}
+          searchCheckbox={searchCheckbox}
           handleCheckbox={handleCheckbox}
         />
       </div>

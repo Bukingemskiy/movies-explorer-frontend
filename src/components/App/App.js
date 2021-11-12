@@ -49,7 +49,7 @@ function App(initialLoggedIn) {
         console.log(currentUser);
         savedMovies.length > 0
           ? savedMovies.forEach((el) => {
-              const items = movies.map((i) =>
+              const items = movies.forEach((i) =>
                 i.id === el.movieId
                   ? Object.assign(i, { saved: true })
                   : Object.assign(i, { saved: false })

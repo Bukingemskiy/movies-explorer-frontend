@@ -46,22 +46,24 @@ function FilterCheckBox(props) {
 
   React.useEffect(() => {
     console.log("update checkBox");
-    if (props.searchCheckbox === true) {
-      setFilterIcon("search__filter-icon search__filter-icon_on");
-      setIconRing("search__icon-ring search__icon-ring_on");
-    } else {
+    if (isSavedMovies) {
       setFilterIcon("search__filter-icon");
       setIconRing("search__icon-ring");
+    } else {
+      if (props.searchCheckbox === true) {
+        setFilterIcon("search__filter-icon search__filter-icon_on");
+        setIconRing("search__icon-ring search__icon-ring_on");
+      } else {
+        setFilterIcon("search__filter-icon");
+        setIconRing("search__icon-ring");
+      }
     }
-  }, [props.searchCheckbox, location.pathname]);
+  }, [isSavedMovies, location.pathname]);
 
   return (
     <div className="search__filter">
-      <div
-        className={isSavedMovies ? "search__filter-icon" : isFilterIcon}
-        onClick={handleFilterCheckboxChange}
-      >
-        <div className={isSavedMovies ? "search__icon-ring" : isIconRing}></div>
+      <div className={isFilterIcon} onClick={handleFilterCheckboxChange}>
+        <div className={isIconRing}></div>
       </div>
       <p className="search__filter-text">Короткометражки</p>
     </div>

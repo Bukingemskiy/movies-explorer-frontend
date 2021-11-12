@@ -57,8 +57,11 @@ function FilterCheckBox(props) {
 
   return (
     <div className="search__filter">
-      <div className={isFilterIcon} onClick={handleFilterCheckboxChange}>
-        <div className={isIconRing}></div>
+      <div
+        className={isSavedMovies ? "search__filter-icon" : isFilterIcon}
+        onClick={handleFilterCheckboxChange}
+      >
+        <div className={isSavedMovies ? "search__icon-ring" : isIconRing}></div>
       </div>
       <p className="search__filter-text">Короткометражки</p>
     </div>

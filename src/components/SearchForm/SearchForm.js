@@ -14,6 +14,8 @@ function SearchForm(props) {
   const [searchValid, setSearchValid] = React.useState(true);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
 
+  console.log(cacheCheckbox);
+
   function handleSearchChange(e) {
     setSearch(e.target.value);
     setSearchValid(e.target.checkValidity());
@@ -29,6 +31,7 @@ function SearchForm(props) {
     console.log(cacheSearch);
     console.log(search);
     console.log(searchCheckbox);
+    console.log(cacheCheckbox);
     props.onSearchMovies(!isSavedMovies ? cacheSearch : search, searchCheckbox);
   }
 
@@ -36,6 +39,7 @@ function SearchForm(props) {
     console.log(isToggle);
     setSearchCheckbox(isToggle);
     localStorage.setItem("localCacheCheckbox", JSON.stringify(isToggle));
+    console.log(cacheCheckbox);
   }
 
   React.useEffect(() => {
@@ -78,6 +82,7 @@ function SearchForm(props) {
           search={search}
           cacheSearch={cacheSearch}
           onSearchMovies={props.onSearchMovies}
+          cacheCheckbox={cacheCheckbox}
           searchCheckbox={searchCheckbox}
           handleCheckbox={handleCheckbox}
         />

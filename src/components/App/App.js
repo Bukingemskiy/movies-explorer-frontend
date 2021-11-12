@@ -47,18 +47,19 @@ function App(initialLoggedIn) {
         );
         setCurrentUser(user.data);
         console.log(currentUser);
+        const moviesItems = movies.map((i) =>
+          Object.assign(i, { saved: false })
+        );
         savedMovies.length > 0
           ? savedMovies.forEach((el) => {
-              const items = movies.map((i) =>
-                i.id === el.movieId
-                  ? Object.assign(i, { saved: true })
-                  : Object.assign(i, { saved: false })
+              const items = moviesItems.map((i) =>
+                i.id === el.movieId ? Object.assign(i, { saved: true }) : i
               );
               localStorage.setItem("localMovies", JSON.stringify(items));
               console.log(items);
               console.log(cacheMovies);
             })
-          : localStorage.setItem("localMovies", JSON.stringify(movies));
+          : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
       })
       .catch((err) => console.log(`${err}`))
       .finally(() => setIsLoading(false));

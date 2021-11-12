@@ -76,6 +76,7 @@ function App(initialLoggedIn) {
       .then(() => {
         setLoggedIn(true);
         history.push("/movies");
+        document.location.reload();
         console.log(loggedIn);
         console.log(foundMovies);
       })
@@ -208,7 +209,6 @@ function App(initialLoggedIn) {
   React.useEffect(() => {
     console.log("update page");
     updatePage();
-    document.location.reload();
   }, [location.pathname]);
 
   return (

@@ -46,6 +46,13 @@ function FilterCheckBox(props) {
 
   React.useEffect(() => {
     console.log("update checkBox");
+    if (props.searchCheckbox === true) {
+      setFilterIcon("search__filter-icon search__filter-icon_on");
+      setIconRing("search__icon-ring search__icon-ring_on");
+    } else {
+      setFilterIcon("search__filter-icon");
+      setIconRing("search__icon-ring");
+    }
   }, [props.searchCheckbox, location.pathname]);
 
   return (

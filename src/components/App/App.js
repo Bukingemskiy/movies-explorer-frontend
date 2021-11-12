@@ -77,6 +77,7 @@ function App(initialLoggedIn) {
         setLoggedIn(true);
         history.push("/movies");
         console.log(loggedIn);
+        console.log(foundMovies);
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -207,7 +208,7 @@ function App(initialLoggedIn) {
   React.useEffect(() => {
     console.log("update page");
     updatePage();
-  }, [location.pathname]);
+  }, [foundMovies, location.pathname]);
 
   return (
     <div className="page">

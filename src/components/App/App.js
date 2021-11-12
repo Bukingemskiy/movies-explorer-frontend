@@ -67,8 +67,11 @@ function App(initialLoggedIn) {
   React.useEffect(() => {
     console.log("update movies");
     console.log(savedMovies);
+    console.log(foundMovies);
     updatePage();
-  }, []);
+    console.log(savedMovies);
+    console.log(foundMovies);
+  }, [location.pathname, savedMovies, foundMovies]);
 
   function handleLogin(email, password) {
     return auth
@@ -76,7 +79,6 @@ function App(initialLoggedIn) {
       .then(() => {
         setLoggedIn(true);
         history.push("/movies");
-        document.location.reload();
         console.log(loggedIn);
         console.log(foundMovies);
       })
@@ -107,6 +109,7 @@ function App(initialLoggedIn) {
       .then(() => {
         setLoggedIn(false);
         localStorage.clear();
+        document.location.reload();
         console.log(loggedIn);
         console.log(cacheMovies);
       })

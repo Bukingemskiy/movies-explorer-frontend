@@ -208,7 +208,8 @@ function App(initialLoggedIn) {
   React.useEffect(() => {
     console.log("update page");
     updatePage();
-  }, [foundMovies, location.pathname]);
+    document.location.reload();
+  }, [location.pathname]);
 
   return (
     <div className="page">

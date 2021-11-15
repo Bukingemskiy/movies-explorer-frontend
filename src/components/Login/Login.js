@@ -30,7 +30,7 @@ function Login(props) {
               className="login__input"
               type="email"
               name="email"
-              value={values.email || ""}
+              value={email || ""}
               placeholder="E-mail"
               onChange={handleChange}
               required
@@ -49,7 +49,7 @@ function Login(props) {
               className="login__input"
               type="password"
               name="password"
-              value={values.password || ""}
+              value={password || ""}
               minLength="8"
               placeholder="Пароль"
               onChange={handleChange}
@@ -64,7 +64,7 @@ function Login(props) {
             </span>
           </div>
         </fieldset>
-        <button className="login__button" type="submit">
+        <button className="login__button" type="submit" disabled={!isValid}>
           Войти
         </button>
       </form>

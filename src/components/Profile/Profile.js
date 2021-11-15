@@ -12,7 +12,9 @@ function Profile(props) {
   const [isValid, setIsValid] = React.useState(false);
 
   console.log(props.errorMessage);
+  console.log(nameValid);
   console.log(emailValid);
+  console.log(isValid);
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -57,6 +59,8 @@ function Profile(props) {
                 type="text"
                 name="name"
                 value={name || ""}
+                minLength="2"
+                maxLength="30"
                 onChange={handleChangeName}
               />
             </div>
@@ -74,6 +78,7 @@ function Profile(props) {
                 type="email"
                 name="email"
                 value={email || ""}
+                pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
                 onChange={handleChangeEmail}
               />
             </div>

@@ -76,7 +76,6 @@
 }
 
 .profile__button:disabled {
-  cursor: none;
   opacity: 0.6;
 }
 

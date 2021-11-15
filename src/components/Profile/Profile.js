@@ -25,12 +25,16 @@ function Profile(props) {
     setName(e.target.value);
     setNameValid(e.target.value.checkValidity());
     handleValidateForm();
+    console.log(nameValid);
+    console.log(isValid);
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
     setEmailValid(e.target.value.checkValidity());
     handleValidateForm();
+    console.log(emailValid);
+    console.log(isValid);
   }
 
   function handleValidateForm() {

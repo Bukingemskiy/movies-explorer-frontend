@@ -79,7 +79,7 @@ function Profile(props) {
             </div>
             <span
               className={`profile__error ${
-                !nameValid || props.errorMessage ? "profile__error_visible" : ""
+                !nameValid ? "profile__error_visible" : ""
               }`}
             >
               {props.errorMessage

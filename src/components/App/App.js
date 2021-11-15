@@ -144,9 +144,11 @@ function App(initialLoggedIn) {
         console.log(currentUser);
       })
       .catch((err) => {
-        if (err === 409)
-          return setErrorMessage(`Пользователь с таким email уже существует.`);
-        setErrorMessage("При обновлении профиля произошла ошибка.");
+        if (err === 409) {
+          setErrorMessage(`Пользователь с таким email уже существует.`);
+        } else {
+          setErrorMessage("При обновлении профиля произошла ошибка.");
+        }
       })
       .finally(() => setIsLoading(false));
   }

@@ -80,6 +80,7 @@
 
 .profile__button:disabled {
   opacity: 0.6;
+  cursor: default;
 }
 
 .profile__button_edit {

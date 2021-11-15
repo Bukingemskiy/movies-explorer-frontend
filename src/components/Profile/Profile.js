@@ -14,7 +14,6 @@ function Profile(props) {
   console.log(props.errorMessage);
   console.log(nameValid);
   console.log(emailValid);
-  console.log(isValid);
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -24,15 +23,11 @@ function Profile(props) {
   function handleChangeName(e) {
     setName(e.target.value);
     setNameValid(e.target.checkValidity());
-    console.log(nameValid);
-    console.log(isValid);
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
     setEmailValid(e.target.checkValidity());
-    console.log(emailValid);
-    console.log(isValid);
   }
 
   function handleSubmit(e) {
@@ -53,9 +48,6 @@ function Profile(props) {
     } else {
       setIsValid(false);
     }
-    console.log(nameValid);
-    console.log(emailValid);
-    console.log(isValid);
   }, [
     name,
     email,
@@ -87,7 +79,7 @@ function Profile(props) {
             </div>
             <span
               className={`profile__error ${
-                !nameValid ? "profile__error_visible" : ""
+                !nameValid || props.errorMessage ? "profile__error_visible" : ""
               }`}
             >
               {props.errorMessage
@@ -107,7 +99,9 @@ function Profile(props) {
             </div>
             <span
               className={`profile__error ${
-                !emailValid ? "profile__error_visible" : ""
+                !emailValid || props.errorMessage
+                  ? "profile__error_visible"
+                  : ""
               }`}
             >
               {props.errorMessage

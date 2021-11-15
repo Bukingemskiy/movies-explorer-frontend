@@ -7,9 +7,13 @@ function Register(props) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [nameValid, setNameValid] = React.useState(true);
+  const [emailValid, setEmailValid] = React.useState(true);
+  const [passwordValid, setPasswordValid] = React.useState(true);
 
   function handleChangeName(e) {
     setName(e.target.value);
+    setNameValid(e.target.checkValidity());
     if (props.errorMsg.length > 0) {
       props.setErrorMsg("");
     }
@@ -17,6 +21,7 @@ function Register(props) {
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
+    setEmailValid(e.target.checkValidity());
     if (props.errorMsg.length > 0) {
       props.setErrorMsg("");
     }
@@ -24,6 +29,7 @@ function Register(props) {
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
+    setPasswordValid(e.target.checkValidity());
     if (props.errorMsg.length > 0) {
       props.setErrorMsg("");
     }
@@ -50,7 +56,13 @@ function Register(props) {
               onChange={handleChangeName}
               required
             />
-            <span className="register__error">{props.errorMessage}</span>
+            <span
+              className={`register__error ${
+                !nameValid ? "register__error_visible" : ""
+              }`}
+            >
+              {props.errorMessage}
+            </span>
           </div>
           <div className="register__field">
             <p className="register__field-name">E-mail</p>
@@ -62,7 +74,13 @@ function Register(props) {
               onChange={handleChangeEmail}
               required
             />
-            <span className="register__error">{props.errorMessage}</span>
+            <span
+              className={`register__error ${
+                !emailValid ? "register__error_visible" : ""
+              }`}
+            >
+              {props.errorMessage}
+            </span>
           </div>
           <div className="register__field">
             <p className="register__field-name">Пароль</p>
@@ -75,7 +93,13 @@ function Register(props) {
               onChange={handleChangePassword}
               required
             />
-            <span className="register__error">{props.errorMessage}</span>
+            <span
+              className={`register__error ${
+                !passwordValid ? "register__error_visible" : ""
+              }`}
+            >
+              {props.errorMessage}
+            </span>
           </div>
         </fieldset>
         <button className="register__button" type="submit">

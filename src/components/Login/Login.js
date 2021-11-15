@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import Logo from "../Logo/Logo.js";
-import ValidationForm from "../ValidationForm.ValidationForm.js";
+import ValidationForm from "../ValidationForm/ValidationForm.js";
 
 function Login(props) {
   const { values, handleChange, errors, isValid } = ValidationForm();

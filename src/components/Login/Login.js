@@ -59,14 +59,11 @@ function Login(props) {
                 props.errorMessage ? "login__error_visible" : ""
               }`}
             >
-              {props.errorMessage}
+              {errors.password}
             </span>
           </div>
         </fieldset>
-        <button
-          className={`login__button ${isValid ? "" : "login__button_disabled"}`}
-          type="submit"
-        >
+        <button className="login__button" type="submit">
           Войти
         </button>
       </form>

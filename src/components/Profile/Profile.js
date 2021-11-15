@@ -15,10 +15,16 @@ function Profile(props) {
 
   function handleChangeName(e) {
     setName(e.target.value);
+    if (props.errorMsg.length > 0) {
+      props.setErrorMsg("");
+    }
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
+    if (props.errorMsg.length > 0) {
+      props.setErrorMsg("");
+    }
   }
 
   function handleSubmit(e) {
@@ -46,6 +52,7 @@ function Profile(props) {
                 onChange={handleChangeName}
               />
             </div>
+            <span className="profile__error">{props.errorMessage}</span>
             <div className="profile__field">
               <p className="profile__field-name">E-mail</p>
               <input
@@ -56,6 +63,7 @@ function Profile(props) {
                 onChange={handleChangeEmail}
               />
             </div>
+            <span className="profile__error">{props.errorMessage}</span>
           </fieldset>
           <button
             className="profile__button profile__button_edit"

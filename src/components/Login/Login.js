@@ -9,16 +9,23 @@ function Login(props) {
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
+    if (props.errorMsg.length > 0) {
+      props.setErrorMsg("");
+    }
   }
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
+    if (props.errorMsg.length > 0) {
+      props.setErrorMsg("");
+    }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     props.onLogin(email, password);
   }
+
   return (
     <section className="login">
       <Logo />
@@ -35,7 +42,7 @@ function Login(props) {
               onChange={handleChangeEmail}
               required
             />
-            <span className="login__error"></span>
+            <span className="login__error">{props.errorMessage}</span>
           </div>
           <div className="login__field">
             <p className="login__field-name">Пароль</p>
@@ -48,7 +55,7 @@ function Login(props) {
               onChange={handleChangePassword}
               required
             />
-            <span className="login__error"></span>
+            <span className="login__error">{props.errorMessage}</span>
           </div>
         </fieldset>
         <button className="login__button" type="submit">

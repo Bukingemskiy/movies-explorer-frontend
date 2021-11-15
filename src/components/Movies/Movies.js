@@ -20,6 +20,8 @@ function Movies(props) {
         savedMovies={props.savedMovies}
         renderMovies={props.renderMovies}
         isLoading={props.isLoading}
+        errorSearch={props.errorSearch}
+        errorMessage={props.errorMessage}
       />
       <Footer />
     </>

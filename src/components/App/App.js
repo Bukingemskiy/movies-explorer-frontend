@@ -30,8 +30,13 @@ function App(initialLoggedIn) {
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
+  const [errorMessage, setErrorMessage] = React.useState("");
+  const [errorSearch, setErrorSearch] = React.useState(false);
 
-  function updatePage() {
+  React.useEffect(() => {
+    console.log("update movies");
+    console.log(savedMovies);
+    console.log(foundMovies);
     setIsLoading(true);
     Promise.all([
       moviesApi.getMovies(),
@@ -61,34 +66,39 @@ function App(initialLoggedIn) {
             })
           : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
       })
-      .catch((err) => console.log(`${err}`))
+      .catch((err) => {
+        setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
+        console.log(`${err}`);
+      })
       .finally(() => setIsLoading(false));
-  }
-
-  React.useEffect(() => {
-    console.log("update movies");
     console.log(savedMovies);
     console.log(foundMovies);
-    updatePage();
-    console.log(savedMovies);
-    console.log(foundMovies);
-  }, [location.pathname]);
+  }, [cacheMovies, currentUser, foundMovies, location, savedMovies]);
 
   function handleLogin(email, password) {
+    setIsLoading(true);
     return auth
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
         history.push("/movies");
+        document.location.reload();
         console.log(loggedIn);
         console.log(foundMovies);
       })
       .catch((err) => {
+        if (err === 401)
+          return setErrorMessage(
+            `Вы ввели неправильный адрес почты или пароль.`
+          );
+        setErrorMessage("Попробуйте ещё раз!");
         console.log(`${err}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleRegister(name, email, password) {
+    setIsLoading(true);
     return auth
       .signUp(name, email, password)
       .then((res) => {
@@ -100,12 +110,19 @@ function App(initialLoggedIn) {
         }
       })
       .catch((err) => {
+        if (err === 400)
+          return setErrorMessage("Какое-то поле заполнено неправильно.");
+        if (err === 409)
+          return setErrorMessage(`Пользователь с таким email уже существует.`);
+        setErrorMessage("При регистрации пользоваеля произошла ошибка");
         console.log(`${err}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function logOut() {
-    auth
+    setIsLoading(true);
+    return auth
       .signOut()
       .then(() => {
         setLoggedIn(false);
@@ -114,8 +131,10 @@ function App(initialLoggedIn) {
         console.log(cacheMovies);
       })
       .catch((err) => {
+        setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);
         console.log(`${err}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateUser(data) {
@@ -124,20 +143,25 @@ function App(initialLoggedIn) {
       .editProfile(data)
       .then((user) => {
         setCurrentUser(user.data);
+        setErrorMessage("Данные профиля успешно изменены");
         console.log(currentUser);
       })
-      .catch((err) => console.log(`${err}`))
+      .catch((err) => {
+        if (err === 409)
+          return setErrorMessage(`Пользователь с таким email уже существует.`);
+        setErrorMessage("При обновлении профиля произошла ошибка.");
+      })
       .finally(() => setIsLoading(false));
   }
 
   function handleSearchMovies(search, searchCheckbox) {
     console.log(savedMovies);
     console.log(foundMovies);
+    setIsLoading(true);
     setSavedMovies(cacheSavedMovies);
     setFoundMovies(cacheFoundMovies);
     console.log(savedMovies);
     console.log(foundMovies);
-    setIsLoading(true);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
         cacheSavedMovies,
@@ -166,6 +190,7 @@ function App(initialLoggedIn) {
   }
 
   function createMovie(data) {
+    setIsLoading(true);
     mainApi
       .makeMovies(data)
       .then((movieInfo) => {
@@ -176,10 +201,15 @@ function App(initialLoggedIn) {
         localStorage.setItem("localSavedMovies", JSON.stringify(savedMovies));
         console.log(movieInfo);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function deleteMovie(id, nameEN, director) {
+    setIsLoading(true);
     mainApi
       .deleteMovie(id)
       .then(() => {
@@ -206,13 +236,17 @@ function App(initialLoggedIn) {
         setSavedMovies(newMovies);
         localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   React.useEffect(() => {
-    console.log("update page");
-    updatePage();
-  }, [location.pathname]);
+    setErrorMessage("");
+    setErrorSearch(false);
+  }, [location]);
 
   return (
     <div className="page">
@@ -222,10 +256,18 @@ function App(initialLoggedIn) {
             <Main />
           </Route>
           <Route exact path="/signup">
-            <Register onRegister={handleRegister} />
+            <Register
+              onRegister={handleRegister}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
           </Route>
           <Route exact path="/signin">
-            <Login onLogin={handleLogin} />
+            <Login
+              onLogin={handleLogin}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
           </Route>
           <ProtectedRoute
             path="/movies"
@@ -236,6 +278,8 @@ function App(initialLoggedIn) {
             savedMovies={savedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
+            errorSearch={errorSearch}
+            errorMessage={errorMessage}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
@@ -247,6 +291,8 @@ function App(initialLoggedIn) {
             isLoading={isLoading}
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
+            errorSearch={errorSearch}
+            errorMessage={errorMessage}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
@@ -256,6 +302,8 @@ function App(initialLoggedIn) {
             component={Profile}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
             onUpdateUser={handleUpdateUser}
             onLogOut={logOut}
           />

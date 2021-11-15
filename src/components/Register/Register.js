@@ -10,14 +10,23 @@ function Register(props) {
 
   function handleChangeName(e) {
     setName(e.target.value);
+    if (props.errorMsg.length > 0) {
+      props.setErrorMsg("");
+    }
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
+    if (props.errorMsg.length > 0) {
+      props.setErrorMsg("");
+    }
   }
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
+    if (props.errorMsg.length > 0) {
+      props.setErrorMsg("");
+    }
   }
 
   function handleSubmit(e) {
@@ -41,7 +50,7 @@ function Register(props) {
               onChange={handleChangeName}
               required
             />
-            <span className="register__error"></span>
+            <span className="register__error">{props.errorMessage}</span>
           </div>
           <div className="register__field">
             <p className="register__field-name">E-mail</p>
@@ -53,7 +62,7 @@ function Register(props) {
               onChange={handleChangeEmail}
               required
             />
-            <span className="register__error"></span>
+            <span className="register__error">{props.errorMessage}</span>
           </div>
           <div className="register__field">
             <p className="register__field-name">Пароль</p>
@@ -66,7 +75,7 @@ function Register(props) {
               onChange={handleChangePassword}
               required
             />
-            <span className="register__error"></span>
+            <span className="register__error">{props.errorMessage}</span>
           </div>
         </fieldset>
         <button className="register__button" type="submit">

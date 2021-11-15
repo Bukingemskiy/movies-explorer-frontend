@@ -24,7 +24,6 @@ function Profile(props) {
   function handleChangeName(e) {
     setName(e.target.value);
     setNameValid(e.target.checkValidity());
-    handleValidateForm();
     console.log(nameValid);
     console.log(isValid);
   }
@@ -32,14 +31,6 @@ function Profile(props) {
   function handleChangeEmail(e) {
     setEmail(e.target.value);
     setEmailValid(e.target.checkValidity());
-    handleValidateForm();
-    console.log(emailValid);
-    console.log(isValid);
-  }
-
-  function handleValidateForm() {
-    nameValid && emailValid ? setIsValid(true) : setIsValid(false);
-    console.log(nameValid);
     console.log(emailValid);
     console.log(isValid);
   }
@@ -51,6 +42,13 @@ function Profile(props) {
       email: email,
     });
   }
+
+  React.useEffect(() => {
+    nameValid && emailValid ? setIsValid(true) : setIsValid(false);
+    console.log(nameValid);
+    console.log(emailValid);
+    console.log(isValid);
+  }, [name, email, nameValid, emailValid, isValid]);
 
   return (
     <>
@@ -76,7 +74,9 @@ function Profile(props) {
                 !nameValid ? "profile__error_visible" : ""
               }`}
             >
-              {props.errorMessage}
+              {props.errorMessage
+                ? props.errorMessage
+                : "Это поле должно содержать хотя бы 2 символа"}
             </span>
             <div className="profile__field">
               <p className="profile__field-name">E-mail</p>
@@ -94,7 +94,9 @@ function Profile(props) {
                 !emailValid ? "profile__error_visible" : ""
               }`}
             >
-              {props.errorMessage}
+              {props.errorMessage
+                ? props.errorMessage
+                : "Введите корректный e-mail"}
             </span>
           </fieldset>
           <button

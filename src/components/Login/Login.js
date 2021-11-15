@@ -36,7 +36,7 @@ function Login(props) {
             />
             <span
               className={`login__error ${
-                errors.email.length > 0 ? "login__error_visible" : ""
+                errors.email ? "login__error_visible" : ""
               }`}
             >
               {errors.email}
@@ -56,7 +56,7 @@ function Login(props) {
             />
             <span
               className={`login__error ${
-                props.errorMessage.length > 0 ? "login__error_visible" : ""
+                props.errorMessage ? "login__error_visible" : ""
               }`}
             >
               {props.errorMessage}

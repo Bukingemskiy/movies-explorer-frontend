@@ -74,6 +74,11 @@
   cursor: pointer;
 }
 
+.login__button_disabled {
+  opacity: 0.6;
+  cursor: unset;
+}
+
 .login__button:hover {
   opacity: 0.6;
 }

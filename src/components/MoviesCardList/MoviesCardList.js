@@ -108,9 +108,6 @@ function MoviesCardList(props) {
       >
         {props.errorMessage}
       </span>
-      <span className={`${props.errorSearch ? "errorMessage" : ""}`}>
-        {props.errorSearch ? "Ничего не найдено" : ""}
-      </span>
       <section className="movies">
         {props.renderMovies.map((movie) => (
           <MoviesCard

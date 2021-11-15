@@ -2,29 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import Logo from "../Logo/Logo.js";
+import ValidationForm from "../ValidationForm.ValidationForm.js";
 
 function Login(props) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [emailValid, setEmailValid] = React.useState(true);
-  const [passwordValid, setPasswordValid] = React.useState(true);
+  const { values, handleChange, errors, isValid } = ValidationForm();
 
   console.log(props.errorMessage);
-  console.log(emailValid);
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-    setEmailValid(e.target.checkValidity());
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-    setPasswordValid(e.target.checkValidity());
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onLogin(email, password);
+    props.onLogin(values.email, values.password);
   }
 
   return (
@@ -39,16 +26,17 @@ function Login(props) {
               className="login__input"
               type="email"
               name="email"
+              value={values.email || ""}
               placeholder="E-mail"
-              onChange={handleChangeEmail}
+              onChange={handleChange}
               required
             />
             <span
               className={`login__error ${
-                !emailValid ? "login__error_visible" : ""
+                errors.email.length > 0 ? "login__error_visible" : ""
               }`}
             >
-              {props.errorMessage}
+              {errors.email}
             </span>
           </div>
           <div className="login__field">
@@ -57,21 +45,25 @@ function Login(props) {
               className="login__input"
               type="password"
               name="password"
+              value={values.password || ""}
               minLength="8"
               placeholder="Пароль"
-              onChange={handleChangePassword}
+              onChange={handleChange}
               required
             />
             <span
               className={`login__error ${
-                !passwordValid ? "login__error_visible" : ""
+                props.errorMessage.length > 0 ? "login__error_visible" : ""
               }`}
             >
               {props.errorMessage}
             </span>
           </div>
         </fieldset>
-        <button className="login__button" type="submit">
+        <button
+          className={`login__button ${isValid ? "" : "login__button_disabled"}`}
+          type="submit"
+        >
           Войти
         </button>
       </form>

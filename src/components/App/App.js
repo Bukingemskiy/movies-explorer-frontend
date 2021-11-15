@@ -31,7 +31,8 @@ function App(initialLoggedIn) {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
   const [errorMessage, setErrorMessage] = React.useState("");
-  const [errorSearch, setErrorSearch] = React.useState(false);
+
+  console.log(loggedIn);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -247,7 +248,6 @@ function App(initialLoggedIn) {
 
   React.useEffect(() => {
     setErrorMessage("");
-    setErrorSearch(false);
   }, [location]);
 
   return (
@@ -258,18 +258,10 @@ function App(initialLoggedIn) {
             <Main />
           </Route>
           <Route exact path="/signup">
-            <Register
-              onRegister={handleRegister}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
-            />
+            <Register onRegister={handleRegister} errorMessage={errorMessage} />
           </Route>
           <Route exact path="/signin">
-            <Login
-              onLogin={handleLogin}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
-            />
+            <Login onLogin={handleLogin} errorMessage={errorMessage} />
           </Route>
           <ProtectedRoute
             path="/movies"
@@ -280,7 +272,6 @@ function App(initialLoggedIn) {
             savedMovies={savedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
-            errorSearch={errorSearch}
             errorMessage={errorMessage}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
@@ -293,7 +284,6 @@ function App(initialLoggedIn) {
             isLoading={isLoading}
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
-            errorSearch={errorSearch}
             errorMessage={errorMessage}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
@@ -305,7 +295,6 @@ function App(initialLoggedIn) {
             loggedIn={loggedIn}
             isLoading={isLoading}
             errorMessage={errorMessage}
-            setErrorMessage={setErrorMessage}
             onUpdateUser={handleUpdateUser}
             onLogOut={logOut}
           />

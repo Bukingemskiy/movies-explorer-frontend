@@ -23,17 +23,17 @@ function Profile(props) {
   function handleChangeName(e) {
     setName(e.target.value);
     if (props.errorMessage.length > 0) {
-      setEmailValid(e.target.checkValidity());
+      props.setErrorMessage("");
     }
     setNameValid(e.target.checkValidity());
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
-    props.setErrorMessage("");
     if (props.errorMessage.length > 0) {
-      setEmailValid(e.target.checkValidity());
+      props.setErrorMessage("");
     }
+    setEmailValid(e.target.checkValidity());
   }
 
   function handleSubmit(e) {

@@ -33,9 +33,12 @@
   width: 410px;
 }
 
+.profile__field:not(:first-child) {
+  margin-top: 17px;
+}
+
 .profile__field:not(:last-child) {
   padding-bottom: 16px;
-  margin-bottom: 17px;
   border-bottom: 1px solid #424242;
 }
 
@@ -94,7 +97,7 @@
   font-size: 10px;
   line-height: 12px;
   display: none;
-  padding: 5px;
+  margin-bottom: 17px;
 }
 
 .profile__error_visible {

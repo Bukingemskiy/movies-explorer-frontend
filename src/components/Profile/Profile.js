@@ -23,7 +23,7 @@ function Profile(props) {
 
   function handleChangeName(e) {
     setName(e.target.value);
-    setNameValid(e.target.value.checkValidity());
+    setNameValid(e.target.checkValidity());
     handleValidateForm();
     console.log(nameValid);
     console.log(isValid);
@@ -31,7 +31,7 @@ function Profile(props) {
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
-    setEmailValid(e.target.value.checkValidity());
+    setEmailValid(e.target.checkValidity());
     handleValidateForm();
     console.log(emailValid);
     console.log(isValid);
@@ -39,6 +39,9 @@ function Profile(props) {
 
   function handleValidateForm() {
     nameValid && emailValid ? setIsValid(true) : setIsValid(false);
+    console.log(nameValid);
+    console.log(emailValid);
+    console.log(isValid);
   }
 
   function handleSubmit(e) {

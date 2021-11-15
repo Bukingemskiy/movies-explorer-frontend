@@ -76,11 +76,7 @@
 
 .login__button:disabled {
   cursor: default;
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  opacity: 0.6;
 }
 
 .login__button:hover {

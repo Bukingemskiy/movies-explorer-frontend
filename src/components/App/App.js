@@ -76,7 +76,7 @@ function App(initialLoggedIn) {
       console.log(savedMovies);
       console.log(foundMovies);
     }
-  }, [loggedIn, savedMovies]);
+  }, [loggedIn]);
 
   function handleLogin(email, password) {
     setIsLoading(true);

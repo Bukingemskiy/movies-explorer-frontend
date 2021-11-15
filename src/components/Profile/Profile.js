@@ -48,14 +48,14 @@ function Profile(props) {
     console.log(nameValid);
     console.log(emailValid);
     console.log(isValid);
-  }, [isValid]);
+  }, [name, email, nameValid, emailValid, isValid]);
 
   return (
     <>
       <Header />
       <section className="profile">
         <h2 className="profile__title">Привет, {name}!</h2>
-        <form onSubmit={handleSubmit} className="profile__form">
+        <form onSubmit={handleSubmit} noValidate className="profile__form">
           <fieldset className="profile__fields">
             <div className="profile__field">
               <p className="profile__field-name">Имя</p>
@@ -67,7 +67,6 @@ function Profile(props) {
                 minLength="2"
                 maxLength="30"
                 onChange={handleChangeName}
-                formNoValidate
               />
             </div>
             <span

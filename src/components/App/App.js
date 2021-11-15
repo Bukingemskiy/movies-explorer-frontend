@@ -37,8 +37,6 @@ function App(initialLoggedIn) {
   React.useEffect(() => {
     if (loggedIn) {
       console.log("update movies");
-      console.log(savedMovies);
-      console.log(foundMovies);
       setIsLoading(true);
       Promise.all([
         moviesApi.getMovies(),
@@ -46,14 +44,12 @@ function App(initialLoggedIn) {
         mainApi.getUserData(),
       ])
         .then(([movies, savedItems, user]) => {
-          console.log(savedItems.data);
           setSavedMovies(savedItems.data);
           localStorage.setItem(
             "localSavedMovies",
             JSON.stringify(savedItems.data)
           );
           setCurrentUser(user.data);
-          console.log(currentUser);
           const moviesItems = movies.map((i) =>
             Object.assign(i, { saved: false })
           );
@@ -63,8 +59,6 @@ function App(initialLoggedIn) {
                   i.id === el.movieId ? Object.assign(i, { saved: true }) : i
                 );
                 localStorage.setItem("localMovies", JSON.stringify(items));
-                console.log(items);
-                console.log(cacheMovies);
               })
             : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
         })
@@ -73,10 +67,10 @@ function App(initialLoggedIn) {
           console.log(`${err}`);
         })
         .finally(() => setIsLoading(false));
-      console.log(savedMovies);
-      console.log(foundMovies);
     }
-  }, [loggedIn]);
+  }, [loggedIn, location.pathname]);
+
+  React.useEffect(() => {}, []);
 
   function handleLogin(email, password) {
     setIsLoading(true);

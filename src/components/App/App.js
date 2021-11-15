@@ -147,7 +147,7 @@ function App(initialLoggedIn) {
         if (err === 409) {
           setErrorMessage(`Пользователь с таким email уже существует.`);
         } else {
-          setErrorMessage("При обновлении профиля произошла ошибка.");
+          setErrorMessage(`При обновлении профиля произошла ошибка ${err}.`);
         }
       })
       .finally(() => setIsLoading(false));

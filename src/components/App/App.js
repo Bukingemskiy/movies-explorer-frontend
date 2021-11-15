@@ -34,45 +34,47 @@ function App(initialLoggedIn) {
   const [errorSearch, setErrorSearch] = React.useState(false);
 
   React.useEffect(() => {
-    console.log("update movies");
-    console.log(savedMovies);
-    console.log(foundMovies);
-    setIsLoading(true);
-    Promise.all([
-      moviesApi.getMovies(),
-      mainApi.getSavedMovies(),
-      mainApi.getUserData(),
-    ])
-      .then(([movies, savedItems, user]) => {
-        console.log(savedItems.data);
-        setSavedMovies(savedItems.data);
-        localStorage.setItem(
-          "localSavedMovies",
-          JSON.stringify(savedItems.data)
-        );
-        setCurrentUser(user.data);
-        console.log(currentUser);
-        const moviesItems = movies.map((i) =>
-          Object.assign(i, { saved: false })
-        );
-        savedMovies.length > 0
-          ? savedMovies.forEach((el) => {
-              const items = moviesItems.map((i) =>
-                i.id === el.movieId ? Object.assign(i, { saved: true }) : i
-              );
-              localStorage.setItem("localMovies", JSON.stringify(items));
-              console.log(items);
-              console.log(cacheMovies);
-            })
-          : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
-      })
-      .catch((err) => {
-        setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
-        console.log(`${err}`);
-      })
-      .finally(() => setIsLoading(false));
-    console.log(savedMovies);
-    console.log(foundMovies);
+    if (loggedIn) {
+      console.log("update movies");
+      console.log(savedMovies);
+      console.log(foundMovies);
+      setIsLoading(true);
+      Promise.all([
+        moviesApi.getMovies(),
+        mainApi.getSavedMovies(),
+        mainApi.getUserData(),
+      ])
+        .then(([movies, savedItems, user]) => {
+          console.log(savedItems.data);
+          setSavedMovies(savedItems.data);
+          localStorage.setItem(
+            "localSavedMovies",
+            JSON.stringify(savedItems.data)
+          );
+          setCurrentUser(user.data);
+          console.log(currentUser);
+          const moviesItems = movies.map((i) =>
+            Object.assign(i, { saved: false })
+          );
+          savedMovies.length > 0
+            ? savedMovies.forEach((el) => {
+                const items = moviesItems.map((i) =>
+                  i.id === el.movieId ? Object.assign(i, { saved: true }) : i
+                );
+                localStorage.setItem("localMovies", JSON.stringify(items));
+                console.log(items);
+                console.log(cacheMovies);
+              })
+            : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
+        })
+        .catch((err) => {
+          setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
+          console.log(`${err}`);
+        })
+        .finally(() => setIsLoading(false));
+      console.log(savedMovies);
+      console.log(foundMovies);
+    }
   }, [loggedIn]);
 
   function handleLogin(email, password) {
@@ -111,7 +113,7 @@ function App(initialLoggedIn) {
       })
       .catch((err) => {
         if (err === 400)
-          return setErrorMessage("Какое-то поле заполнено неправильно.");
+          return setErrorMessage("Это поле заполнено некоректно.");
         if (err === 409)
           return setErrorMessage(`Пользователь с таким email уже существует.`);
         setErrorMessage("При регистрации пользоваеля произошла ошибка");

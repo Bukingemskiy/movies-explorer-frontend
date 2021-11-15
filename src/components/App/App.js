@@ -33,7 +33,6 @@ function App(initialLoggedIn) {
   const [errorMessage, setErrorMessage] = React.useState("");
 
   console.log(loggedIn);
-  console.log(location.pathname);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -86,6 +85,7 @@ function App(initialLoggedIn) {
       .then(() => {
         setLoggedIn(true);
         history.push("/movies");
+        document.location.reload();
         console.log(loggedIn);
         console.log(foundMovies);
       })
@@ -245,10 +245,6 @@ function App(initialLoggedIn) {
       })
       .finally(() => setIsLoading(false));
   }
-
-  React.useEffect(() => {
-    document.location.reload();
-  }, [location.pathname]);
 
   return (
     <div className="page">

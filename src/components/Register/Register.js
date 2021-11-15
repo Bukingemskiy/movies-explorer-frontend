@@ -14,24 +14,24 @@ function Register(props) {
   function handleChangeName(e) {
     setName(e.target.value);
     setNameValid(e.target.checkValidity());
-    if (props.errorMsg.length > 0) {
-      props.setErrorMsg("");
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
     }
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
     setEmailValid(e.target.checkValidity());
-    if (props.errorMsg.length > 0) {
-      props.setErrorMsg("");
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
     }
   }
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
     setPasswordValid(e.target.checkValidity());
-    if (props.errorMsg.length > 0) {
-      props.setErrorMsg("");
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
     }
   }
 

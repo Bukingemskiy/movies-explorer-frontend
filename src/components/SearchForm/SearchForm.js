@@ -15,6 +15,8 @@ function SearchForm(props) {
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
 
   console.log(cacheCheckbox);
+  console.log(props.errorMessage);
+  console.log(searchValid);
 
   function handleSearchChange(e) {
     setSearch(e.target.value);

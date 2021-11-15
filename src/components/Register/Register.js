@@ -11,28 +11,22 @@ function Register(props) {
   const [emailValid, setEmailValid] = React.useState(true);
   const [passwordValid, setPasswordValid] = React.useState(true);
 
+  console.log(props.errorMessage);
+  console.log(emailValid);
+
   function handleChangeName(e) {
     setName(e.target.value);
     setNameValid(e.target.checkValidity());
-    if (props.errorMessage.length > 0) {
-      props.setErrorMessage("");
-    }
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
     setEmailValid(e.target.checkValidity());
-    if (props.errorMessage.length > 0) {
-      props.setErrorMessage("");
-    }
   }
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
     setPasswordValid(e.target.checkValidity());
-    if (props.errorMessage.length > 0) {
-      props.setErrorMessage("");
-    }
   }
 
   function handleSubmit(e) {

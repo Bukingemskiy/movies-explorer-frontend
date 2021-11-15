@@ -6,19 +6,20 @@ import Logo from "../Logo/Logo.js";
 function Login(props) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [emailValid, setEmailValid] = React.useState(true);
+  const [passwordValid, setPasswordValid] = React.useState(true);
+
+  console.log(props.errorMessage);
+  console.log(emailValid);
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
-    if (props.errorMsg.length > 0) {
-      props.setErrorMsg("");
-    }
+    setEmailValid(e.target.checkValidity());
   }
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
-    if (props.errorMsg.length > 0) {
-      props.setErrorMsg("");
-    }
+    setPasswordValid(e.target.checkValidity());
   }
 
   function handleSubmit(e) {
@@ -42,7 +43,13 @@ function Login(props) {
               onChange={handleChangeEmail}
               required
             />
-            <span className="login__error">{props.errorMessage}</span>
+            <span
+              className={`login__error ${
+                !emailValid ? "login__error_visible" : ""
+              }`}
+            >
+              {props.errorMessage}
+            </span>
           </div>
           <div className="login__field">
             <p className="login__field-name">Пароль</p>
@@ -55,7 +62,13 @@ function Login(props) {
               onChange={handleChangePassword}
               required
             />
-            <span className="login__error">{props.errorMessage}</span>
+            <span
+              className={`login__error ${
+                !passwordValid ? "login__error_visible" : ""
+              }`}
+            >
+              {props.errorMessage}
+            </span>
           </div>
         </fieldset>
         <button className="login__button" type="submit">

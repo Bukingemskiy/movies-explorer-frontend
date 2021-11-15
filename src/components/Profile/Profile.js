@@ -7,6 +7,11 @@ function Profile(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [nameValid, setNameValid] = React.useState(true);
+  const [emailValid, setEmailValid] = React.useState(true);
+
+  console.log(props.errorMessage);
+  console.log(emailValid);
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -15,16 +20,12 @@ function Profile(props) {
 
   function handleChangeName(e) {
     setName(e.target.value);
-    if (props.errorMsg.length > 0) {
-      props.setErrorMsg("");
-    }
+    setNameValid(e.target.checkValidity());
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
-    if (props.errorMsg.length > 0) {
-      props.setErrorMsg("");
-    }
+    setEmailValid(e.target.checkValidity());
   }
 
   function handleSubmit(e) {
@@ -52,7 +53,13 @@ function Profile(props) {
                 onChange={handleChangeName}
               />
             </div>
-            <span className="profile__error">{props.errorMessage}</span>
+            <span
+              className={`profile__error ${
+                !nameValid ? "profile__error_visible" : ""
+              }`}
+            >
+              {props.errorMessage}
+            </span>
             <div className="profile__field">
               <p className="profile__field-name">E-mail</p>
               <input
@@ -63,7 +70,13 @@ function Profile(props) {
                 onChange={handleChangeEmail}
               />
             </div>
-            <span className="profile__error">{props.errorMessage}</span>
+            <span
+              className={`profile__error ${
+                !emailValid ? "profile__error_visible" : ""
+              }`}
+            >
+              {props.errorMessage}
+            </span>
           </fieldset>
           <button
             className="profile__button profile__button_edit"

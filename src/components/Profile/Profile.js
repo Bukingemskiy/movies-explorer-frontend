@@ -48,7 +48,7 @@ function Profile(props) {
     console.log(nameValid);
     console.log(emailValid);
     console.log(isValid);
-  }, [name, email, nameValid, emailValid]);
+  }, [name, email]);
 
   return (
     <>

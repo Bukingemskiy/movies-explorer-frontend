@@ -7,8 +7,8 @@ export default function ValidationForm() {
 
   const handleChange = (e) => {
     const input = e.target;
-    const value = input.value;
-    const name = input.name;
+    const { value } = input.value;
+    const { name } = input.name;
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: input.validationMessage });
     setIsValid(input.closest("form").checkValidity());

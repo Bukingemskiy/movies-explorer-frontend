@@ -9,6 +9,7 @@ function Profile(props) {
   const [email, setEmail] = React.useState("");
   const [nameValid, setNameValid] = React.useState(true);
   const [emailValid, setEmailValid] = React.useState(true);
+  const [isValid, setIsValid] = React.useState(false);
 
   console.log(props.errorMessage);
   console.log(emailValid);
@@ -20,12 +21,18 @@ function Profile(props) {
 
   function handleChangeName(e) {
     setName(e.target.value);
-    setNameValid(e.target.checkValidity());
+    setNameValid(e.target.value.checkValidity());
+    handleValidateForm();
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
-    setEmailValid(e.target.checkValidity());
+    setEmailValid(e.target.value.checkValidity());
+    handleValidateForm();
+  }
+
+  function handleValidateForm() {
+    nameValid && emailValid ? setIsValid(true) : setIsValid(false);
   }
 
   function handleSubmit(e) {
@@ -81,6 +88,7 @@ function Profile(props) {
           <button
             className="profile__button profile__button_edit"
             type="submit"
+            disabled={!isValid}
           >
             {props.isLoading ? "Сохранение..." : "Редактировать"}
           </button>

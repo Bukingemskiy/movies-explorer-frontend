@@ -246,10 +246,6 @@ function App(initialLoggedIn) {
       .finally(() => setIsLoading(false));
   }
 
-  React.useEffect(() => {
-    setErrorMessage("");
-  }, [location]);
-
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>

@@ -2,16 +2,32 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import Logo from "../Logo/Logo.js";
-import ValidationForm from "../ValidationForm/ValidationForm.js";
 
 function Login(props) {
-  const { values, handleChange, errors, isValid } = ValidationForm();
-  const { email, password } = values;
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
+  const [emailValid, setEmailValid] = React.useState(false);
+  const [passwordValid, setPasswordValid] = React.useState(false);
+  const [formValid, setFormValid] = React.useState(false);
 
   console.log(props.errorMessage);
-  console.log(values);
-  console.log(errors);
-  console.log(isValid);
+  console.log(emailValid);
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+    if (emailError.length > 0) {
+      setEmailError("");
+    }
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value);
+    if (passwordError.length > 0) {
+      setPasswordError("");
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,17 +46,16 @@ function Login(props) {
               className="login__input"
               type="email"
               name="email"
-              value={email || ""}
               placeholder="E-mail"
-              onChange={handleChange}
+              onChange={handleChangeEmail}
               required
             />
             <span
               className={`login__error ${
-                errors.email ? "login__error_visible" : ""
+                !emailValid ? "login__error_visible" : ""
               }`}
             >
-              {errors.email}
+              {props.errorMessage}
             </span>
           </div>
           <div className="login__field">
@@ -49,22 +64,21 @@ function Login(props) {
               className="login__input"
               type="password"
               name="password"
-              value={password || ""}
               minLength="8"
               placeholder="Пароль"
-              onChange={handleChange}
+              onChange={handleChangePassword}
               required
             />
             <span
               className={`login__error ${
-                props.errorMessage ? "login__error_visible" : ""
+                !passwordValid ? "login__error_visible" : ""
               }`}
             >
-              {errors.password}
+              {props.errorMessage}
             </span>
           </div>
         </fieldset>
-        <button className="login__button" type="submit" disabled={!isValid}>
+        <button className="login__button" type="submit">
           Войти
         </button>
       </form>

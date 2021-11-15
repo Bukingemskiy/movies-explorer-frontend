@@ -75,6 +75,11 @@
   opacity: 0.6;
 }
 
+.profile__button:disabled {
+  cursor: none;
+  opacity: 0.6;
+}
+
 .profile__button_edit {
   margin: 220px auto 0;
 }

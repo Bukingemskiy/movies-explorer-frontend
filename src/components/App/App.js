@@ -33,6 +33,7 @@ function App(initialLoggedIn) {
   const [errorMessage, setErrorMessage] = React.useState("");
 
   console.log(loggedIn);
+  console.log(location.pathname);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -247,7 +248,7 @@ function App(initialLoggedIn) {
 
   React.useEffect(() => {
     document.location.reload();
-  }, [location]);
+  }, [location.pathname]);
 
   return (
     <div className="page">

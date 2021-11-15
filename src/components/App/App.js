@@ -140,6 +140,7 @@ function App(initialLoggedIn) {
       .editProfile(data)
       .then((user) => {
         setCurrentUser(user.data);
+        localStorage.setItem("localUser", JSON.stringify(user.data));
         setErrorMessage("Данные профиля успешно изменены");
         console.log(currentUser);
       })

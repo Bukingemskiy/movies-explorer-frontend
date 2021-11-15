@@ -5,6 +5,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function Profile(props) {
   const currentUser = React.useContext(CurrentUserContext);
+  const cacheUser = JSON.parse(localStorage.getItem("localUser"));
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [nameValid, setNameValid] = React.useState(true);
@@ -44,17 +45,33 @@ function Profile(props) {
   }
 
   React.useEffect(() => {
-    nameValid && emailValid ? setIsValid(true) : setIsValid(false);
+    if (
+      nameValid &&
+      emailValid &&
+      (name !== cacheUser.name || email !== cacheUser.email)
+    ) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
     console.log(nameValid);
     console.log(emailValid);
     console.log(isValid);
-  }, [name, email, nameValid, emailValid, isValid]);
+  }, [
+    name,
+    email,
+    nameValid,
+    emailValid,
+    isValid,
+    cacheUser.name,
+    cacheUser.email,
+  ]);
 
   return (
     <>
       <Header />
       <section className="profile">
-        <h2 className="profile__title">Привет, {name}!</h2>
+        <h2 className="profile__title">Привет, {cacheUser.name}!</h2>
         <form onSubmit={handleSubmit} className="profile__form">
           <fieldset className="profile__fields">
             <div className="profile__field">

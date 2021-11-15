@@ -85,7 +85,6 @@ function App(initialLoggedIn) {
       .then(() => {
         setLoggedIn(true);
         history.push("/movies");
-        document.location.reload();
         console.log(loggedIn);
         console.log(foundMovies);
       })
@@ -245,6 +244,10 @@ function App(initialLoggedIn) {
       })
       .finally(() => setIsLoading(false));
   }
+
+  React.useEffect(() => {
+    document.location.reload();
+  }, [location]);
 
   return (
     <div className="page">

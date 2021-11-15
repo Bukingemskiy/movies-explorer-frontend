@@ -1,7 +1,7 @@
 .movies {
   padding: 80px 70px 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(346px, 364px));
+  grid-template-columns: repeat(auto-fit, 364px);
   column-gap: 24px;
   row-gap: 30px;
   justify-content: center;

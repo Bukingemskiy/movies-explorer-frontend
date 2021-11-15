@@ -67,6 +67,7 @@ function Profile(props) {
                 minLength="2"
                 maxLength="30"
                 onChange={handleChangeName}
+                formNoValidate
               />
             </div>
             <span

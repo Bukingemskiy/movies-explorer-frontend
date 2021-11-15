@@ -22,12 +22,18 @@ function Profile(props) {
 
   function handleChangeName(e) {
     setName(e.target.value);
+    if (props.errorMessage.length > 0) {
+      setEmailValid(e.target.checkValidity());
+    }
     setNameValid(e.target.checkValidity());
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
-    setEmailValid(e.target.checkValidity());
+    props.setErrorMessage("");
+    if (props.errorMessage.length > 0) {
+      setEmailValid(e.target.checkValidity());
+    }
   }
 
   function handleSubmit(e) {

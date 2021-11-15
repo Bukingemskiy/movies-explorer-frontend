@@ -63,7 +63,7 @@ function App(initialLoggedIn) {
             : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
         })
         .catch((err) => {
-          setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
+          setErrorMessage(`При загрузке страницы произошла ${err}.`);
           console.log(`${err}`);
         })
         .finally(() => setIsLoading(false));
@@ -84,11 +84,11 @@ function App(initialLoggedIn) {
         console.log(foundMovies);
       })
       .catch((err) => {
-        if (err === 401)
+        if (err === "Ошибка: 401")
           return setErrorMessage(
-            `Вы ввели неправильный адрес почты или пароль.`
+            `Вы ввели неправильный адрес почты или пароль. ${err}.`
           );
-        setErrorMessage("Попробуйте ещё раз!");
+        setErrorMessage(`Попробуйте ещё раз! ${err}.`);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -102,16 +102,16 @@ function App(initialLoggedIn) {
         if (res) {
           handleLogin(email, password);
           console.log(loggedIn);
-        } else {
-          console.log("Что-то пошло не так!");
         }
       })
       .catch((err) => {
-        if (err === 400)
-          return setErrorMessage("Это поле заполнено некоректно.");
-        if (err === 409)
-          return setErrorMessage(`Пользователь с таким email уже существует.`);
-        setErrorMessage("При регистрации пользоваеля произошла ошибка");
+        if (err === "Ошибка: 400")
+          return setErrorMessage(`Это поле заполнено некорректно. ${err}.`);
+        if (err === "Ошибка: 409")
+          return setErrorMessage(
+            `Пользователь с таким e-mail уже существует. ${err}.`
+          );
+        setErrorMessage(`При регистрации пользоваеля произошла ${err}.`);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -128,7 +128,7 @@ function App(initialLoggedIn) {
         console.log(cacheMovies);
       })
       .catch((err) => {
-        setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);
+        setErrorMessage(`При отправке запроса произошла ${err}.`);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -145,8 +145,10 @@ function App(initialLoggedIn) {
       })
       .catch((err) => {
         if (err === "Ошибка: 409")
-          return setErrorMessage(`Пользователь с таким email уже существует.`);
-        setErrorMessage("При обновлении профиля произошла ошибка.");
+          return setErrorMessage(
+            `Пользователь с таким e-mail уже существует. ${err}.`
+          );
+        setErrorMessage(`При обновлении профиля произошла ${err}.`);
       })
       .finally(() => setIsLoading(false));
   }
@@ -234,7 +236,7 @@ function App(initialLoggedIn) {
         localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
       })
       .catch((err) => {
-        setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);
+        setErrorMessage(`При отправке запроса произошла ${err}.`);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -248,10 +250,18 @@ function App(initialLoggedIn) {
             <Main />
           </Route>
           <Route exact path="/signup">
-            <Register onRegister={handleRegister} errorMessage={errorMessage} />
+            <Register
+              onRegister={handleRegister}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
           </Route>
           <Route exact path="/signin">
-            <Login onLogin={handleLogin} errorMessage={errorMessage} />
+            <Login
+              onLogin={handleLogin}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
           </Route>
           <ProtectedRoute
             path="/movies"
@@ -285,6 +295,7 @@ function App(initialLoggedIn) {
             loggedIn={loggedIn}
             isLoading={isLoading}
             errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
             onUpdateUser={handleUpdateUser}
             onLogOut={logOut}
           />

@@ -8,6 +8,9 @@ function Login(props) {
   const { values, handleChange, errors, isValid } = ValidationForm();
 
   console.log(props.errorMessage);
+  console.log(values);
+  console.log(errors);
+  console.log(isValid);
 
   function handleSubmit(e) {
     e.preventDefault();

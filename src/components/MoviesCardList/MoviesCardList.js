@@ -15,7 +15,7 @@ function MoviesCardList(props) {
   const width = window.innerWidth;
   let numberOfMovies = 12;
 
-  function handleNumberOfMovies() {
+  React.useEffect(() => {
     if ((width < 1280) & (width > 767)) {
       numberOfMovies = 8;
       console.log("8");
@@ -26,12 +26,7 @@ function MoviesCardList(props) {
       numberOfMovies = 12;
       console.log("12");
     }
-  }
-
-  React.useEffect(() => {
-    handleNumberOfMovies();
-    console.log("update number page");
-  });
+  }, [width]);
 
   function handleMoreButton() {
     if (numberOfMovies > cardList.length) {

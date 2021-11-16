@@ -96,4 +96,9 @@
   .errorMessage {
     margin-left: 5px;
   }
+  .movies__not-found {
+    font-size: 26px;
+    line-height: 28px;
+    padding: 30px;
+  }
 }

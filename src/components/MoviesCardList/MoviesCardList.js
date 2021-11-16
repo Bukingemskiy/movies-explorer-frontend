@@ -69,7 +69,7 @@ function MoviesCardList(props) {
       }
       console.log("number");
     } else {
-      for (let i = 0; i < cardList.length; i++) {
+      for (let i = 0; i < numberOfMovies.length; i++) {
         cardList[i].style.display = "block";
       }
       console.log("card");

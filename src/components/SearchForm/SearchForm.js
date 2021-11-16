@@ -21,7 +21,6 @@ function SearchForm(props) {
 
   function handleSearchChange(e) {
     setSearch(e.target.value);
-    search.length > 0 ? setButtonDisabled(false) : setButtonDisabled(true);
     if (props.errorMessage) {
       props.setErrorMessage("");
     }
@@ -58,6 +57,11 @@ function SearchForm(props) {
   React.useEffect(() => {
     setSearchValid(true);
   }, [location.pathname]);
+
+  React.useEffect(() => {
+    console.log(search.length);
+    search.length === 0 ? setButtonDisabled(true) : setButtonDisabled(false);
+  }, [search.length]);
 
   return (
     <section className="search">

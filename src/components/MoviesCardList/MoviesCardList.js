@@ -116,7 +116,7 @@ function MoviesCardList(props) {
         {isSavedMovies ? (
           <></>
         ) : (
-          <button className={isMoreButton} onClick={openMore}>
+          <button className={isMoreButton} onChange={openMore}>
             Ещё
           </button>
         )}

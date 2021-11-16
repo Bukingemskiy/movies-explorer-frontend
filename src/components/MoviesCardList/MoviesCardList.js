@@ -25,7 +25,7 @@ function MoviesCardList(props) {
       setNumberOfMovies(12);
       console.log("12");
     }
-    document.window.reload();
+    document.location.reload();
   }, [width]);
 
   function handleMoreButton() {

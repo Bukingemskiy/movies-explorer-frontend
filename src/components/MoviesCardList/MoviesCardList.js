@@ -28,6 +28,10 @@ function MoviesCardList(props) {
   }, [width]);
 
   React.useEffect(() => {
+    window.location.reload();
+  }, [width]);
+
+  React.useEffect(() => {
     if (numberOfMovies > cardList.length) {
       setMoreButton("more__button more__button_invisible");
       console.log("invisible");
@@ -53,15 +57,6 @@ function MoviesCardList(props) {
       }
     }
   }, [cardList, numberOfMovies]);
-
-  function resize() {
-    setTimeout(window.location.reload, 100);
-  }
-
-  React.useEffect(() => {
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  });
 
   function openMore() {
     if (width > 1279) {

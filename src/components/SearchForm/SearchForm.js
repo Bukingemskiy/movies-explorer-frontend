@@ -43,11 +43,15 @@ function SearchForm(props) {
   }, [location.pathname]);
 
   React.useEffect(() => {
+    console.log(search);
+    console.log(cacheSearch);
+    console.log(buttonDisabled);
     search.length === 0
       ? setButtonDisabled(true)
       : search === cacheSearch
       ? setButtonDisabled(true)
       : setButtonDisabled(false);
+    console.log(buttonDisabled);
   }, [cacheSearch, search]);
 
   return (

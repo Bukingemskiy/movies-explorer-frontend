@@ -25,7 +25,7 @@ function MoviesCardList(props) {
       setNumberOfMovies(12);
       console.log("12");
     }
-    document.window.reload();
+    Location.reload();
   }, [width]);
 
   React.useEffect(() => {

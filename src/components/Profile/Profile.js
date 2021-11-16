@@ -11,10 +11,6 @@ function Profile(props) {
   const [emailValid, setEmailValid] = React.useState(true);
   const [isValid, setIsValid] = React.useState(false);
 
-  console.log(props.errorMessage);
-  console.log(nameValid);
-  console.log(emailValid);
-
   React.useEffect(() => {
     setName(currentUser.name);
     setEmail(currentUser.email);

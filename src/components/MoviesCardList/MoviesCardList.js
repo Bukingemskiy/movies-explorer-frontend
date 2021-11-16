@@ -25,6 +25,7 @@ function MoviesCardList(props) {
       setNumberOfMovies(12);
       console.log("12");
     }
+    document.window.reload();
   }, [width]);
 
   function handleMoreButton() {
@@ -77,12 +78,6 @@ function MoviesCardList(props) {
       console.log("card");
     }
   }
-
-  window.onresize = setTimeout(() => {
-    props.setIsLoading(true);
-    document.window.reload();
-  }, 100);
-  props.setIsLoading(false);
 
   console.log(props.renderMovies);
 

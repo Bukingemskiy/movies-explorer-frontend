@@ -14,7 +14,7 @@ function MoviesCardList(props) {
   const width = window.innerWidth;
   const [numberOfMovies, setNumberOfMovies] = React.useState(12);
 
-  React.useEffect(() => {
+  function resize() {
     if ((width < 1280) & (width > 767)) {
       setNumberOfMovies(8);
       console.log("8");
@@ -25,7 +25,12 @@ function MoviesCardList(props) {
       setNumberOfMovies(12);
       console.log("12");
     }
-  }, [width]);
+  }
+
+  React.useEffect(() => {
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  });
 
   React.useEffect(() => {
     if (numberOfMovies > cardList.length) {
@@ -53,7 +58,7 @@ function MoviesCardList(props) {
         console.log("card");
       }
     }
-  }, [cardList, numberOfMovies, width]);
+  }, [cardList, numberOfMovies]);
 
   function openMore() {
     if (width > 1279) {

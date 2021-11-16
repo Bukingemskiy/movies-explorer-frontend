@@ -25,10 +25,9 @@ function MoviesCardList(props) {
       setNumberOfMovies(12);
       console.log("12");
     }
-    document.location.reload();
   }, [width]);
 
-  function handleMoreButton() {
+  React.useEffect(() => {
     if (numberOfMovies > cardList.length) {
       setMoreButton("more__button more__button_invisible");
       console.log("invisible");
@@ -36,10 +35,9 @@ function MoviesCardList(props) {
       setMoreButton("more__button");
       console.log("visible");
     }
-  }
+  }, [cardList, numberOfMovies]);
 
   React.useEffect(() => {
-    handleMoreButton();
     for (let i = numberOfMovies; i < cardList.length; i++) {
       if (numberOfMovies <= cardList.length) {
         for (let j = 0; j < numberOfMovies; j++) {
@@ -65,7 +63,6 @@ function MoviesCardList(props) {
       setNumberOfMovies(numberOfMovies + 2);
       console.log("2");
     }
-    handleMoreButton();
     if (numberOfMovies <= cardList.length) {
       for (let i = 0; i < numberOfMovies; i++) {
         cardList[i].style.display = "block";

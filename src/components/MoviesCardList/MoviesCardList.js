@@ -37,7 +37,7 @@ function MoviesCardList(props) {
     }
   }, [cardList, numberOfMovies]);
 
-  function handleWidth() {
+  React.useEffect(() => {
     for (let i = numberOfMovies; i < cardList.length; i++) {
       if (numberOfMovies <= cardList.length) {
         for (let j = 0; j < numberOfMovies; j++) {
@@ -52,17 +52,16 @@ function MoviesCardList(props) {
         console.log("card");
       }
     }
-  }
-
-  window.onload = function () {
-    handleWidth();
-  };
+  }, [cardList, numberOfMovies]);
 
   function resize() {
-    setTimeout(handleWidth, 100);
+    setTimeout(window.location.reload, 100);
   }
 
-  window.onresize = resize();
+  React.useEffect(() => {
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  });
 
   function openMore() {
     if (width > 1279) {
@@ -72,7 +71,17 @@ function MoviesCardList(props) {
       setNumberOfMovies(numberOfMovies + 2);
       console.log("2");
     }
-    handleWidth();
+    if (numberOfMovies <= cardList.length) {
+      for (let i = 0; i < numberOfMovies; i++) {
+        cardList[i].style.display = "block";
+      }
+      console.log("number");
+    } else {
+      for (let i = 0; i < cardList.length; i++) {
+        cardList[i].style.display = "block";
+      }
+      console.log("card");
+    }
   }
 
   console.log(props.renderMovies);

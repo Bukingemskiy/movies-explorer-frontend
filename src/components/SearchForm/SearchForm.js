@@ -11,7 +11,7 @@ function SearchForm(props) {
   const [searchCheckbox, setSearchCheckbox] = React.useState(
     cacheCheckbox !== null ? cacheCheckbox : false
   );
-  const [searchValid, setSearchValid] = React.useState(true);
+  const [searchValid, setSearchValid] = React.useState(false);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
 
   console.log(cacheCheckbox);
@@ -20,7 +20,7 @@ function SearchForm(props) {
 
   function handleSearchChange(e) {
     setSearch(e.target.value);
-    if (props.errorMessage.length > 0) {
+    if (props.errorMessage.length !== null) {
       props.setErrorMessage("");
     }
     setSearchValid(e.target.checkValidity());

@@ -38,21 +38,22 @@ function MoviesCardList(props) {
   }, [cardList, numberOfMovies]);
 
   React.useEffect(() => {
-    if (numberOfMovies <= cardList.length) {
-      for (let i = numberOfMovies; i <= cardList.length; i++) {
+    for (let i = numberOfMovies; i < cardList.length; i++) {
+      if (numberOfMovies <= cardList.length) {
         for (let j = 0; j < numberOfMovies; j++) {
           cardList[j].style.display = "block";
           cardList[i].style.display = "none";
         }
         console.log("number");
+      } else {
+        for (let j = 0; j < cardList.length; j++) {
+          cardList[j].style.display = "block";
+          cardList[i].style.display = "none";
+        }
+        console.log("card");
       }
-    } else {
-      for (let i = 0; i < cardList.length; i++) {
-        cardList[i].style.display = "block";
-      }
-      console.log("card");
     }
-  }, [cardList, numberOfMovies]);
+  }, [cardList, numberOfMovies, width]);
 
   function openMore() {
     if (width > 1279) {

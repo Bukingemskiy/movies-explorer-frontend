@@ -65,18 +65,6 @@ function MoviesCardList(props) {
       numberOfMovies += 2;
       console.log("2");
     }
-    handleMoreButton();
-    if (numberOfMovies <= cardList.length) {
-      for (let i = 0; i < numberOfMovies; i++) {
-        cardList[i].style.display = "block";
-      }
-      console.log("number");
-    } else {
-      for (let i = 0; i < cardList.length; i++) {
-        cardList[i].style.display = "block";
-      }
-      console.log("card");
-    }
   }
 
   console.log(props.renderMovies);

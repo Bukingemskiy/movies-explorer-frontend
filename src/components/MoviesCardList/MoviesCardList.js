@@ -60,6 +60,7 @@ function MoviesCardList(props) {
   }, [cardList, numberOfMovies]);
 
   function openMore() {
+    document.location.reload();
     if (width > 1279) {
       setNumberOfMovies(numberOfMovies + 3);
       console.log("3");

@@ -35,20 +35,19 @@ function MoviesCardList(props) {
       setMoreButton("more__button");
       console.log("visible");
     }
-
-    for (let i = numberOfMovies; i <= cardList.length; i++) {
-      if (numberOfMovies <= cardList.length) {
+    if (numberOfMovies <= cardList.length) {
+      for (let i = numberOfMovies; i <= cardList.length; i++) {
         for (let j = 0; j < numberOfMovies; j++) {
           cardList[j].style.display = "block";
           cardList[i].style.display = "none";
         }
         console.log("number");
-      } else {
-        for (let j = 0; j < cardList.length; j++) {
-          cardList[j].style.display = "block";
-        }
-        console.log("card");
       }
+    } else {
+      for (let j = 0; j < cardList.length; j++) {
+        cardList[j].style.display = "block";
+      }
+      console.log("card");
     }
   }, [cardList, numberOfMovies]);
 

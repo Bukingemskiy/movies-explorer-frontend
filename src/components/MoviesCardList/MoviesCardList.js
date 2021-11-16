@@ -15,16 +15,6 @@ function MoviesCardList(props) {
   const [numberOfMovies, setNumberOfMovies] = React.useState(12);
 
   React.useEffect(() => {
-    if (numberOfMovies > cardList.length) {
-      setMoreButton("more__button more__button_invisible");
-      console.log("invisible");
-    } else {
-      setMoreButton("more__button");
-      console.log("visible");
-    }
-  }, [cardList, numberOfMovies]);
-
-  React.useEffect(() => {
     if ((width < 1280) & (width > 767)) {
       setNumberOfMovies(8);
       console.log("8");
@@ -35,21 +25,32 @@ function MoviesCardList(props) {
       setNumberOfMovies(12);
       console.log("12");
     }
-    for (let i = numberOfMovies; i < cardList.length; i++) {
-      if (numberOfMovies <= cardList.length) {
+    document.window.reload();
+  }, [width]);
+
+  React.useEffect(() => {
+    if (numberOfMovies > cardList.length) {
+      setMoreButton("more__button more__button_invisible");
+      console.log("invisible");
+    } else {
+      setMoreButton("more__button");
+      console.log("visible");
+    }
+    if (numberOfMovies <= cardList.length) {
+      for (let i = numberOfMovies; i <= cardList.length; i++) {
         for (let j = 0; j < numberOfMovies; j++) {
           cardList[j].style.display = "block";
           cardList[i].style.display = "none";
         }
         console.log("number");
-      } else {
-        for (let j = 0; j < cardList.length; j++) {
-          cardList[j].style.display = "block";
-        }
-        console.log("card");
       }
+    } else {
+      for (let j = 0; j < cardList.length; j++) {
+        cardList[j].style.display = "block";
+      }
+      console.log("card");
     }
-  }, [cardList, numberOfMovies, width]);
+  }, [cardList, numberOfMovies]);
 
   function openMore() {
     if (width > 1279) {

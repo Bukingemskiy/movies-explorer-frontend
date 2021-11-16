@@ -10,9 +10,6 @@ function Login(props) {
   const [passwordValid, setPasswordValid] = React.useState(true);
   const [isValid, setIsValid] = React.useState(false);
 
-  console.log(props.errorMessage);
-  console.log(emailValid);
-
   function handleChangeEmail(e) {
     setEmail(e.target.value);
     if (props.errorMessage.length > 0) {

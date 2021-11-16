@@ -74,6 +74,11 @@
   opacity: 0.6;
 }
 
+.search__button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .search__border-bottom {
   padding-bottom: 69px;
   border-bottom: 1px solid #424242;

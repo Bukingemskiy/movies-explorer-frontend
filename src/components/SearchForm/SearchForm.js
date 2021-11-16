@@ -20,6 +20,9 @@ function SearchForm(props) {
 
   function handleSearchChange(e) {
     setSearch(e.target.value);
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
+    }
     setSearchValid(e.target.checkValidity());
     console.log(search);
     console.log(searchValid);
@@ -48,7 +51,7 @@ function SearchForm(props) {
 
   React.useEffect(() => {
     console.log("update search");
-  }, [cacheCheckbox, location.pathname]);
+  }, [cacheCheckbox, location.pathname, searchValid]);
 
   return (
     <section className="search">
@@ -60,6 +63,7 @@ function SearchForm(props) {
             type="text"
             name="search"
             placeholder="Фильм"
+            minLength="1"
             value={
               isSavedMovies
                 ? search || ""
@@ -77,8 +81,12 @@ function SearchForm(props) {
           >
             Введите ключевое слово
           </span>
-          <button className="search__button" type="submit">
-            Найти
+          <button
+            className="search__button"
+            type="submit"
+            disabled={!searchValid}
+          >
+            {props.isLoading ? "Поиск..." : "Найти"}
           </button>
         </form>
         <FilterCheckBox

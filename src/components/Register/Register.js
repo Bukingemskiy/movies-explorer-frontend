@@ -12,12 +12,6 @@ function Register(props) {
   const [passwordValid, setPasswordValid] = React.useState(true);
   const [isValid, setIsValid] = React.useState(false);
 
-  console.log(props.errorMessage);
-  console.log(nameValid);
-  console.log(emailValid);
-  console.log(passwordValid);
-  console.log(isValid);
-
   function handleChangeName(e) {
     setName(e.target.value);
     if (props.errorMessage.length > 0) {

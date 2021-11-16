@@ -58,7 +58,7 @@ function FilterCheckBox(props) {
         setIconRing("search__icon-ring");
       }
     }
-  }, [isSavedMovies, location.pathname]);
+  }, [isSavedMovies, location.pathname, props.cacheCheckbox]);
 
   return (
     <div className="search__filter">

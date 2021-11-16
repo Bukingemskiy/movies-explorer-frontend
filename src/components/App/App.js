@@ -238,6 +238,10 @@ function App(initialLoggedIn) {
       .finally(() => setIsLoading(false));
   }
 
+  React.useEffect(() => {
+    setErrorMessage("");
+  }, [location.pathname]);
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -271,6 +275,7 @@ function App(initialLoggedIn) {
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
             errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
@@ -283,6 +288,7 @@ function App(initialLoggedIn) {
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
             errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}

@@ -251,6 +251,7 @@ function App(initialLoggedIn) {
           </Route>
           <Route exact path="/signup">
             <Register
+              isLoading={isLoading}
               onRegister={handleRegister}
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
@@ -258,6 +259,7 @@ function App(initialLoggedIn) {
           </Route>
           <Route exact path="/signin">
             <Login
+              isLoading={isLoading}
               onLogin={handleLogin}
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}

@@ -10,22 +10,34 @@ function Register(props) {
   const [nameValid, setNameValid] = React.useState(true);
   const [emailValid, setEmailValid] = React.useState(true);
   const [passwordValid, setPasswordValid] = React.useState(true);
+  const [isValid, setIsValid] = React.useState(false);
 
   console.log(props.errorMessage);
+  console.log(nameValid);
   console.log(emailValid);
+  console.log(passwordValid);
 
   function handleChangeName(e) {
     setName(e.target.value);
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
+    }
     setNameValid(e.target.checkValidity());
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
+    }
     setEmailValid(e.target.checkValidity());
   }
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
+    }
     setPasswordValid(e.target.checkValidity());
   }
 
@@ -34,6 +46,13 @@ function Register(props) {
     props.onRegister(name, email, password);
     props.onLogin(email, password);
   }
+
+  React.useEffect(() => {
+    nameValid && emailValid && passwordValid
+      ? setIsValid(true)
+      : setIsValid(false);
+  }, [emailValid, nameValid, passwordValid]);
+
   return (
     <section className="register" onSubmit={handleSubmit}>
       <Logo />
@@ -47,6 +66,8 @@ function Register(props) {
               type="text"
               name="name"
               placeholder="Имя"
+              minLength="2"
+              maxLength="30"
               onChange={handleChangeName}
               required
             />
@@ -55,7 +76,7 @@ function Register(props) {
                 !nameValid ? "register__error_visible" : ""
               }`}
             >
-              {props.errorMessage}
+              Это поле должно содержать от 2 до 30 символов
             </span>
           </div>
           <div className="register__field">
@@ -65,6 +86,7 @@ function Register(props) {
               type="email"
               name="email"
               placeholder="Email"
+              pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
               onChange={handleChangeEmail}
               required
             />
@@ -73,7 +95,7 @@ function Register(props) {
                 !emailValid ? "register__error_visible" : ""
               }`}
             >
-              {props.errorMessage}
+              Введите корректный e-mail
             </span>
           </div>
           <div className="register__field">
@@ -89,15 +111,19 @@ function Register(props) {
             />
             <span
               className={`register__error ${
-                !passwordValid ? "register__error_visible" : ""
+                !passwordValid || props.errorMessage
+                  ? "register__error_visible"
+                  : ""
               }`}
             >
-              {props.errorMessage}
+              {props.errorMessage
+                ? props.errorMessage
+                : "Пароль должен быть не короче 8 символов"}
             </span>
           </div>
         </fieldset>
-        <button className="register__button" type="submit">
-          Зарегистрироваться
+        <button className="register__button" type="submit" disabled={!isValid}>
+          {props.isLoading ? "Сохранение..." : "Зарегистрироваться"}
         </button>
       </form>
       <h3 className="register__subtitle">

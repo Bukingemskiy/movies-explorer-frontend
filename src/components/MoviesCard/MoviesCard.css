@@ -11,6 +11,10 @@
   font-weight: 500;
   font-size: 15px;
   line-height: 18px;
+  width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .movie__subtitle {

@@ -88,9 +88,7 @@ function Profile(props) {
                 !nameValid ? "profile__error_visible" : ""
               }`}
             >
-              {props.errorMessage
-                ? props.errorMessage
-                : "Это поле должно содержать хотя бы 2 символа"}
+              Это поле должно содержать от 2 до 30 символов
             </span>
             <div className="profile__field">
               <p className="profile__field-name">E-mail</p>

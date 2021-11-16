@@ -7,23 +7,22 @@ import MoviesCard from "../MoviesCard/MoviesCard.js";
 function MoviesCardList(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const [, setIsLoading] = React.useState(false);
   const [isMoreButton, setMoreButton] = React.useState(
     "more__button_invisible"
   );
   const cardList = document.getElementsByClassName("movie");
   const width = window.innerWidth;
-  let numberOfMovies = 12;
+  const [numberOfMovies, setNumberOfMovies] = React.useState(12);
 
   React.useEffect(() => {
     if ((width < 1280) & (width > 767)) {
-      numberOfMovies = 8;
+      setNumberOfMovies(8);
       console.log("8");
     } else if (width < 768) {
-      numberOfMovies = 5;
+      setNumberOfMovies(5);
       console.log("5");
     } else if (width > 1279) {
-      numberOfMovies = 12;
+      setNumberOfMovies(12);
       console.log("12");
     }
   }, [width]);
@@ -59,11 +58,23 @@ function MoviesCardList(props) {
 
   function openMore() {
     if (width > 1279) {
-      numberOfMovies += 3;
+      setNumberOfMovies(numberOfMovies + 3);
       console.log("3");
     } else {
-      numberOfMovies += 2;
+      setNumberOfMovies(numberOfMovies + 2);
       console.log("2");
+    }
+    handleMoreButton();
+    if (numberOfMovies <= cardList.length) {
+      for (let i = 0; i < numberOfMovies; i++) {
+        cardList[i].style.display = "block";
+      }
+      console.log("number");
+    } else {
+      for (let i = 0; i < cardList.length; i++) {
+        cardList[i].style.display = "block";
+      }
+      console.log("card");
     }
   }
 

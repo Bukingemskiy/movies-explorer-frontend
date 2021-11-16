@@ -22,23 +22,20 @@ function MoviesCardList(props) {
     }
   });
 
-  function handleWidthScreen() {
-    if ((width < 1280) & (width > 767)) {
-      setNumberOfMovies(8);
-      console.log("8");
-    } else if (width < 768) {
-      setNumberOfMovies(5);
-      console.log("5");
-    } else if (width > 1279) {
-      setNumberOfMovies(12);
-      console.log("12");
-    }
-  }
-
   React.useEffect(() => {
-    window.addEventListener("resize", handleWidthScreen);
-    return () => window.removeEventListener("resize", handleWidthScreen);
-  }, []);
+    window.addEventListener("resize", () => {
+      if ((width < 1280) & (width > 767)) {
+        setNumberOfMovies(8);
+        console.log("8");
+      } else if (width < 768) {
+        setNumberOfMovies(5);
+        console.log("5");
+      } else if (width > 1279) {
+        setNumberOfMovies(12);
+        console.log("12");
+      }
+    });
+  }, [width]);
 
   React.useEffect(() => {
     if (numberOfMovies > cardList.length) {

@@ -12,7 +12,7 @@ function SearchForm(props) {
     cacheCheckbox !== null ? cacheCheckbox : false
   );
   const [searchValid, setSearchValid] = React.useState(true);
-  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const [buttonDisabled, setButtonDisabled] = React.useState(true);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
 
   console.log(cacheCheckbox);

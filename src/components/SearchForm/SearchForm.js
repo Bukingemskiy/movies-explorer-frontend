@@ -29,6 +29,7 @@ function SearchForm(props) {
   function handleSearchMovies(e) {
     e.preventDefault();
     props.onSearchMovies(!isSavedMovies ? cacheSearch : search, searchCheckbox);
+    setButtonDisabled(true);
   }
 
   function handleCheckbox(isToggle) {
@@ -43,16 +44,8 @@ function SearchForm(props) {
   }, [location.pathname]);
 
   React.useEffect(() => {
-    console.log(search);
-    console.log(cacheSearch);
-    console.log(buttonDisabled);
-    search.length === 0
-      ? setButtonDisabled(true)
-      : search === cacheSearch
-      ? setButtonDisabled(true)
-      : setButtonDisabled(false);
-    console.log(buttonDisabled);
-  }, [cacheSearch, search]);
+    search.length === 0 ? setButtonDisabled(true) : setButtonDisabled(false);
+  }, [search]);
 
   return (
     <section className="search">

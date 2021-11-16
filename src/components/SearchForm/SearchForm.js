@@ -11,7 +11,8 @@ function SearchForm(props) {
   const [searchCheckbox, setSearchCheckbox] = React.useState(
     cacheCheckbox !== null ? cacheCheckbox : false
   );
-  const [searchValid, setSearchValid] = React.useState(false);
+  const [searchValid, setSearchValid] = React.useState(true);
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
 
   console.log(cacheCheckbox);
@@ -20,6 +21,7 @@ function SearchForm(props) {
 
   function handleSearchChange(e) {
     setSearch(e.target.value);
+    search.length > 0 ? setButtonDisabled(false) : setButtonDisabled(true);
     if (props.errorMessage) {
       props.setErrorMessage("");
     }
@@ -53,6 +55,10 @@ function SearchForm(props) {
     console.log("update search");
   }, [cacheCheckbox, location.pathname, searchValid]);
 
+  React.useEffect(() => {
+    setSearchValid(true);
+  }, [location.pathname]);
+
   return (
     <section className="search">
       <div className="search__box">
@@ -74,17 +80,10 @@ function SearchForm(props) {
             onChange={handleSearchChange}
             required
           />
-          <span
-            className={`search__error ${
-              !searchValid ? "search__error_visible" : ""
-            }`}
-          >
-            Введите ключевое слово
-          </span>
           <button
             className="search__button"
             type="submit"
-            disabled={!searchValid}
+            disabled={buttonDisabled}
           >
             {props.isLoading ? "Поиск..." : "Найти"}
           </button>
@@ -99,6 +98,13 @@ function SearchForm(props) {
           handleCheckbox={handleCheckbox}
         />
       </div>
+      <span
+        className={`search__error ${
+          !searchValid ? "search__error_visible" : ""
+        }`}
+      >
+        Введите ключевое слово
+      </span>
       <div className="search__border-bottom"></div>
     </section>
   );

@@ -22,6 +22,9 @@ function Profile(props) {
 
   function handleChangeName(e) {
     setName(e.target.value);
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
+    }
     setNameValid(e.target.checkValidity());
   }
 
@@ -74,7 +77,7 @@ function Profile(props) {
                 className="profile__input"
                 type="text"
                 name="name"
-                value={name}
+                value={currentUser.name}
                 minLength="2"
                 maxLength="30"
                 onChange={handleChangeName}
@@ -93,7 +96,7 @@ function Profile(props) {
                 className="profile__input"
                 type="email"
                 name="email"
-                value={email}
+                value={email ? email : ""}
                 pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
                 onChange={handleChangeEmail}
               />

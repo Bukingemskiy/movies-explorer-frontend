@@ -49,7 +49,7 @@ function Profile(props) {
       nameValid &&
       emailValid &&
       (name !== currentUser.name || email !== currentUser.email) &&
-      (name === "" || email === "")
+      (name !== "" || email !== "")
     ) {
       setIsValid(true);
     } else {

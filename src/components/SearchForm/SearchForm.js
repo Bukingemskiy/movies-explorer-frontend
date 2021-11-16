@@ -44,7 +44,7 @@ function SearchForm(props) {
 
   React.useEffect(() => {
     search.length === 0 ? setButtonDisabled(true) : setButtonDisabled(false);
-  }, [search]);
+  }, [search, location.pathname]);
 
   return (
     <section className="search">

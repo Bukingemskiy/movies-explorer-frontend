@@ -42,7 +42,7 @@ function MoviesCardList(props) {
       for (let i = numberOfMovies; i <= cardList.length; i++) {
         for (let j = 0; j < numberOfMovies; j++) {
           cardList[j].style.display = "block";
-          //          cardList[i].style.display = "none";
+          cardList[i].style.display = "none";
         }
         console.log("number");
       }

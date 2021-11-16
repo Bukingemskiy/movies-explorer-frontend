@@ -12,30 +12,7 @@ function MoviesCardList(props) {
   );
   const cardList = document.getElementsByClassName("movie");
   const width = window.innerWidth;
-  const [numberOfMovies, setNumberOfMovies] = React.useState(() => {
-    if ((width < 1280) & (width > 767)) {
-      return 8;
-    } else if (width < 768) {
-      return 5;
-    } else if (width > 1279) {
-      return 12;
-    }
-  });
-
-  React.useEffect(() => {
-    window.addEventListener("resize", () => {
-      if ((width < 1280) & (width > 767)) {
-        setNumberOfMovies(8);
-        console.log("8");
-      } else if (width < 768) {
-        setNumberOfMovies(5);
-        console.log("5");
-      } else if (width > 1279) {
-        setNumberOfMovies(12);
-        console.log("12");
-      }
-    });
-  }, [width]);
+  const [numberOfMovies, setNumberOfMovies] = React.useState(12);
 
   React.useEffect(() => {
     if (numberOfMovies > cardList.length) {
@@ -48,6 +25,16 @@ function MoviesCardList(props) {
   }, [cardList, numberOfMovies]);
 
   React.useEffect(() => {
+    if ((width < 1280) & (width > 767)) {
+      setNumberOfMovies(8);
+      console.log("8");
+    } else if (width < 768) {
+      setNumberOfMovies(5);
+      console.log("5");
+    } else if (width > 1279) {
+      setNumberOfMovies(12);
+      console.log("12");
+    }
     for (let i = numberOfMovies; i < cardList.length; i++) {
       if (numberOfMovies <= cardList.length) {
         for (let j = 0; j < numberOfMovies; j++) {
@@ -62,7 +49,7 @@ function MoviesCardList(props) {
         console.log("card");
       }
     }
-  }, [cardList, numberOfMovies, props.renderMovies]);
+  }, [cardList, numberOfMovies, width]);
 
   function openMore() {
     if (width > 1279) {

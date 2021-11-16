@@ -12,9 +12,17 @@ function MoviesCardList(props) {
   );
   const cardList = document.getElementsByClassName("movie");
   const width = window.innerWidth;
-  const [numberOfMovies, setNumberOfMovies] = React.useState(12);
+  const [numberOfMovies, setNumberOfMovies] = React.useState(() => {
+    if ((width < 1280) & (width > 767)) {
+      return 8;
+    } else if (width < 768) {
+      return 5;
+    } else if (width > 1279) {
+      return 12;
+    }
+  });
 
-  React.useEffect(() => {
+  function handleWidthScreen() {
     if ((width < 1280) & (width > 767)) {
       setNumberOfMovies(8);
       console.log("8");
@@ -25,7 +33,12 @@ function MoviesCardList(props) {
       setNumberOfMovies(12);
       console.log("12");
     }
-  }, [width]);
+  }
+
+  React.useEffect(() => {
+    window.addEventListener("resize", handleWidthScreen);
+    return () => window.removeEventListener("resize", handleWidthScreen);
+  }, []);
 
   React.useEffect(() => {
     if (numberOfMovies > cardList.length) {
@@ -116,7 +129,7 @@ function MoviesCardList(props) {
         {isSavedMovies ? (
           <></>
         ) : (
-          <button className={isMoreButton} onChange={openMore}>
+          <button className={isMoreButton} onClick={openMore}>
             Ещё
           </button>
         )}

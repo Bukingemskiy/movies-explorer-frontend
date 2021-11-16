@@ -270,6 +270,7 @@ function App(initialLoggedIn) {
             component={Movies}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            setIsLoading={setIsLoading}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             foundMovies={foundMovies}
@@ -285,6 +286,7 @@ function App(initialLoggedIn) {
             component={SavedMovies}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            setIsLoading={setIsLoading}
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
             errorMessage={errorMessage}

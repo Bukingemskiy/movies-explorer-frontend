@@ -78,6 +78,12 @@ function MoviesCardList(props) {
     }
   }
 
+  window.onresize = setTimeout(() => {
+    props.setIsLoading(true);
+    document.window.reload();
+  }, 100);
+  props.setIsLoading(false);
+
   console.log(props.renderMovies);
 
   return (

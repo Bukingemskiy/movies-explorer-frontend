@@ -77,7 +77,7 @@ function Profile(props) {
                 className="profile__input"
                 type="text"
                 name="name"
-                value={name === 0 ? "" : name}
+                value={name}
                 minLength="2"
                 maxLength="30"
                 onChange={handleChangeName}
@@ -85,7 +85,7 @@ function Profile(props) {
             </div>
             <span
               className={`profile__error ${
-                !nameValid ? "profile__error_visible" : ""
+                !nameValid || name.length === 0 ? "profile__error_visible" : ""
               }`}
             >
               Это поле должно содержать от 2 до 30 символов
@@ -96,14 +96,14 @@ function Profile(props) {
                 className="profile__input"
                 type="email"
                 name="email"
-                value={email !== 0 ? email : ""}
+                value={email}
                 pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
                 onChange={handleChangeEmail}
               />
             </div>
             <span
               className={`profile__error ${
-                !emailValid || props.errorMessage
+                !emailValid || props.errorMessage || email === ""
                   ? "profile__error_visible"
                   : ""
               }`}

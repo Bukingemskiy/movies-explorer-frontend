@@ -28,7 +28,7 @@ function MoviesCardList(props) {
   }, [width]);
 
   React.useEffect(() => {
-    window.location.reload();
+    document.location.reload();
   }, [width]);
 
   React.useEffect(() => {

@@ -88,6 +88,13 @@ function SearchForm(props) {
             {props.isLoading ? "Поиск..." : "Найти"}
           </button>
         </form>
+        <span
+          className={`search__error ${
+            !searchValid ? "search__error_visible" : ""
+          }`}
+        >
+          Введите ключевое слово
+        </span>
         <FilterCheckBox
           movies={props.movies}
           search={search}
@@ -98,13 +105,6 @@ function SearchForm(props) {
           handleCheckbox={handleCheckbox}
         />
       </div>
-      <span
-        className={`search__error ${
-          !searchValid ? "search__error_visible" : ""
-        }`}
-      >
-        Введите ключевое слово
-      </span>
       <div className="search__border-bottom"></div>
     </section>
   );

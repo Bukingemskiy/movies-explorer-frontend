@@ -68,11 +68,17 @@
     width: 339px;
     height: 190px;
   }
+  .movie__title {
+    width: 280px;
+  }
 }
 
 @media (max-width: 767px) {
   .movie__image {
     width: 300px;
     height: 168px;
+  }
+  .movie__title {
+    width: 240px;
   }
 }

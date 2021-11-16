@@ -20,7 +20,7 @@ function SearchForm(props) {
 
   function handleSearchChange(e) {
     setSearch(e.target.value);
-    if (props.errorMessage.length !== null) {
+    if (props.errorMessage) {
       props.setErrorMessage("");
     }
     setSearchValid(e.target.checkValidity());

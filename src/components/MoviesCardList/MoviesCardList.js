@@ -38,7 +38,7 @@ function MoviesCardList(props) {
     }
   }
 
-  function handleWidth() {
+  React.useEffect(() => {
     handleMoreButton();
     for (let i = numberOfMovies; i < cardList.length; i++) {
       if (numberOfMovies <= cardList.length) {
@@ -55,21 +55,7 @@ function MoviesCardList(props) {
         console.log("card");
       }
     }
-  }
-
-  window.onload = function () {
-    handleWidth();
-    console.log("update width page");
-  };
-
-  function resize() {
-    setIsLoading(true);
-    setTimeout(handleWidth, 100);
-    console.log("100");
-    setIsLoading(false);
-  }
-
-  window.onresize = resize;
+  }, [cardList, numberOfMovies, width]);
 
   function openMore() {
     if (width > 1279) {

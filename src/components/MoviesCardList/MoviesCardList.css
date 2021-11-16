@@ -34,13 +34,31 @@
   opacity: 0.6;
 }
 
-.errorMessage {
+.movies__error {
   text-align: center;
   font-size: 10px;
   line-height: 12px;
   color: #ee3465;
   padding: 10px 0;
   margin-left: 60px;
+  display: none;
+}
+
+.movies__error_visible {
+  display: block;
+}
+
+.movies__not-found {
+  text-align: center;
+  font-size: 28px;
+  line-height: 32px;
+  color: white;
+  padding: 50px;
+  display: none;
+}
+
+.movies__not-found_visible {
+  display: block;
 }
 
 @media screen and (max-width: 1279px) {

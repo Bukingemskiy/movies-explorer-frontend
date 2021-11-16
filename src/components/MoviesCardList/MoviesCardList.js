@@ -103,17 +103,24 @@ function MoviesCardList(props) {
   return (
     <>
       <Preloader isLoading={props.isLoading} />
-      <span
-        className={`${
-          props.errorMessage || props.renderMovies === [] ? "errorMessage" : ""
-        }`}
-      >
-        {props.errorMessage
-          ? props.errorMessage
-          : isSavedMovies
-          ? "Вам пока что ничего не понравилось"
-          : "По вашему запросу ничего не нашлось"}
-      </span>
+      <div>
+        <span
+          className={`movies__error ${
+            props.errorMessage ? "movies__error_visible" : ""
+          }`}
+        >
+          {props.errorMessage}
+        </span>
+        <span
+          className={`movies__not-found ${
+            props.renderMovies === [] ? "movies__not-found_visible" : ""
+          }`}
+        >
+          {isSavedMovies
+            ? "Вам ещё ничего не понравилось"
+            : "Ничего не найдено"}
+        </span>
+      </div>
       <section className="movies">
         {props.renderMovies.map((movie) => (
           <MoviesCard

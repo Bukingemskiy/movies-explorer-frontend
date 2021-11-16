@@ -25,15 +25,12 @@ function MoviesCardList(props) {
   React.useEffect(() => {
     if ((width < 1280) & (width > 767)) {
       setNumberOfMovies(8);
-      document.location.reload();
       console.log("8");
     } else if (width < 768) {
       setNumberOfMovies(5);
-      document.location.reload();
       console.log("5");
     } else if (width > 1279) {
       setNumberOfMovies(12);
-      document.location.reload();
       console.log("12");
     }
   }, [width]);

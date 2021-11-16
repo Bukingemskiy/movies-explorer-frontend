@@ -16,6 +16,7 @@ function Register(props) {
   console.log(nameValid);
   console.log(emailValid);
   console.log(passwordValid);
+  console.log(isValid);
 
   function handleChangeName(e) {
     setName(e.target.value);

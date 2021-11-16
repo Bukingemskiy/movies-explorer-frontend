@@ -85,9 +85,7 @@ function App(initialLoggedIn) {
       })
       .catch((err) => {
         if (err === "Ошибка: 401")
-          return setErrorMessage(
-            `Вы ввели неправильный адрес почты или пароль. ${err}.`
-          );
+          return setErrorMessage(`Введен неверный e-mail или пароль. ${err}.`);
         setErrorMessage(`Попробуйте ещё раз! ${err}.`);
         console.log(`${err}`);
       })
@@ -105,8 +103,6 @@ function App(initialLoggedIn) {
         }
       })
       .catch((err) => {
-        if (err === "Ошибка: 400")
-          return setErrorMessage(`Это поле заполнено некорректно. ${err}.`);
         if (err === "Ошибка: 409")
           return setErrorMessage(
             `Пользователь с таким e-mail уже существует. ${err}.`

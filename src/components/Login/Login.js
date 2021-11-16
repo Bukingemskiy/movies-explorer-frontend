@@ -6,33 +6,37 @@ import Logo from "../Logo/Logo.js";
 function Login(props) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [emailError, setEmailError] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState("");
-  const [emailValid, setEmailValid] = React.useState(false);
-  const [passwordValid, setPasswordValid] = React.useState(false);
-  const [formValid, setFormValid] = React.useState(false);
+  const [emailValid, setEmailValid] = React.useState(true);
+  const [passwordValid, setPasswordValid] = React.useState(true);
+  const [isValid, setIsValid] = React.useState(false);
 
   console.log(props.errorMessage);
   console.log(emailValid);
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
-    if (emailError.length > 0) {
-      setEmailError("");
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
     }
+    setEmailValid(e.target.checkValidity());
   }
 
   function handleChangePassword(e) {
     setPassword(e.target.value);
-    if (passwordError.length > 0) {
-      setPasswordError("");
+    if (props.errorMessage.length > 0) {
+      props.setErrorMessage("");
     }
+    setPasswordValid(e.target.checkValidity());
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     props.onLogin(email, password);
   }
+
+  React.useEffect(() => {
+    emailValid && passwordValid ? setIsValid(true) : setIsValid(false);
+  }, [emailValid, passwordValid]);
 
   return (
     <section className="login">
@@ -47,6 +51,7 @@ function Login(props) {
               type="email"
               name="email"
               placeholder="E-mail"
+              pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
               onChange={handleChangeEmail}
               required
             />
@@ -55,7 +60,7 @@ function Login(props) {
                 !emailValid ? "login__error_visible" : ""
               }`}
             >
-              {props.errorMessage}
+              Введите корректный e-mail
             </span>
           </div>
           <div className="login__field">
@@ -71,15 +76,19 @@ function Login(props) {
             />
             <span
               className={`login__error ${
-                !passwordValid ? "login__error_visible" : ""
+                !passwordValid || props.errorMessage
+                  ? "login__error_visible"
+                  : ""
               }`}
             >
-              {props.errorMessage}
+              {props.errorMessage
+                ? props.errorMessage
+                : "Пароль должен быть не короче 8 символов"}
             </span>
           </div>
         </fieldset>
-        <button className="login__button" type="submit">
-          Войти
+        <button className="login__button" type="submit" disabled={!isValid}>
+          {props.isLoading ? "Сохранение..." : "Войти"}
         </button>
       </form>
       <h3 className="login__subtitle">

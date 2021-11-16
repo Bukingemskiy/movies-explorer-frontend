@@ -78,6 +78,11 @@
   opacity: 0.6;
 }
 
+.register__button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .register__subtitle {
   font-weight: 400;
   margin: 16px auto 0;

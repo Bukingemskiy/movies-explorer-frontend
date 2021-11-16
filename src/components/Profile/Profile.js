@@ -22,9 +22,6 @@ function Profile(props) {
 
   function handleChangeName(e) {
     setName(e.target.value);
-    if (props.errorMessage.length > 0) {
-      props.setErrorMessage("");
-    }
     setNameValid(e.target.checkValidity());
   }
 

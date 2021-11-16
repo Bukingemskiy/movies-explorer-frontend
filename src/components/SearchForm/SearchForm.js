@@ -7,17 +7,13 @@ function SearchForm(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [search, setSearch] = React.useState("");
+  const [searchValid, setSearchValid] = React.useState(true);
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
   const cacheCheckbox = JSON.parse(localStorage.getItem("localCacheCheckbox"));
   const [searchCheckbox, setSearchCheckbox] = React.useState(
     cacheCheckbox !== null ? cacheCheckbox : false
   );
-  const [searchValid, setSearchValid] = React.useState(true);
-  const [buttonDisabled, setButtonDisabled] = React.useState(false);
-  const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
-
-  console.log(cacheCheckbox);
-  console.log(props.errorMessage);
-  console.log(searchValid);
 
   function handleSearchChange(e) {
     setSearch(e.target.value);
@@ -25,8 +21,6 @@ function SearchForm(props) {
       props.setErrorMessage("");
     }
     setSearchValid(e.target.checkValidity());
-    console.log(search);
-    console.log(searchValid);
     if (!isSavedMovies) {
       localStorage.setItem("localSearch", JSON.stringify(e.target.value));
     }
@@ -34,32 +28,21 @@ function SearchForm(props) {
 
   function handleSearchMovies(e) {
     e.preventDefault();
-    console.log(cacheSearch);
-    console.log(search);
-    console.log(searchCheckbox);
-    console.log(cacheCheckbox);
     props.onSearchMovies(!isSavedMovies ? cacheSearch : search, searchCheckbox);
   }
 
   function handleCheckbox(isToggle) {
-    console.log(isToggle);
     setSearchCheckbox(isToggle);
     if (!isSavedMovies) {
       localStorage.setItem("localCacheCheckbox", JSON.stringify(isToggle));
     }
-    console.log(cacheCheckbox);
   }
-
-  React.useEffect(() => {
-    console.log("update search");
-  }, [cacheCheckbox, location.pathname, searchValid, buttonDisabled]);
 
   React.useEffect(() => {
     setSearchValid(true);
   }, [location.pathname]);
 
   React.useEffect(() => {
-    console.log(search.length);
     search.length === 0 ? setButtonDisabled(true) : setButtonDisabled(false);
   }, [search.length]);
 

@@ -113,7 +113,7 @@ function MoviesCardList(props) {
         </span>
         <span
           className={`movies__not-found ${
-            props.renderMovies === [] ? "movies__not-found_visible" : ""
+            props.renderMovies.length === 0 ? "movies__not-found_visible" : ""
           }`}
         >
           {isSavedMovies

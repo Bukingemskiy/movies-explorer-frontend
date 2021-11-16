@@ -35,9 +35,6 @@ function MoviesCardList(props) {
       setMoreButton("more__button");
       console.log("visible");
     }
-  }, [cardList, numberOfMovies]);
-
-  React.useEffect(() => {
     for (let i = numberOfMovies; i < cardList.length; i++) {
       if (numberOfMovies <= cardList.length) {
         for (let j = 0; j < numberOfMovies; j++) {
@@ -53,7 +50,7 @@ function MoviesCardList(props) {
         console.log("card");
       }
     }
-  }, [cardList, numberOfMovies, width]);
+  }, [cardList, numberOfMovies]);
 
   function openMore() {
     if (width > 1279) {

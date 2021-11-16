@@ -85,7 +85,7 @@ function Profile(props) {
             </div>
             <span
               className={`profile__error ${
-                !nameValid || name.length === 0 ? "profile__error_visible" : ""
+                !nameValid || name === "" ? "profile__error_visible" : ""
               }`}
             >
               Это поле должно содержать от 2 до 30 символов

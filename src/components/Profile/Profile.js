@@ -36,7 +36,7 @@ function Profile(props) {
     e.preventDefault();
     props.onUpdateUser({
       name: name,
-      email: email,
+      email: email.toLowerCase(),
     });
   }
 

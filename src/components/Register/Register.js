@@ -38,8 +38,8 @@ function Register(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onRegister(name, email, password);
-    props.onLogin(email, password);
+    props.onRegister(name, email.toLowerCase(), password);
+    props.onLogin(email.toLowerCase(), password);
   }
 
   React.useEffect(() => {

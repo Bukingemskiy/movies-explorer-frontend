@@ -46,7 +46,7 @@ function Profile(props) {
       emailValid &&
       name !== "" &&
       email !== "" &&
-      (name !== currentUser.name || email !== currentUser.email)
+      (name !== currentUser.name || email !== currentUser.email.toLowerCase())
     ) {
       setIsValid(true);
     } else {

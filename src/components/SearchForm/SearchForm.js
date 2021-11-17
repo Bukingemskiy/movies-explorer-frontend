@@ -42,14 +42,12 @@ function SearchForm(props) {
   }
 
   function outsideClickListener(e) {
-    console.log(e.target);
-    console.log(input);
-    console.log(searchError);
     if (input !== e.target) {
       setSearchError("search__error");
       document.removeEventListener("click", outsideClickListener);
     }
   }
+
   document.addEventListener("click", outsideClickListener);
 
   React.useEffect(() => {

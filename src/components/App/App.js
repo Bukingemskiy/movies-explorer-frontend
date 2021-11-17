@@ -32,11 +32,8 @@ function App(initialLoggedIn) {
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  console.log(loggedIn);
-
   React.useEffect(() => {
     if (loggedIn) {
-      console.log("update movies");
       setIsLoading(true);
       Promise.all([
         moviesApi.getMovies(),
@@ -63,14 +60,12 @@ function App(initialLoggedIn) {
             : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
         })
         .catch((err) => {
-          setErrorMessage(`При загрузке страницы произошла ${err}.`);
+          setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
           console.log(`${err}`);
         })
         .finally(() => setIsLoading(false));
     }
-  }, [loggedIn, location.pathname]);
-
-  React.useEffect(() => {}, []);
+  }, [loggedIn, savedMovies]);
 
   function handleLogin(email, password) {
     setIsLoading(true);
@@ -80,8 +75,6 @@ function App(initialLoggedIn) {
         setLoggedIn(true);
         history.push("/movies");
         document.location.reload();
-        console.log(loggedIn);
-        console.log(foundMovies);
       })
       .catch((err) => {
         if (err === "Ошибка: 401")
@@ -99,7 +92,6 @@ function App(initialLoggedIn) {
       .then((res) => {
         if (res) {
           handleLogin(email, password);
-          console.log(loggedIn);
         }
       })
       .catch((err) => {
@@ -107,7 +99,7 @@ function App(initialLoggedIn) {
           return setErrorMessage(
             `Пользователь с таким e-mail уже существует. ${err}.`
           );
-        setErrorMessage(`При регистрации пользоваеля произошла ${err}.`);
+        setErrorMessage(`При регистрации пользоваеля произошла ошибка ${err}.`);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -120,11 +112,9 @@ function App(initialLoggedIn) {
       .then(() => {
         setLoggedIn(false);
         localStorage.clear();
-        console.log(loggedIn);
-        console.log(cacheMovies);
       })
       .catch((err) => {
-        setErrorMessage(`При отправке запроса произошла ${err}.`);
+        setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -137,33 +127,28 @@ function App(initialLoggedIn) {
       .then((user) => {
         setCurrentUser(user.data);
         setErrorMessage("Данные профиля успешно изменены");
-        console.log(currentUser);
       })
       .catch((err) => {
         if (err === "Ошибка: 409")
           return setErrorMessage(
             `Пользователь с таким e-mail уже существует. ${err}.`
           );
-        setErrorMessage(`При обновлении профиля произошла ${err}.`);
+        setErrorMessage(`При обновлении профиля произошла ошибка ${err}.`);
+        console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
   }
 
   function handleSearchMovies(search, searchCheckbox) {
-    console.log(savedMovies);
-    console.log(foundMovies);
     setIsLoading(true);
     setSavedMovies(cacheSavedMovies);
     setFoundMovies(cacheFoundMovies);
-    console.log(savedMovies);
-    console.log(foundMovies);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
         cacheSavedMovies,
         search,
         searchCheckbox
       );
-      console.log(filterd);
       setSavedMovies(filterd);
       setIsLoading(false);
     } else {
@@ -172,14 +157,11 @@ function App(initialLoggedIn) {
         search,
         searchCheckbox
       );
-      console.log(cacheMovies);
-      console.log(filterd);
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",
         JSON.stringify(filterd.length !== 0 ? filterd : cacheFoundMovies)
       );
-      console.log(cacheFoundMovies);
       setIsLoading(false);
     }
   }
@@ -192,9 +174,7 @@ function App(initialLoggedIn) {
         savedMovies !== null
           ? setSavedMovies([movieInfo.data, ...savedMovies])
           : setSavedMovies([movieInfo.data]);
-        console.log(savedMovies);
         localStorage.setItem("localSavedMovies", JSON.stringify(savedMovies));
-        console.log(movieInfo);
       })
       .catch((err) => {
         setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);
@@ -208,31 +188,24 @@ function App(initialLoggedIn) {
     mainApi
       .deleteMovie(id)
       .then(() => {
-        console.log(nameEN);
-        console.log(director);
-        console.log(savedMovies);
         const newMovies = savedMovies.filter(
           (savedMovie) => savedMovie._id !== id
         );
-        console.log(newMovies);
-        console.log(foundMovies);
         const deleteFoundItems = foundMovies.map((i) =>
           i.nameEN === nameEN && i.director === director
             ? Object.assign(i, { saved: false })
             : i
         );
         setFoundMovies(deleteFoundItems);
-        console.log(deleteFoundItems);
         localStorage.setItem(
           "localFoundMovies",
           JSON.stringify(deleteFoundItems)
         );
-        console.log(savedMovies);
         setSavedMovies(newMovies);
         localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
       })
       .catch((err) => {
-        setErrorMessage(`При отправке запроса произошла ${err}.`);
+        setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));

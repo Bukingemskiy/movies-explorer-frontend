@@ -231,6 +231,7 @@ function App() {
             savedMovies={savedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
+            setFoundMovies={setFoundMovies}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             createMovie={createMovie}
@@ -244,6 +245,7 @@ function App() {
             isLoading={isLoading}
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
+            setSavedMovies={setSavedMovies}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             createMovie={createMovie}

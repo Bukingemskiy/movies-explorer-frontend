@@ -33,6 +33,12 @@ function MoviesCardList(props) {
   }, [width]);
 
   React.useEffect(() => {
+    isSavedMovies
+      ? props.setSavedMovies(props.renderMovies)
+      : props.setFoundMovies(props.renderMovies);
+  }, [isSavedMovies, props]);
+
+  React.useEffect(() => {
     const listener = () => {
       setWidth(window.innerWidth);
     };

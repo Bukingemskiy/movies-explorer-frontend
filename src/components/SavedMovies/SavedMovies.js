@@ -16,6 +16,7 @@ function SavedMovies(props) {
         deleteMovie={props.deleteMovie}
         createMovie={props.createMovie}
         savedMovies={props.savedMovies}
+        setSavedMovies={props.setSavedMovies}
         renderMovies={props.renderMovies}
         isLoading={props.isLoading}
         errorMessage={props.errorMessage}

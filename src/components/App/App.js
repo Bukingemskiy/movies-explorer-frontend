@@ -32,19 +32,7 @@ function App() {
   const [errorMessage, setErrorMessage] = React.useState("");
 
   console.log(loggedIn);
-  getCookie();
   console.log(document.cookie);
-
-  function getCookie(name) {
-    const matches = document.cookie.match(
-      new RegExp(
-        "(?:^|; )" +
-          name.replace(/([\\.$?*|{}()[\]\\/+^])/g, "\\$1") +
-          "=([^;]*)"
-      )
-    );
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
 
   React.useEffect(() => {
     mainApi

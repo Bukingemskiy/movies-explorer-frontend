@@ -11,7 +11,7 @@ function MoviesCardList(props) {
     "more__button_invisible"
   );
   const cardList = document.getElementsByClassName("movie");
-  const width = window.innerWidth;
+  const [width, setWidth] = React.useState(window.innerWidth);
   const [numberOfMovies, setNumberOfMovies] = React.useState(() => {
     if ((width < 1280) & (width > 767)) {
       return 8;
@@ -36,9 +36,13 @@ function MoviesCardList(props) {
   }, [width]);
 
   React.useEffect(() => {
-    window.addEventListener("resize", () => {
-      console.log("resize");
-    });
+    const listener = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", listener);
+    return () => {
+      window.removeListener("resize", listener);
+    };
   }, []);
 
   React.useEffect(() => {

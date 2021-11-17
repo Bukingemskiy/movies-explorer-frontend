@@ -32,16 +32,14 @@ function App() {
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  console.log(loggedIn);
-  console.log(newLoggedIn);
-
   React.useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
-      Promise.all(
-        [moviesApi.getMovies(), mainApi.getSavedMovies()],
-        mainApi.getUserData()
-      )
+      Promise.all([
+        moviesApi.getMovies(),
+        mainApi.getSavedMovies(),
+        mainApi.getUserData(),
+      ])
         .then(([movies, savedItems, user]) => {
           setSavedMovies(savedItems.data);
           setCurrentUser(user.data);

@@ -85,9 +85,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        document.location.reload();
         history.push("/movies");
-        document.location.reload();
       })
       .catch((err) => {
         if (err === "Ошибка: 401")

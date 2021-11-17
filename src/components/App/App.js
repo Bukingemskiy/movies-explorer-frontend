@@ -19,7 +19,8 @@ import * as auth from "../../utils/auth.js";
 function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const newLoggedIn = JSON.parse(localStorage.getItem("localLoggedIn"));
+  const [loggedIn, setLoggedIn] = React.useState(newLoggedIn);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
@@ -32,7 +33,7 @@ function App() {
   const [errorMessage, setErrorMessage] = React.useState("");
 
   console.log(loggedIn);
-  console.log(document.cookie);
+  console.log(newLoggedIn);
 
   React.useEffect(() => {
     mainApi
@@ -40,6 +41,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user.data);
         setLoggedIn(true);
+        localStorage.setItem("localSavedMovies", JSON.stringify(loggedIn));
       })
       .catch(({ err }) => {
         setErrorMessage(
@@ -47,7 +49,7 @@ function App() {
         );
         console.log(`${err}`);
       });
-  }, []);
+  }, [loggedIn]);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -86,6 +88,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
+        localStorage.setItem("localSavedMovies", JSON.stringify(loggedIn));
         history.push("/movies");
       })
       .catch((err) => {
@@ -122,7 +125,6 @@ function App() {
     return auth
       .signOut()
       .then(() => {
-        setLoggedIn(false);
         localStorage.clear();
       })
       .catch((err) => {

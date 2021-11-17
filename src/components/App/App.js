@@ -20,7 +20,7 @@ import * as auth from "../../utils/auth.js";
 function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const [loggedIn] = JSON.parse(localStorage.getItem("localLoggedIn"));
+  const loggedIn = auth.signIn();
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
@@ -75,7 +75,6 @@ function App() {
     return auth
       .signIn(email, password)
       .then(() => {
-        localStorage.setItem("localLoggedIn", JSON.stringify(true));
         history.push("/movies");
         document.location.reload();
       })
@@ -114,7 +113,6 @@ function App() {
       .signOut()
       .then(() => {
         localStorage.clear();
-        localStorage.setItem("localLoggedIn", JSON.stringify(false));
       })
       .catch((err) => {
         setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);

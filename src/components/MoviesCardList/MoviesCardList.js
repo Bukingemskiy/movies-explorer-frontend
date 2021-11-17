@@ -37,8 +37,10 @@ function MoviesCardList(props) {
       setWidth(window.innerWidth);
     };
     window.addEventListener("resize", listener);
+    console.log("+");
     return () => {
       window.removeListener("resize", listener);
+      console.log("-");
     };
   }, []);
 

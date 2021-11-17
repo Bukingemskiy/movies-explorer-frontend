@@ -65,7 +65,7 @@ function App(initialLoggedIn) {
         })
         .finally(() => setIsLoading(false));
     }
-  }, [loggedIn, savedMovies]);
+  }, [loggedIn, location.pathname]);
 
   function handleLogin(email, password) {
     setIsLoading(true);

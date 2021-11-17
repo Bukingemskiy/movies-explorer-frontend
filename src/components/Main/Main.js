@@ -11,7 +11,7 @@ import Footer from "../Footer/Footer.js";
 function Main(props) {
   return (
     <>
-      <NavTab />
+      {props.loggedIn ? <Header /> : <NavTab />}
       <Promo />
       <AboutProject />
       <Techs />

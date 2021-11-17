@@ -20,7 +20,7 @@ import * as auth from "../../utils/auth.js";
 function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const loggedIn = auth.signIn();
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
@@ -35,20 +35,30 @@ function App() {
   console.log(loggedIn);
 
   React.useEffect(() => {
+    mainApi
+      .getUserData()
+      .then((user) => {
+        setCurrentUser(user.data);
+        setLoggedIn(true);
+      })
+      .catch(({ err }) => {
+        setErrorMessage(
+          `При получении информации о пользователе произошла ошибка ${err}.`
+        );
+        console.log(`${err}`);
+      });
+  }, []);
+
+  React.useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
-      Promise.all([
-        moviesApi.getMovies(),
-        mainApi.getSavedMovies(),
-        mainApi.getUserData(),
-      ])
-        .then(([movies, savedItems, user]) => {
+      Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
+        .then(([movies, savedItems]) => {
           setSavedMovies(savedItems.data);
           localStorage.setItem(
             "localSavedMovies",
             JSON.stringify(savedItems.data)
           );
-          setCurrentUser(user.data);
           setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
         })
         .catch((err) => {
@@ -75,6 +85,7 @@ function App() {
     return auth
       .signIn(email, password)
       .then(() => {
+        setLoggedIn(true);
         history.push("/movies");
         document.location.reload();
       })
@@ -112,6 +123,7 @@ function App() {
     return auth
       .signOut()
       .then(() => {
+        setLoggedIn(false);
         localStorage.clear();
       })
       .catch((err) => {

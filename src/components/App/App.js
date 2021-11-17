@@ -41,7 +41,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user.data);
         setLoggedIn(true);
-        localStorage.setItem("localLoggedIn" === "true");
+        localStorage.setItem("localLoggedIn" === true);
       })
       .catch(({ err }) => {
         setErrorMessage(
@@ -88,7 +88,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        localStorage.setItem("localLoggedIn" === "true");
+        localStorage.setItem("localLoggedIn" === true);
         history.push("/movies");
       })
       .catch((err) => {
@@ -126,7 +126,7 @@ function App() {
       .signOut()
       .then(() => {
         localStorage.clear();
-        localStorage.setItem("localLoggedIn" === false);
+        localStorage.setItem("localLoggedIn" === "false");
       })
       .catch((err) => {
         setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);

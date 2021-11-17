@@ -38,7 +38,6 @@ function FilterCheckBox(props) {
     if (isSavedMovies) {
       setFilterIcon("search__filter-icon");
       setIconRing("search__icon-ring");
-      document.location.reload();
     } else {
       if (props.cacheCheckbox === true) {
         setFilterIcon("search__filter-icon search__filter-icon_on");

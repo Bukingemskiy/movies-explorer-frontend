@@ -23,7 +23,11 @@ function Navigation() {
         <Link to="/movies" className="navigation__link">
           Фильмы
         </Link>
-        <Link to="/saved-movies" className="navigation__link">
+        <Link
+          to="/saved-movies"
+          className="navigation__link"
+          onClick={document.location.reload()}
+        >
           Сохранённые фильмы
         </Link>
       </div>

@@ -45,7 +45,7 @@ function SearchForm(props) {
     console.log(e.target);
     console.log(input);
     console.log(searchError);
-    if (!input.contains(e.target)) {
+    if (input !== e.target) {
       setSearchError("search__error");
       document.removeEventListener("click", outsideClickListener);
     }

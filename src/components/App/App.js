@@ -10,7 +10,7 @@ import Movies from "../Movies/Movies.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 import Profile from "../Profile/Profile.js";
 import NotFound from "../NotFound/NotFound";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
+import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute.js";
 import mainApi from "../../utils/MainApi.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import * as filterMovies from "../../utils/FilterMovies.js";
@@ -241,11 +241,8 @@ function App(initialLoggedIn) {
               setErrorMessage={setErrorMessage}
             />
           </Route>
-          <ProtectedRoute
-            exact
-            path="/movies"
-            component={Movies}
-            loggedIn={loggedIn}
+          <ProtectedRoute exact path="/movies" loggedIn={loggedIn} />
+          <Movies
             isLoading={isLoading}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
@@ -257,11 +254,8 @@ function App(initialLoggedIn) {
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
           />
-          <ProtectedRoute
-            exact
-            path="/saved-movies"
-            component={SavedMovies}
-            loggedIn={loggedIn}
+          <ProtectedRoute exact path="/saved-movies" loggedIn={loggedIn} />
+          <SavedMovies
             isLoading={isLoading}
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
@@ -271,11 +265,8 @@ function App(initialLoggedIn) {
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
           />
-          <ProtectedRoute
-            exact
-            path="/profile"
-            component={Profile}
-            loggedIn={loggedIn}
+          <ProtectedRoute exact path="/profile" loggedIn={loggedIn} />
+          <Profile
             isLoading={isLoading}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}

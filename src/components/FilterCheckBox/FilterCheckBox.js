@@ -21,10 +21,17 @@ function FilterCheckBox(props) {
       setIconRing("search__icon-ring");
       props.handleCheckbox(false);
     }
-    props.onSearchMovies(
-      !isSavedMovies ? props.cacheSearch : props.search,
-      props.cacheCheckbox
-    );
+    if (isFilterIcon === "search__filter-icon") {
+      props.onSearchMovies(
+        !isSavedMovies ? props.cacheSearch : props.search,
+        true
+      );
+    } else {
+      props.onSearchMovies(
+        !isSavedMovies ? props.cacheSearch : props.search,
+        false
+      );
+    }
   }
 
   React.useEffect(() => {

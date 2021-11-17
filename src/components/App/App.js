@@ -1,7 +1,6 @@
 import "./App.css";
 import React from "react";
 import { useLocation } from "react-router-dom";
-import createPersistedState from "use-persisted-state";
 import { Route, Switch, useHistory } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Login from "../Login/Login.js";
@@ -86,6 +85,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
+        document.location.reload();
         history.push("/movies");
         document.location.reload();
       })

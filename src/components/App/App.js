@@ -247,7 +247,7 @@ function App(initialLoggedIn) {
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path="/">
-            <Main />
+            <Main loggedIn={loggedIn} />
           </Route>
           <Route exact path="/signup">
             <Register

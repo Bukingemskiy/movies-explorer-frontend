@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import createPersistedState from "use-persisted-state";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Login from "../Login/Login.js";
 import Register from "../Register/Register.js";
@@ -32,6 +32,8 @@ function App(initialLoggedIn) {
   const [moviesItems, setMoviesItems] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
   const [errorMessage, setErrorMessage] = React.useState("");
+
+  console.log(loggedIn);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -278,9 +280,6 @@ function App(initialLoggedIn) {
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
             />
-          </Route>
-          <Route>
-            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
           </Route>
           <Route path="*">
             <NotFound />

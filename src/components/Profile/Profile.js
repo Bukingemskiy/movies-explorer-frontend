@@ -25,7 +25,7 @@ function Profile(props) {
   }
 
   function handleChangeEmail(e) {
-    setEmail(e.target.value);
+    setEmail(e.target.value.toLowerCase());
     if (props.errorMessage.length > 0) {
       props.setErrorMessage("");
     }
@@ -36,7 +36,7 @@ function Profile(props) {
     e.preventDefault();
     props.onUpdateUser({
       name: name,
-      email: email.toLowerCase(),
+      email: email,
     });
   }
 
@@ -46,7 +46,7 @@ function Profile(props) {
       emailValid &&
       name !== "" &&
       email !== "" &&
-      (name !== currentUser.name || email.toLowerCase() !== currentUser.email)
+      (name !== currentUser.name || email !== currentUser.email)
     ) {
       setIsValid(true);
     } else {

@@ -167,9 +167,7 @@ function App() {
       );
       setIsLoading(false);
     }
-    if (!isSavedMovies) {
-      document.location.reload();
-    }
+    document.location.reload();
   }
 
   function createMovie(data) {

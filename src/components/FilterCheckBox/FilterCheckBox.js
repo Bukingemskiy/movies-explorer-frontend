@@ -21,7 +21,7 @@ function FilterCheckBox(props) {
       setIconRing("search__icon-ring");
       props.handleCheckbox(false);
     }
-    if (isFilterIcon === "search__filter-icon") {
+    if (!isFilterIcon === "search__filter-icon") {
       props.onSearchMovies(
         !isSavedMovies ? props.cacheSearch : props.search,
         true

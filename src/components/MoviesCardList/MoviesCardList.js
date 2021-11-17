@@ -39,7 +39,7 @@ function MoviesCardList(props) {
     window.addEventListener("resize", listener);
     console.log("+");
     return () => {
-      window.removeListener("resize", listener);
+      window.removeEventListener("resize", listener);
       console.log("-");
     };
   }, []);

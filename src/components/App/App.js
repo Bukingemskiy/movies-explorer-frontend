@@ -19,7 +19,7 @@ import * as auth from "../../utils/auth.js";
 function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const newLoggedIn = JSON.parse(localStorage.getItem("localLoggedIn"));
+  const newLoggedIn = localStorage.getItem("localLoggedIn");
   const [loggedIn, setLoggedIn] = React.useState(newLoggedIn);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
@@ -41,7 +41,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user.data);
         setLoggedIn(true);
-        localStorage.setItem("localSavedMovies", JSON.stringify(loggedIn));
+        localStorage.setItem("localSavedMovies", loggedIn);
       })
       .catch(({ err }) => {
         setErrorMessage(
@@ -88,7 +88,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        localStorage.setItem("localSavedMovies", JSON.stringify(loggedIn));
+        localStorage.setItem("localSavedMovies", loggedIn);
         history.push("/movies");
       })
       .catch((err) => {

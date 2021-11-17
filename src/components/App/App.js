@@ -10,7 +10,7 @@ import Movies from "../Movies/Movies.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 import Profile from "../Profile/Profile.js";
 import NotFound from "../NotFound/NotFound";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
 import mainApi from "../../utils/MainApi.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import * as filterMovies from "../../utils/FilterMovies.js";

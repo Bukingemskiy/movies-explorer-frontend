@@ -11,6 +11,8 @@ function SearchForm(props) {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const cacheSearch = JSON.parse(localStorage.getItem("localSearch"));
   const cacheCheckbox = JSON.parse(localStorage.getItem("localCacheCheckbox"));
+  const [searchError, setSearchError] = React.useState("search__error");
+  const input = document.getElementsByClassName("search__input");
   const [searchCheckbox, setSearchCheckbox] = React.useState(
     cacheCheckbox !== null ? cacheCheckbox : false
   );
@@ -39,6 +41,17 @@ function SearchForm(props) {
     }
   }
 
+  function outsideClickListener(e) {
+    console.log(e.target);
+    console.log(input);
+    console.log(searchError);
+    if (!input.contains(e.target)) {
+      setSearchError("search__error");
+      document.removeEventListener("click", outsideClickListener);
+    }
+  }
+  document.addEventListener("click", outsideClickListener);
+
   React.useEffect(() => {
     setSearchValid(true);
   }, [location.pathname]);
@@ -46,6 +59,12 @@ function SearchForm(props) {
   React.useEffect(() => {
     search.length === 0 ? setButtonDisabled(true) : setButtonDisabled(false);
   }, [search]);
+
+  React.useEffect(() => {
+    searchValid
+      ? setSearchError("search__error")
+      : setSearchError("search__error search__error_visible");
+  }, [searchValid]);
 
   return (
     <section className="search">
@@ -76,13 +95,7 @@ function SearchForm(props) {
             {props.isLoading ? "Поиск..." : "Найти"}
           </button>
         </form>
-        <span
-          className={`search__error ${
-            !searchValid ? "search__error_visible" : ""
-          }`}
-        >
-          Введите ключевое слово
-        </span>
+        <span className={searchError}>Введите ключевое слово</span>
         <FilterCheckBox
           movies={props.movies}
           search={search}

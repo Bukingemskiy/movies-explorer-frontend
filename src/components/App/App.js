@@ -17,11 +17,10 @@ import * as filterMovies from "../../utils/FilterMovies.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import * as auth from "../../utils/auth.js";
 
-function App(initialLoggedIn) {
+function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const useLoggedInState = createPersistedState(false);
-  const [loggedIn, setLoggedIn] = useLoggedInState(initialLoggedIn);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));

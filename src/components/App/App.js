@@ -20,8 +20,7 @@ import * as auth from "../../utils/auth.js";
 function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const [newLoggedIn] = JSON.parse(localStorage.getItem("localLoggedIn"));
-  const [loggedIn, setLoggedIn] = React.useState(newLoggedIn);
+  const [loggedIn] = JSON.parse(localStorage.getItem("localLoggedIn"));
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
@@ -76,7 +75,6 @@ function App() {
     return auth
       .signIn(email, password)
       .then(() => {
-        setLoggedIn(true);
         localStorage.setItem("localLoggedIn", JSON.stringify(true));
         history.push("/movies");
         document.location.reload();

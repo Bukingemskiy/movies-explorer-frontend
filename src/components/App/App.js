@@ -36,27 +36,15 @@ function App() {
   console.log(newLoggedIn);
 
   React.useEffect(() => {
-    mainApi
-      .getUserData()
-      .then((user) => {
-        setCurrentUser(user.data);
-        setLoggedIn(true);
-        localStorage.setItem("localLoggedIn", "true");
-      })
-      .catch(({ err }) => {
-        setErrorMessage(
-          `При получении информации о пользователе произошла ошибка ${err}.`
-        );
-        console.log(`${err}`);
-      });
-  }, []);
-
-  React.useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
-      Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
-        .then(([movies, savedItems]) => {
+      Promise.all(
+        [moviesApi.getMovies(), mainApi.getSavedMovies()],
+        mainApi.getUserData()
+      )
+        .then(([movies, savedItems, user]) => {
           setSavedMovies(savedItems.data);
+          setCurrentUser(user.data);
           localStorage.setItem(
             "localSavedMovies",
             JSON.stringify(savedItems.data)
@@ -90,6 +78,7 @@ function App() {
         setLoggedIn(true);
         localStorage.setItem("localLoggedIn", "true");
         history.push("/movies");
+        document.location.reload();
       })
       .catch((err) => {
         if (err === "Ошибка: 401")

@@ -166,6 +166,7 @@ function App(initialLoggedIn) {
       );
       setIsLoading(false);
     }
+    document.location.reload();
   }
 
   function createMovie(data) {

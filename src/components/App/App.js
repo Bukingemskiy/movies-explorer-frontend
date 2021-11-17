@@ -244,8 +244,8 @@ function App(initialLoggedIn) {
           <ProtectedRoute
             exact
             path="/movies"
-            loggedIn={loggedIn}
             component={Movies}
+            loggedIn={loggedIn}
             isLoading={isLoading}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
@@ -260,8 +260,8 @@ function App(initialLoggedIn) {
           <ProtectedRoute
             exact
             path="/saved-movies"
-            loggedIn={loggedIn}
             component={SavedMovies}
+            loggedIn={loggedIn}
             isLoading={isLoading}
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
@@ -274,8 +274,8 @@ function App(initialLoggedIn) {
           <ProtectedRoute
             exact
             path="/profile"
-            loggedIn={loggedIn}
             component={Profile}
+            loggedIn={loggedIn}
             isLoading={isLoading}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}

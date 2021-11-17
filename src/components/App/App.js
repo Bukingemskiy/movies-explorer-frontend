@@ -165,10 +165,8 @@ function App() {
         "localFoundMovies",
         JSON.stringify(filterd.length !== 0 ? filterd : cacheFoundMovies)
       );
-      setIsLoading(false);
-    }
-    if (!isSavedMovies) {
       document.location.reload();
+      setIsLoading(false);
     }
   }
 

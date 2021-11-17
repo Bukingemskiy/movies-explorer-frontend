@@ -1,9 +1,10 @@
 import "./Navigation.css";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import IconProfile from "../../images/Profile.svg";
 
 function Navigation() {
+  const history = useHistory();
   const [popupVisible, setPopupVisible] = React.useState("none");
   const [, setOptionsVisible] = React.useState("none");
 
@@ -18,6 +19,7 @@ function Navigation() {
   }
 
   function pathname() {
+    history.push("/saved-movies");
     document.location.reload();
   }
 

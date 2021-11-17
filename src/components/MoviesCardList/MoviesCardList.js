@@ -36,6 +36,12 @@ function MoviesCardList(props) {
   }, [width]);
 
   React.useEffect(() => {
+    window.addEventListener("resize", () => {
+      console.log("resize");
+    });
+  }, []);
+
+  React.useEffect(() => {
     if (numberOfMovies > cardList.length) {
       setMoreButton("more__button more__button_invisible");
       console.log("invisible");

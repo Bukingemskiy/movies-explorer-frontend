@@ -29,6 +29,7 @@ function App(initialLoggedIn) {
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [moviesItems, setMoviesItems] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
   const [errorMessage, setErrorMessage] = React.useState("");
 
@@ -47,17 +48,7 @@ function App(initialLoggedIn) {
             JSON.stringify(savedItems.data)
           );
           setCurrentUser(user.data);
-          const moviesItems = movies.map((i) =>
-            Object.assign(i, { saved: false })
-          );
-          savedMovies.length > 0
-            ? savedMovies.forEach((el) => {
-                const items = moviesItems.map((i) =>
-                  i.id === el.movieId ? Object.assign(i, { saved: true }) : i
-                );
-                localStorage.setItem("localMovies", JSON.stringify(items));
-              })
-            : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
+          setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
         })
         .catch((err) => {
           setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
@@ -65,7 +56,18 @@ function App(initialLoggedIn) {
         })
         .finally(() => setIsLoading(false));
     }
-  }, [loggedIn, location.pathname]);
+  }, [loggedIn]);
+
+  React.useEffect(() => {
+    savedMovies.length > 0
+      ? savedMovies.forEach((el) => {
+          const items = moviesItems.map((i) =>
+            i.id === el.movieId ? Object.assign(i, { saved: true }) : i
+          );
+          localStorage.setItem("localMovies", JSON.stringify(items));
+        })
+      : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
+  }, [moviesItems, savedMovies]);
 
   function handleLogin(email, password) {
     setIsLoading(true);

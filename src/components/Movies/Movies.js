@@ -14,7 +14,6 @@ function Movies(props) {
       />
       <MoviesCardList
         foundMovies={props.foundMovies}
-        setFoundMovies={props.setFoundMovies}
         deleteMovie={props.deleteMovie}
         createMovie={props.createMovie}
         cacheMovies={props.cacheMovies}

@@ -33,12 +33,6 @@ function MoviesCardList(props) {
   }, [width]);
 
   React.useEffect(() => {
-    isSavedMovies
-      ? props.setSavedMovies(props.renderMovies)
-      : props.setFoundMovies(props.renderMovies);
-  }, [isSavedMovies, props]);
-
-  React.useEffect(() => {
     const listener = () => {
       setWidth(window.innerWidth);
     };
@@ -66,6 +60,7 @@ function MoviesCardList(props) {
         cardList[i].style.display = "block";
       }
     }
+    console.log("more");
   }, [cardList, numberOfMovies]);
 
   function openMore() {
@@ -84,6 +79,8 @@ function MoviesCardList(props) {
       }
     }
   }
+
+  console.log(props.renderMovies);
 
   return (
     <>

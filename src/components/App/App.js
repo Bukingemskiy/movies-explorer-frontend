@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import createPersistedState from "use-persisted-state";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Login from "../Login/Login.js";
 import Register from "../Register/Register.js";
@@ -10,7 +10,7 @@ import Movies from "../Movies/Movies.js";
 import SavedMovies from "../SavedMovies/SavedMovies.js";
 import Profile from "../Profile/Profile.js";
 import NotFound from "../NotFound/NotFound";
-import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
 import mainApi from "../../utils/MainApi.js";
 import moviesApi from "../../utils/MoviesApi.js";
 import * as filterMovies from "../../utils/FilterMovies.js";
@@ -222,27 +222,10 @@ function App(initialLoggedIn) {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
-          <Route exact path="/">
-            <Main loggedIn={loggedIn} />
-          </Route>
-          <Route exact path="/signup">
-            <Register
-              isLoading={isLoading}
-              onRegister={handleRegister}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
-            />
-          </Route>
-          <Route exact path="/signin">
-            <Login
-              isLoading={isLoading}
-              onLogin={handleLogin}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
-            />
-          </Route>
-          <ProtectedRoute exact path="/movies" loggedIn={loggedIn} />
-          <Movies
+          <ProtectedRoute
+            path="/movies"
+            component={Movies}
+            loggedIn={loggedIn}
             isLoading={isLoading}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
@@ -254,8 +237,10 @@ function App(initialLoggedIn) {
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
           />
-          <ProtectedRoute exact path="/saved-movies" loggedIn={loggedIn} />
-          <SavedMovies
+          <ProtectedRoute
+            path="/saved-movies"
+            component={SavedMovies}
+            loggedIn={loggedIn}
             isLoading={isLoading}
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
@@ -265,14 +250,38 @@ function App(initialLoggedIn) {
             deleteMovie={deleteMovie}
             onSearchMovies={handleSearchMovies}
           />
-          <ProtectedRoute exact path="/profile" loggedIn={loggedIn} />
-          <Profile
+          <ProtectedRoute
+            path="/profile"
+            component={Profile}
+            loggedIn={loggedIn}
             isLoading={isLoading}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             onUpdateUser={handleUpdateUser}
             onLogOut={logOut}
           />
+          <Route exact path="/">
+            <Main loggedIn={loggedIn} />
+          </Route>
+          <Route exact path="/signin">
+            <Login
+              isLoading={isLoading}
+              onLogin={handleLogin}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          </Route>
+          <Route exact path="/signup">
+            <Register
+              isLoading={isLoading}
+              onRegister={handleRegister}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          </Route>
+          <Route>
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
+          </Route>
           <Route path="*">
             <NotFound />
           </Route>

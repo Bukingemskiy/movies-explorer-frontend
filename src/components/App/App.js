@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Main from "../Main/Main.js";
 import Login from "../Login/Login.js";
 import Register from "../Register/Register.js";
@@ -264,21 +264,29 @@ function App() {
           <Route exact path="/">
             <Main loggedIn={loggedIn} />
           </Route>
-          <Route exact path={loggedIn ? "/" : "/signin"}>
-            <Login
-              isLoading={isLoading}
-              onLogin={handleLogin}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
-            />
+          <Route exact path="/signin">
+            {loggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Login
+                isLoading={isLoading}
+                onLogin={handleLogin}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+              />
+            )}
           </Route>
-          <Route exact path={loggedIn ? "/" : "/signup"}>
-            <Register
-              isLoading={isLoading}
-              onRegister={handleRegister}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
-            />
+          <Route exact path="/signup">
+            {loggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Register
+                isLoading={isLoading}
+                onRegister={handleRegister}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+              />
+            )}
           </Route>
           <Route path="*">
             <NotFound />

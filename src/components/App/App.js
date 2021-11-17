@@ -41,7 +41,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user.data);
         setLoggedIn(true);
-        localStorage.setItem("localLoggedIn" === true);
+        localStorage.setItem("localLoggedIn", "true");
       })
       .catch(({ err }) => {
         setErrorMessage(
@@ -49,7 +49,7 @@ function App() {
         );
         console.log(`${err}`);
       });
-  }, [loggedIn]);
+  }, []);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -88,7 +88,7 @@ function App() {
       .signIn(email, password)
       .then(() => {
         setLoggedIn(true);
-        localStorage.setItem("localLoggedIn" === true);
+        localStorage.setItem("localLoggedIn", "true");
         history.push("/movies");
       })
       .catch((err) => {
@@ -125,8 +125,8 @@ function App() {
     return auth
       .signOut()
       .then(() => {
+        setLoggedIn(false);
         localStorage.clear();
-        localStorage.setItem("localLoggedIn" === "false");
       })
       .catch((err) => {
         setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);

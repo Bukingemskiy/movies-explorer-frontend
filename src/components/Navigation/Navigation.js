@@ -17,6 +17,10 @@ function Navigation() {
     setOptionsVisible("block");
   }
 
+  function pathname() {
+    document.location.reload();
+  }
+
   return (
     <nav className="navigation">
       <div className="navigation__links">
@@ -26,7 +30,7 @@ function Navigation() {
         <Link
           to="/saved-movies"
           className="navigation__link"
-          onClick={document.location.reload()}
+          onClick={pathname}
         >
           Сохранённые фильмы
         </Link>

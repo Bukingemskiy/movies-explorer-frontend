@@ -1,7 +1,7 @@
 import React from "react";
 import Promo from "../Promo/Promo.js";
 import NavTab from "../NavTab/NavTab.js";
-import Navigation from "../Navigation/Navigation.js";
+import Header from "../Header/Header.js";
 import AboutProject from "../AboutProject/AboutProject.js";
 import Techs from "../Techs/Techs.js";
 import AboutMe from "../AboutMe/AboutMe.js";
@@ -11,7 +11,7 @@ import Footer from "../Footer/Footer.js";
 function Main(props) {
   return (
     <>
-      {props.loggedIn ? <Navigation /> : <NavTab />}
+      {props.loggedIn ? <Header /> : <NavTab />}
       <Promo />
       <AboutProject />
       <Techs />

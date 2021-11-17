@@ -264,7 +264,7 @@ function App() {
           <Route exact path="/">
             <Main loggedIn={loggedIn} />
           </Route>
-          <Route exact path="/signin">
+          <Route exact path={loggedIn ? "/" : "/signin"}>
             <Login
               isLoading={isLoading}
               onLogin={handleLogin}
@@ -272,7 +272,7 @@ function App() {
               setErrorMessage={setErrorMessage}
             />
           </Route>
-          <Route exact path="/signup">
+          <Route exact path={loggedIn ? "/" : "/signup"}>
             <Register
               isLoading={isLoading}
               onRegister={handleRegister}

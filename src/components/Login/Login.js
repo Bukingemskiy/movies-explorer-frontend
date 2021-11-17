@@ -11,7 +11,7 @@ function Login(props) {
   const [isValid, setIsValid] = React.useState(false);
 
   function handleChangeEmail(e) {
-    setEmail(e.target.value);
+    setEmail(e.target.value.toLowerCase());
     if (props.errorMessage.length > 0) {
       props.setErrorMessage("");
     }
@@ -28,7 +28,7 @@ function Login(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onLogin(email.toLowerCase(), password);
+    props.onLogin(email, password);
   }
 
   React.useEffect(() => {
@@ -57,7 +57,7 @@ function Login(props) {
                 !emailValid ? "login__error_visible" : ""
               }`}
             >
-              Введите корректный e-mail
+              Введите корректный e-mail нижним регистром
             </span>
           </div>
           <div className="login__field">

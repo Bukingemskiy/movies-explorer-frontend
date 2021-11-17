@@ -21,7 +21,7 @@ function Register(props) {
   }
 
   function handleChangeEmail(e) {
-    setEmail(e.target.value);
+    setEmail(e.target.value.toLowerCase());
     if (props.errorMessage.length > 0) {
       props.setErrorMessage("");
     }
@@ -38,8 +38,8 @@ function Register(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onRegister(name, email.toLowerCase(), password);
-    props.onLogin(email.toLowerCase(), password);
+    props.onRegister(name, email, password);
+    props.onLogin(email, password);
   }
 
   React.useEffect(() => {
@@ -90,7 +90,7 @@ function Register(props) {
                 !emailValid ? "register__error_visible" : ""
               }`}
             >
-              Введите корректный e-mail
+              Введите корректный e-mail нижним регистром
             </span>
           </div>
           <div className="register__field">

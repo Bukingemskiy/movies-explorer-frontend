@@ -229,8 +229,13 @@ function App() {
 
   React.useEffect(() => {
     setErrorMessage("");
-    setSavedMovies(cacheSavedMovies);
   }, [location.pathname]);
+
+  React.useEffect(() => {
+    if (location.pathname === "/movies" && cacheSavedMovies !== null) {
+      setSavedMovies(cacheSavedMovies);
+    }
+  }, [cacheSavedMovies, location.pathname]);
 
   return (
     <div className="page">

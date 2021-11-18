@@ -145,7 +145,9 @@ function App() {
   function handleSearchMovies(search, searchCheckbox) {
     setIsLoading(true);
     setSavedMovies(cacheSavedMovies);
+    console.log(cacheSavedMovies);
     setFoundMovies(cacheFoundMovies);
+    console.log(cacheFoundMovies);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
         cacheSavedMovies,
@@ -153,6 +155,7 @@ function App() {
         searchCheckbox
       );
       setSavedMovies(filterd);
+      console.log(savedMovies);
       setIsLoading(false);
     } else {
       let filterd = filterMovies.filterMovies(
@@ -161,14 +164,22 @@ function App() {
         searchCheckbox
       );
       setFoundMovies(filterd);
+      console.log(foundMovies);
       localStorage.setItem(
         "localFoundMovies",
         JSON.stringify(filterd.length !== 0 ? filterd : cacheFoundMovies)
       );
-      document.location.reload();
+      console.log(cacheFoundMovies);
       setIsLoading(false);
     }
   }
+
+  React.useEffect(() => {
+    console.log(savedMovies);
+    console.log(foundMovies);
+    console.log(cacheSavedMovies);
+    console.log(cacheFoundMovies);
+  }, [savedMovies, foundMovies, cacheFoundMovies, cacheSavedMovies]);
 
   function createMovie(data) {
     setIsLoading(true);

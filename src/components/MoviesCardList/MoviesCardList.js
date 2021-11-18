@@ -60,6 +60,7 @@ function MoviesCardList(props) {
         cardList[i].style.display = "block";
       }
     }
+    console.log(cardList);
   }, [cardList, numberOfMovies]);
 
   function openMore() {

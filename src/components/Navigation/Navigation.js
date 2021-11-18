@@ -1,10 +1,9 @@
 import "./Navigation.css";
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import IconProfile from "../../images/Profile.svg";
 
 function Navigation() {
-  const history = useHistory();
   const [popupVisible, setPopupVisible] = React.useState("none");
   const [, setOptionsVisible] = React.useState("none");
 
@@ -18,22 +17,13 @@ function Navigation() {
     setOptionsVisible("block");
   }
 
-  function pathname() {
-    history.push("/saved-movies");
-    document.location.reload();
-  }
-
   return (
     <nav className="navigation">
       <div className="navigation__links">
         <Link to="/movies" className="navigation__link">
           Фильмы
         </Link>
-        <Link
-          to="/saved-movies"
-          className="navigation__link"
-          onClick={pathname}
-        >
+        <Link to="/saved-movies" className="navigation__link">
           Сохранённые фильмы
         </Link>
       </div>

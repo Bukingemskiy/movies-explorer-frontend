@@ -59,6 +59,11 @@ function App() {
   }, [loggedIn]);
 
   React.useEffect(() => {
+    newLoggedIn && currentUser ? setLoggedIn(true) : setLoggedIn(false);
+    console.log(currentUser);
+  }, [currentUser, newLoggedIn]);
+
+  React.useEffect(() => {
     savedMovies.length > 0
       ? savedMovies.forEach((el) => {
           const items = moviesItems.map((i) =>
@@ -144,6 +149,7 @@ function App() {
 
   function handleSearchMovies(search, searchCheckbox) {
     setIsLoading(true);
+    setDisabledInput(true);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
         cacheSavedMovies,

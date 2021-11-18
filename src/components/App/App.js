@@ -115,7 +115,6 @@ function App() {
       .then(() => {
         setLoggedIn(false);
         localStorage.clear();
-        document.location.reload();
       })
       .catch((err) => {
         setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);

@@ -259,6 +259,7 @@ function App() {
             loggedIn={loggedIn}
             isLoading={isLoading}
             savedMovies={savedMovies}
+            setSavedMovies={handleSavedMoviesClick}
             renderMovies={savedMovies !== null ? savedMovies : []}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}

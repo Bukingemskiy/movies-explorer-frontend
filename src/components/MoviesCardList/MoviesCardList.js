@@ -64,7 +64,7 @@ function MoviesCardList(props) {
   }, [cardList, numberOfMovies]);
 
   function openButtonMore() {
-    openMore.openMore(width, numberOfMovies, cardList);
+    setNumberOfMovies(openMore.openMore(width, numberOfMovies, cardList));
   }
 
   console.log(props.renderMovies);

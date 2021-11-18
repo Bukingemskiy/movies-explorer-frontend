@@ -13,5 +13,5 @@ export const openMore = (width, numberOfMovies, cardList) => {
       cardList[i].style.display = "block";
     }
   }
-  return numberOfMovies || cardList;
+  return numberOfMovies;
 };

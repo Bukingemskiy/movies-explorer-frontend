@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import IconProfile from "../../images/Profile.svg";
 
-function Navigation() {
+function Navigation(props) {
   const [popupVisible, setPopupVisible] = React.useState("none");
   const [, setOptionsVisible] = React.useState("none");
 
@@ -17,13 +17,21 @@ function Navigation() {
     setOptionsVisible("block");
   }
 
+  function handleSavedMoviesClick() {
+    props.setSavedMovies(JSON.parse(localStorage.getItem("localSavedMovies")));
+  }
+
   return (
     <nav className="navigation">
       <div className="navigation__links">
         <Link to="/movies" className="navigation__link">
           Фильмы
         </Link>
-        <Link to="/saved-movies" className="navigation__link">
+        <Link
+          to="/saved-movies"
+          className="navigation__link"
+          onClick={handleSavedMoviesClick}
+        >
           Сохранённые фильмы
         </Link>
       </div>

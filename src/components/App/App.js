@@ -240,6 +240,7 @@ function App() {
             isLoading={isLoading}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
             errorMessage={errorMessage}

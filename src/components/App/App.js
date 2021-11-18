@@ -226,7 +226,7 @@ function App() {
       console.log(cacheSavedMovies);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, cacheSavedMovies]);
+  }, [location.pathname]);
 
   return (
     <div className="page">

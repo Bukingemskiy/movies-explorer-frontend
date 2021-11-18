@@ -36,6 +36,9 @@
   text-decoration: none;
   color: #4285f4;
   margin: 184px auto 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .not-found__link:hover {

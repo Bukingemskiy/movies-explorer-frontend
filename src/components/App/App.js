@@ -65,14 +65,14 @@ function App() {
   }, [currentUser, newLoggedIn]);
 
   React.useEffect(() => {
-    savedMovies.length === 0 || savedMovies === null
-      ? localStorage.setItem("localMovies", JSON.stringify(moviesItems))
-      : savedMovies.forEach((el) => {
+    savedMovies.length > 0
+      ? savedMovies.forEach((el) => {
           const items = moviesItems.map((i) =>
             i.id === el.movieId ? Object.assign(i, { saved: true }) : i
           );
           localStorage.setItem("localMovies", JSON.stringify(items));
-        });
+        })
+      : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
   }, [moviesItems, savedMovies]);
 
   function handleLogin(email, password) {
@@ -174,6 +174,12 @@ function App() {
       document.location.reload();
     }
   }
+
+  console.log(foundMovies);
+  console.log(savedMovies);
+  console.log(cacheMovies);
+  console.log(cacheFoundMovies);
+  console.log(cacheSavedMovies);
 
   function createMovie(data) {
     setIsLoading(true);

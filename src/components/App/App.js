@@ -233,7 +233,7 @@ function App() {
 
   React.useEffect(() => {
     if (location.pathname === "/movies" && cacheSavedMovies !== null) {
-      setSavedMovies(cacheSavedMovies);
+      return setSavedMovies(cacheSavedMovies);
     }
   }, [cacheSavedMovies, location.pathname]);
 

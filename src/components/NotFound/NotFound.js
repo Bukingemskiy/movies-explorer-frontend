@@ -11,7 +11,7 @@ function NotFound() {
         <p className="not-found__subtitle">Страница не найдена</p>
         <button
           type="button"
-          onclick={() => history.go(-2)}
+          onСlick={() => history.go(-2)}
           className="not-found__link"
         >
           Назад

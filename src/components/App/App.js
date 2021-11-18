@@ -214,17 +214,10 @@ function App() {
   }
 
   React.useEffect(() => {
-    setErrorMessage("");
-  }, [location.pathname]);
-
-  React.useEffect(() => {
     if (isSavedMovies) {
-      console.log(savedMovies);
-      console.log(cacheSavedMovies);
       setSavedMovies(cacheSavedMovies);
-      console.log(savedMovies);
-      console.log(cacheSavedMovies);
     }
+    setErrorMessage("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 

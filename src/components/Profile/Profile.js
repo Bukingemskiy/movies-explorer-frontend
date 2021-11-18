@@ -10,6 +10,7 @@ function Profile(props) {
   const [nameValid, setNameValid] = React.useState(true);
   const [emailValid, setEmailValid] = React.useState(true);
   const [isValid, setIsValid] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(false);
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -40,6 +41,13 @@ function Profile(props) {
     });
   }
 
+  function blockInputs() {
+    setDisabled(true);
+    document.removeEventListener("submit", blockInputs);
+  }
+
+  document.addEventListener("submit", blockInputs);
+
   React.useEffect(() => {
     if (
       nameValid &&
@@ -67,7 +75,11 @@ function Profile(props) {
       <Header />
       <section className="profile">
         <h2 className="profile__title">Привет, {currentUser.name}!</h2>
-        <form onSubmit={handleSubmit} className="profile__form">
+        <form
+          onSubmit={handleSubmit}
+          className="profile__form"
+          disabled={disabled}
+        >
           <fieldset className="profile__fields">
             <div className="profile__field">
               <p className="profile__field-name">Имя</p>
@@ -97,6 +109,7 @@ function Profile(props) {
                 value={email}
                 pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
                 onChange={handleChangeEmail}
+                disabled={disabled}
               />
             </div>
             <span

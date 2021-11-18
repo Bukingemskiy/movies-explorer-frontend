@@ -67,8 +67,6 @@ function MoviesCardList(props) {
     setNumberOfMovies(openMore.openMore(width, numberOfMovies, cardList));
   }
 
-  console.log(props.renderMovies);
-
   return (
     <>
       <Preloader isLoading={props.isLoading} />

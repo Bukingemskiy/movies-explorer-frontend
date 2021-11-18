@@ -229,6 +229,10 @@ function App() {
     setErrorMessage("");
   }, [location.pathname]);
 
+  function handleSavedMoviesClick() {
+    setSavedMovies(cacheSavedMovies);
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -240,7 +244,7 @@ function App() {
             isLoading={isLoading}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
-            setSavedMovies={setSavedMovies}
+            setSavedMovies={handleSavedMoviesClick}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
             errorMessage={errorMessage}

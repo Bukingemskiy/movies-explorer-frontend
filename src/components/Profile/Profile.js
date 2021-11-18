@@ -41,12 +41,9 @@ function Profile(props) {
     });
   }
 
-  function blockInputs() {
-    setDisabled(true);
-    document.removeEventListener("submit", blockInputs);
-  }
-
-  document.addEventListener("submit", blockInputs);
+  React.useEffect(() => {
+    props.isLoading ? setDisabled(true) : setDisabled(false);
+  }, [props.isLoading]);
 
   React.useEffect(() => {
     if (
@@ -75,11 +72,7 @@ function Profile(props) {
       <Header />
       <section className="profile">
         <h2 className="profile__title">Привет, {currentUser.name}!</h2>
-        <form
-          onSubmit={handleSubmit}
-          className="profile__form"
-          disabled={disabled}
-        >
+        <form onSubmit={handleSubmit} className="profile__form">
           <fieldset className="profile__fields">
             <div className="profile__field">
               <p className="profile__field-name">Имя</p>
@@ -91,6 +84,7 @@ function Profile(props) {
                 minLength="2"
                 maxLength="30"
                 onChange={handleChangeName}
+                disabled={disabled}
               />
             </div>
             <span

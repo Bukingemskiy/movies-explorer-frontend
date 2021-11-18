@@ -5,7 +5,7 @@ function NotFound() {
   const history = useHistory();
 
   const handleBack = () => {
-    history.go(-3);
+    history.goBack();
   };
 
   return (

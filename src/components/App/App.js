@@ -31,6 +31,7 @@ function App() {
   const [moviesItems, setMoviesItems] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [disabledInput, setDisabledInput] = React.useState(false);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -221,6 +222,10 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
+  React.useEffect(() => {
+    isLoading ? setDisabledInput(true) : setDisabledInput(false);
+  }, [isLoading]);
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -230,6 +235,7 @@ function App() {
             component={Movies}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            disabledInput={disabledInput}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
@@ -246,6 +252,7 @@ function App() {
             component={SavedMovies}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            disabledInput={disabledInput}
             savedMovies={savedMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
             errorMessage={errorMessage}
@@ -259,6 +266,7 @@ function App() {
             component={Profile}
             loggedIn={loggedIn}
             isLoading={isLoading}
+            disabledInput={disabledInput}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             onUpdateUser={handleUpdateUser}
@@ -273,6 +281,7 @@ function App() {
             ) : (
               <Login
                 isLoading={isLoading}
+                disabledInput={disabledInput}
                 onLogin={handleLogin}
                 errorMessage={errorMessage}
                 setErrorMessage={setErrorMessage}
@@ -285,6 +294,7 @@ function App() {
             ) : (
               <Register
                 isLoading={isLoading}
+                disabledInput={disabledInput}
                 onRegister={handleRegister}
                 errorMessage={errorMessage}
                 setErrorMessage={setErrorMessage}

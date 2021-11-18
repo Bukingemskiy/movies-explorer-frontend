@@ -50,6 +50,7 @@ function Login(props) {
               placeholder="E-mail"
               pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
               onChange={handleChangeEmail}
+              disabled={props.disabledInput}
               required
             />
             <span
@@ -69,6 +70,7 @@ function Login(props) {
               minLength="8"
               placeholder="Пароль"
               onChange={handleChangePassword}
+              disabled={props.disabledInput}
               required
             />
             <span

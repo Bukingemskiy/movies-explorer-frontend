@@ -83,6 +83,7 @@ function SearchForm(props) {
                 : cacheSearch || ""
             }
             onChange={handleSearchChange}
+            disabled={props.disabledInput}
             required
           />
           <button

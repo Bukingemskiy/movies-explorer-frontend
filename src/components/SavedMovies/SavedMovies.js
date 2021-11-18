@@ -9,6 +9,7 @@ function SavedMovies(props) {
     <>
       <Header />
       <SearchForm
+        disabledInput={props.disabledInput}
         movies={props.savedMovies}
         onSearchMovies={props.onSearchMovies}
       />

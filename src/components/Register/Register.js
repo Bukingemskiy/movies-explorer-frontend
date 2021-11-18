@@ -64,6 +64,7 @@ function Register(props) {
               minLength="2"
               maxLength="30"
               onChange={handleChangeName}
+              disabled={props.disabledInput}
               required
             />
             <span
@@ -83,6 +84,7 @@ function Register(props) {
               placeholder="Email"
               pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
               onChange={handleChangeEmail}
+              disabled={props.disabledInput}
               required
             />
             <span
@@ -102,6 +104,7 @@ function Register(props) {
               placeholder="Пароль"
               minLength="8"
               onChange={handleChangePassword}
+              disabled={props.disabledInput}
               required
             />
             <span

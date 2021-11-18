@@ -10,7 +10,6 @@ function Profile(props) {
   const [nameValid, setNameValid] = React.useState(true);
   const [emailValid, setEmailValid] = React.useState(true);
   const [isValid, setIsValid] = React.useState(false);
-  const [disabled, setDisabled] = React.useState(false);
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -40,10 +39,6 @@ function Profile(props) {
       email: email,
     });
   }
-
-  React.useEffect(() => {
-    props.isLoading ? setDisabled(true) : setDisabled(false);
-  }, [props.isLoading]);
 
   React.useEffect(() => {
     if (
@@ -84,7 +79,7 @@ function Profile(props) {
                 minLength="2"
                 maxLength="30"
                 onChange={handleChangeName}
-                disabled={disabled}
+                disabled={props.disabledInput}
               />
             </div>
             <span
@@ -103,7 +98,7 @@ function Profile(props) {
                 value={email}
                 pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$"
                 onChange={handleChangeEmail}
-                disabled={disabled}
+                disabled={props.disabledInput}
               />
             </div>
             <span

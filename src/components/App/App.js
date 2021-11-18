@@ -144,9 +144,7 @@ function App() {
 
   function handleSearchMovies(search, searchCheckbox) {
     setIsLoading(true);
-    setSavedMovies(cacheSavedMovies);
     console.log(cacheSavedMovies);
-    setFoundMovies(cacheFoundMovies);
     console.log(cacheFoundMovies);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
@@ -229,12 +227,7 @@ function App() {
 
   React.useEffect(() => {
     setErrorMessage("");
-    console.log(errorMessage);
   }, [location.pathname]);
-
-  React.useEffect(() => {
-    setSavedMovies(cacheSavedMovies);
-  }, [location.pathname === "/movies"]);
 
   return (
     <div className="page">

@@ -17,6 +17,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import * as auth from "../../utils/auth.js";
 
 function App() {
+  const history = useHistory();
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const newLoggedIn = localStorage.getItem("localLoggedIn");
@@ -24,14 +25,15 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
-  const history = useHistory();
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [moviesItems, setMoviesItems] = React.useState([]);
-  const [foundMovies, setFoundMovies] = React.useState(cacheFoundMovies);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [disabledInput, setDisabledInput] = React.useState(false);
+  const [foundMovies, setFoundMovies] = React.useState(
+    cacheFoundMovies !== null ? cacheFoundMovies : []
+  );
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -60,7 +62,6 @@ function App() {
 
   React.useEffect(() => {
     newLoggedIn && currentUser ? setLoggedIn(true) : setLoggedIn(false);
-    console.log(currentUser);
   }, [currentUser, newLoggedIn]);
 
   React.useEffect(() => {

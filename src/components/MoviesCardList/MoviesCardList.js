@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
 import Preloader from "../Preloader/Preloader.js";
 import MoviesCard from "../MoviesCard/MoviesCard.js";
+import * as openMore from "../../utils/OpenMore.js";
 
 function MoviesCardList(props) {
   const location = useLocation();
@@ -62,22 +63,11 @@ function MoviesCardList(props) {
     }
   }, [cardList, numberOfMovies]);
 
-  function openMore() {
-    if (width > 1279) {
-      setNumberOfMovies(numberOfMovies + 3);
-    } else {
-      setNumberOfMovies(numberOfMovies + 2);
-    }
-    if (numberOfMovies <= cardList.length) {
-      for (let i = 0; i < numberOfMovies; i++) {
-        cardList[i].style.display = "block";
-      }
-    } else {
-      for (let i = 0; i < cardList.length; i++) {
-        cardList[i].style.display = "block";
-      }
-    }
+  function openButtonMore() {
+    openMore.openMore(width, numberOfMovies, cardList);
   }
+
+  console.log(props.renderMovies);
 
   return (
     <>
@@ -118,7 +108,7 @@ function MoviesCardList(props) {
         {isSavedMovies ? (
           <></>
         ) : (
-          <button className={isMoreButton} onClick={openMore}>
+          <button className={isMoreButton} onClick={openButtonMore}>
             Ещё
           </button>
         )}

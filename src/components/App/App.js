@@ -219,10 +219,14 @@ function App() {
 
   React.useEffect(() => {
     if (isSavedMovies) {
+      console.log(savedMovies);
+      console.log(cacheSavedMovies);
       setSavedMovies(cacheSavedMovies);
+      console.log(savedMovies);
+      console.log(cacheSavedMovies);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+  }, [location.pathname, savedMovies]);
 
   return (
     <div className="page">

@@ -17,10 +17,6 @@ function Navigation(props) {
     setOptionsVisible("block");
   }
 
-  function handleSavedMoviesClick() {
-    props.setSavedMovies(JSON.parse(localStorage.getItem("localSavedMovies")));
-  }
-
   return (
     <nav className="navigation">
       <div className="navigation__links">
@@ -30,7 +26,7 @@ function Navigation(props) {
         <Link
           to="/saved-movies"
           className="navigation__link"
-          onClick={handleSavedMoviesClick}
+          onClick={props.setSavedMovies}
         >
           Сохранённые фильмы
         </Link>

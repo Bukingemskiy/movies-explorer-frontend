@@ -175,12 +175,6 @@ function App() {
     }
   }
 
-  console.log(foundMovies);
-  console.log(savedMovies);
-  console.log(cacheMovies);
-  console.log(cacheFoundMovies);
-  console.log(cacheSavedMovies);
-
   function createMovie(data) {
     setIsLoading(true);
     mainApi

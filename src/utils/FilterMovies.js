@@ -14,10 +14,5 @@ export const filterMovies = (movies, searchMovie, shortMovies) => {
     return string1 || string2 || string3 || string4 || string5;
   });
 
-  console.log(movies);
-  console.log(searchMovie);
-  console.log(shortMovies);
-  console.log(foundMovies);
-
   return foundMovies;
 };

@@ -32,8 +32,10 @@ function Login(props) {
   }
 
   React.useEffect(() => {
-    emailValid && passwordValid ? setIsValid(true) : setIsValid(false);
-  }, [emailValid, passwordValid]);
+    emailValid && passwordValid && email !== "" && password !== ""
+      ? setIsValid(true)
+      : setIsValid(false);
+  }, [email, emailValid, password, passwordValid]);
 
   return (
     <section className="login">

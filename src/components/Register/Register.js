@@ -43,10 +43,15 @@ function Register(props) {
   }
 
   React.useEffect(() => {
-    nameValid && emailValid && passwordValid
+    nameValid &&
+    emailValid &&
+    passwordValid &&
+    name !== "" &&
+    email !== "" &&
+    password !== ""
       ? setIsValid(true)
       : setIsValid(false);
-  }, [emailValid, nameValid, passwordValid]);
+  }, [email, emailValid, name, nameValid, password, passwordValid]);
 
   return (
     <section className="register" onSubmit={handleSubmit}>

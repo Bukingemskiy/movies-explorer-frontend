@@ -181,6 +181,12 @@ function App() {
     console.log(cacheFoundMovies);
   }, [savedMovies, foundMovies, cacheFoundMovies, cacheSavedMovies]);
 
+  React.useEffect(() => {
+    if (!isSavedMovies) {
+      setSavedMovies(cacheSavedMovies);
+    }
+  }, [cacheSavedMovies, isSavedMovies]);
+
   function createMovie(data) {
     setIsLoading(true);
     mainApi

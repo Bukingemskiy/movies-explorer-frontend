@@ -80,6 +80,8 @@ function MoviesCardList(props) {
     }
   }
 
+  console.log(props.renderMovies);
+
   return (
     <>
       <Preloader isLoading={props.isLoading} />

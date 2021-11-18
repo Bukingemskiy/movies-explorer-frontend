@@ -23,11 +23,7 @@ function Navigation(props) {
         <Link to="/movies" className="navigation__link">
           Фильмы
         </Link>
-        <Link
-          to="/saved-movies"
-          className="navigation__link"
-          onClick={props.setSavedMovies}
-        >
+        <Link to="/saved-movies" className="navigation__link">
           Сохранённые фильмы
         </Link>
       </div>

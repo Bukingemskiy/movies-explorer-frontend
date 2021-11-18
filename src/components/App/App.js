@@ -229,9 +229,11 @@ function App() {
     setErrorMessage("");
   }, [location.pathname]);
 
-  function handleSavedMoviesClick() {
-    setSavedMovies(cacheSavedMovies);
-  }
+  React.useEffect(() => {
+    if (location.pathname === "/movies") {
+      setSavedMovies(cacheSavedMovies);
+    }
+  }, [location.pathname]);
 
   return (
     <div className="page">
@@ -244,7 +246,7 @@ function App() {
             isLoading={isLoading}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
-            setSavedMovies={handleSavedMoviesClick}
+            setSavedMovies={setSavedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}
             errorMessage={errorMessage}
@@ -259,7 +261,6 @@ function App() {
             loggedIn={loggedIn}
             isLoading={isLoading}
             savedMovies={savedMovies}
-            setSavedMovies={handleSavedMoviesClick}
             renderMovies={savedMovies !== null ? savedMovies : []}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}

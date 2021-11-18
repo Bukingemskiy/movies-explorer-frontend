@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer.js";
 function SavedMovies(props) {
   return (
     <>
-      <Header setSavedMovies={props.setSavedMovies} />
+      <Header />
       <SearchForm
         movies={props.savedMovies}
         onSearchMovies={props.onSearchMovies}

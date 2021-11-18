@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
+import * as movieDuration from "../../utils/MovieDuration.js";
 
 function MoviesCard(props) {
   const location = useLocation();
@@ -41,40 +42,25 @@ function MoviesCard(props) {
     saved: props.movie.saved,
   };
 
-  const movieDuration =
-    props.movie.duration < 60
-      ? props.movie.duration + " м."
-      : Math.trunc(props.movie.duration / 60) +
-        " ч. " +
-        (props.movie.duration % 60) +
-        " м.";
-
   const handleClickSave = () => {
-    console.log(movie.saved);
     if (movie.saved !== true) {
       props.createMovie(movie);
       const items = props.cacheMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
       );
-      console.log(items);
       localStorage.setItem("localMovies", JSON.stringify(items));
-      console.log(props.cacheMovies);
       const foundItems = props.foundMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
       );
-      console.log(foundItems);
       localStorage.setItem("localFoundMovies", JSON.stringify(foundItems));
     } else {
       const deleteItems = props.cacheMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: false }) : i
       );
-      console.log(deleteItems);
       localStorage.setItem("localMovies", JSON.stringify(deleteItems));
-      console.log(props.cacheMovies);
       const deleteFoundItems = props.foundMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: false }) : i
       );
-      console.log(deleteFoundItems);
       localStorage.setItem(
         "localFoundMovies",
         JSON.stringify(deleteFoundItems)
@@ -82,15 +68,11 @@ function MoviesCard(props) {
       const movieItem = props.savedMovies.filter(
         (savedMovie) => savedMovie.movieId === movie.movieId
       );
-      console.log(movieItem);
       props.deleteMovie(movieItem[0]._id);
     }
   };
 
   const handleClickDelete = () => {
-    console.log(movie);
-    console.log(movie.director);
-    console.log(movie.nameEN);
     props.deleteMovie(movie._id, movie.nameEN, movie.director);
   };
 
@@ -106,7 +88,9 @@ function MoviesCard(props) {
       <div className="movie__group">
         <div className="movie__description">
           <h2 className="movie__title">{movie.nameRU}</h2>
-          <p className="movie__subtitle">{movieDuration}</p>
+          <p className="movie__subtitle">
+            {movieDuration.movieDuration(movie.duration)}
+          </p>
         </div>
         {isSavedMovies ? (
           <button

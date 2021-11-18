@@ -144,8 +144,6 @@ function App() {
 
   function handleSearchMovies(search, searchCheckbox) {
     setIsLoading(true);
-    console.log(cacheSavedMovies);
-    console.log(cacheFoundMovies);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
         cacheSavedMovies,
@@ -153,7 +151,6 @@ function App() {
         searchCheckbox
       );
       setSavedMovies(filterd);
-      console.log(savedMovies);
       setIsLoading(false);
     } else {
       let filterd = filterMovies.filterMovies(
@@ -162,23 +159,14 @@ function App() {
         searchCheckbox
       );
       setFoundMovies(filterd);
-      console.log(foundMovies);
       localStorage.setItem(
         "localFoundMovies",
         JSON.stringify(filterd.length !== 0 ? filterd : cacheFoundMovies)
       );
-      console.log(cacheFoundMovies);
       setIsLoading(false);
       document.location.reload();
     }
   }
-
-  React.useEffect(() => {
-    console.log(savedMovies);
-    console.log(foundMovies);
-    console.log(cacheSavedMovies);
-    console.log(cacheFoundMovies);
-  }, [savedMovies, foundMovies, cacheFoundMovies, cacheSavedMovies]);
 
   function createMovie(data) {
     setIsLoading(true);
@@ -232,8 +220,8 @@ function App() {
   React.useEffect(() => {
     if (isSavedMovies) {
       setSavedMovies(cacheSavedMovies);
-      console.log(savedMovies);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   return (

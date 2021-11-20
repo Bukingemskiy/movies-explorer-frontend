@@ -38,8 +38,6 @@ function App() {
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
 
-  console.log(moviesItems);
-
   React.useEffect(() => {
     setIsLoading(true);
     mainApi
@@ -67,7 +65,9 @@ function App() {
           "localSavedMovies",
           JSON.stringify(savedItems.data)
         );
+        console.log(moviesItems);
         setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
+        console.log(moviesItems);
       })
       .catch((err) => {
         setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);

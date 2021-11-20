@@ -38,6 +38,8 @@ function App() {
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
 
+  console.log(newLoggedIn);
+
   React.useEffect(() => {
     console.log("current");
     setIsLoading(true);

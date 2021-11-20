@@ -21,7 +21,7 @@ function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const newLoggedIn = localStorage.getItem("localLoggedIn");
-  const [loggedIn, setLoggedIn] = React.useState(newLoggedIn);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
@@ -39,16 +39,30 @@ function App() {
   );
 
   React.useEffect(() => {
+    console.log("current");
+    setIsLoading(true);
+    mainApi
+      .getUserData()
+      .then((user) => {
+        setCurrentUser(user.data);
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        setErrorMessage(
+          `При получении данных о пользователе произошла ошибка ${err}.`
+        );
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  React.useEffect(() => {
+    console.log("loading");
     if (loggedIn) {
       setIsLoading(true);
-      Promise.all([
-        moviesApi.getMovies(),
-        mainApi.getSavedMovies(),
-        mainApi.getUserData(),
-      ])
-        .then(([movies, savedItems, user]) => {
+      Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
+        .then(([movies, savedItems]) => {
           setSavedMovies(savedItems.data);
-          setCurrentUser(user.data);
           localStorage.setItem(
             "localSavedMovies",
             JSON.stringify(savedItems.data)
@@ -76,13 +90,16 @@ function App() {
 
   function handleLogin(email, password) {
     setIsLoading(true);
-    return auth
+    auth
       .signIn(email, password)
-      .then(() => {
-        setLoggedIn(true);
-        localStorage.setItem("localLoggedIn", "true");
-        history.push("/movies");
-        history.go(0);
+      .then(({ data }) => {
+        console.log(data);
+        if (data) {
+          setCurrentUser(data);
+          setLoggedIn(true);
+          localStorage.setItem("localLoggedIn", "true");
+          history.push("/movies");
+        }
       })
       .catch((err) => {
         if (err === "Ошибка: 401")
@@ -95,7 +112,7 @@ function App() {
 
   function handleRegister(name, email, password) {
     setIsLoading(true);
-    return auth
+    auth
       .signUp(name, email, password)
       .then((res) => {
         if (res) {
@@ -115,7 +132,7 @@ function App() {
 
   function logOut() {
     setIsLoading(true);
-    return auth
+    auth
       .signOut()
       .then(() => {
         setLoggedIn(false);

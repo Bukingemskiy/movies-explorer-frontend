@@ -76,7 +76,7 @@ function MoviesCardList(props) {
       if (
         isSavedMovies &&
         props.cacheSavedMovies.length === 0 &&
-        props.cacheSavedNotFoundMovies !== null
+        props.cacheSavedNotFoundMovies === null
       )
         return setTitle("Вам ещё ничего не понравилось");
       if (!isSavedMovies && props.cacheFoundMovies === null)

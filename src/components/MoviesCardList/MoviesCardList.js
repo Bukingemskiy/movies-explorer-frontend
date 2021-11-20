@@ -70,10 +70,10 @@ function MoviesCardList(props) {
 
   React.useEffect(() => {
     if (props.renderMovies.length === 0) {
-      if (isSavedMovies || props.cacheSavedNotFoundMovies === null) {
+      if (isSavedMovies || props.cacheSavedNotFoundMovies !== null) {
         return setTitle("Вам ещё ничего не понравилось");
       }
-      if (!isSavedMovies || props.cacheFoundMovies === null) {
+      if (!isSavedMovies || props.cacheFoundMovies !== null) {
         return setTitle("Вы ещё ничего не искали");
       } else {
         setTitle("Ничего не найдено");

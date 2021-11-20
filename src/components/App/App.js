@@ -153,7 +153,6 @@ function App() {
 
   function handleSearchMovies(search, searchCheckbox) {
     setIsLoading(true);
-    setDisabledInput(true);
     if (isSavedMovies) {
       let filterd = filterMovies.filterMovies(
         cacheSavedMovies,
@@ -161,10 +160,7 @@ function App() {
         searchCheckbox
       );
       setSavedMovies(filterd);
-      localStorage.setItem(
-        "localSavedNotFoundMovies",
-        JSON.stringify(filterd.length === 0 ? [] : null)
-      );
+      localStorage.setItem("localSavedNotFoundMovies", JSON.stringify(filterd));
       setIsLoading(false);
     } else {
       let filterd = filterMovies.filterMovies(
@@ -175,7 +171,6 @@ function App() {
       setFoundMovies(filterd);
       localStorage.setItem("localFoundMovies", JSON.stringify(filterd));
       setIsLoading(false);
-      document.location.reload();
     }
   }
 

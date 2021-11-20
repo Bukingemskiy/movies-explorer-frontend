@@ -71,6 +71,7 @@ function MoviesCardList(props) {
   React.useEffect(() => {
     if (props.renderMovies.length === 0) {
       console.log(props.cacheSavedNotFoundMovies);
+      console.log(props.cacheSavedMovies.length);
       console.log(props.cacheFoundMovies);
       if (
         isSavedMovies &&

@@ -252,7 +252,6 @@ function App() {
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             cacheFoundMovies={cacheFoundMovies}
-            cacheSavedMovies={cacheSavedMovies}
             setSavedMovies={setSavedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}

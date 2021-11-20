@@ -75,7 +75,7 @@ function MoviesCardList(props) {
       console.log(props.cacheFoundMovies);
       if (
         props.cacheSavedNotFoundMovies === [] ||
-        props.cacheFoundMovies === null
+        props.cacheFoundMovies === []
       )
         return setTitle("Ничего не найдено");
 

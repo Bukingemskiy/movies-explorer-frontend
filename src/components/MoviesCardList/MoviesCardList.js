@@ -4,6 +4,7 @@ import "./MoviesCardList.css";
 import Preloader from "../Preloader/Preloader.js";
 import MoviesCard from "../MoviesCard/MoviesCard.js";
 import * as openMore from "../../utils/OpenMore.js";
+import { BIG_WINDOW_WIDTH, SMALL_WINDOW_WIDTH } from "../../utils/config.js";
 
 function MoviesCardList(props) {
   const location = useLocation();
@@ -15,21 +16,21 @@ function MoviesCardList(props) {
   const cardList = document.getElementsByClassName("movie");
   const [width, setWidth] = React.useState(window.innerWidth);
   const [numberOfMovies, setNumberOfMovies] = React.useState(() => {
-    if ((width < 1280) & (width > 767)) {
+    if ((width <= BIG_WINDOW_WIDTH) & (width > SMALL_WINDOW_WIDTH)) {
       return 8;
-    } else if (width < 768) {
+    } else if (width <= SMALL_WINDOW_WIDTH) {
       return 5;
-    } else if (width > 1279) {
+    } else if (width > BIG_WINDOW_WIDTH) {
       return 12;
     }
   });
 
   React.useEffect(() => {
-    if ((width < 1280) & (width > 767)) {
+    if ((width <= BIG_WINDOW_WIDTH) & (width > SMALL_WINDOW_WIDTH)) {
       setNumberOfMovies(8);
-    } else if (width < 768) {
+    } else if (width <= SMALL_WINDOW_WIDTH) {
       setNumberOfMovies(5);
-    } else if (width > 1279) {
+    } else if (width > BIG_WINDOW_WIDTH) {
       setNumberOfMovies(12);
     }
   }, [width]);

@@ -1,3 +1,5 @@
+import { SHORT_MOVIE_DURATION } from "./config.js";
+
 export const filterMovies = (movies, searchMovie, shortMovies) => {
   function checkString(string) {
     const searchValue = searchMovie.toLowerCase().trim();
@@ -5,7 +7,7 @@ export const filterMovies = (movies, searchMovie, shortMovies) => {
   }
 
   const foundMovies = movies.filter((movie) => {
-    if (shortMovies && movie.duration > 40) return false;
+    if (shortMovies && movie.duration > SHORT_MOVIE_DURATION) return false;
     const string1 = checkString(movie.nameRU);
     const string2 = checkString(movie.nameEN);
     const string3 = checkString(movie.director);

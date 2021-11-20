@@ -21,7 +21,7 @@ function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const newLoggedIn = localStorage.getItem("localLoggedIn");
-  const [loggedIn, setLoggedIn] = React.useState(newLoggedIn);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
@@ -37,6 +37,24 @@ function App() {
   const [foundMovies, setFoundMovies] = React.useState(
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
+
+  React.useEffect(() => {
+    console.log("loading");
+    setIsLoading(true);
+    mainApi
+      .getUserData()
+      .then((user) => {
+        setCurrentUser(user.data);
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        setErrorMessage(
+          `При загрузке информации о пользователе произошла ошибка ${err}.`
+        );
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
 
   React.useEffect(() => {
     console.log("loading");
@@ -80,10 +98,10 @@ function App() {
     auth
       .signIn(email, password)
       .then(() => {
-        setLoggedIn(true);
         localStorage.setItem("localLoggedIn", "true");
         history.push("/movies");
-        history.go(0);
+        setLoggedIn(true);
+        //  history.go(0);
       })
       .catch((err) => {
         if (err === "Ошибка: 401")

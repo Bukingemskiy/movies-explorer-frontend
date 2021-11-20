@@ -23,7 +23,7 @@ function App() {
   const newLoggedIn = localStorage.getItem("localLoggedIn");
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(newLoggedIn);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
@@ -46,6 +46,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user.data);
         setLoggedIn(true);
+        localStorage.setItem("localLoggedIn", "true");
       })
       .catch((err) => {
         setErrorMessage(

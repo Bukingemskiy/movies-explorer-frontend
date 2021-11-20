@@ -89,11 +89,8 @@ function MoviesCardList(props) {
     props.cacheSavedMovies,
     props.cacheSavedNotFoundMovies,
     props.renderMovies.length,
+    location.pathname,
   ]);
-
-  React.useEffect(() => {
-    setTitle("");
-  }, [location.pathname]);
 
   return (
     <>

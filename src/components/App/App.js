@@ -39,6 +39,7 @@ function App() {
   );
 
   React.useEffect(() => {
+    console.log(currentUser);
     setIsLoading(true);
     mainApi
       .getUserData()
@@ -57,6 +58,8 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    console.log(loggedIn);
+    console.log(newLoggedIn);
     setIsLoading(true);
     Promise.all([
       moviesApi.getMovies(),

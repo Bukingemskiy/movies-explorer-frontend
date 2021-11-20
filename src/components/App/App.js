@@ -38,6 +38,8 @@ function App() {
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
 
+  console.log(cacheMovies);
+
   React.useEffect(() => {
     setIsLoading(true);
     mainApi

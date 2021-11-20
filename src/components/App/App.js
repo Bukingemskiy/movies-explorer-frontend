@@ -57,6 +57,7 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    console.log("movies");
     setIsLoading(true);
     Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
       .then(([movies, savedItems]) => {
@@ -81,11 +82,13 @@ function App() {
 
   React.useEffect(() => {
     console.log(savedMovies.length);
+    console.log(moviesItems);
     savedMovies.length > 0
       ? savedMovies.forEach((el) => {
           const items = moviesItems.map((i) =>
             i.id === el.movieId ? Object.assign(i, { saved: true }) : i
           );
+          console.log(items);
           console.log(cacheMovies);
           localStorage.setItem("localMovies", JSON.stringify(items));
           console.log(cacheMovies);

@@ -38,11 +38,7 @@ function App() {
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
 
-  console.log(loggedIn);
-  console.log(newLoggedIn);
-
   React.useEffect(() => {
-    console.log("current");
     setIsLoading(true);
     mainApi
       .getUserData()
@@ -61,7 +57,6 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    console.log("loading");
     setIsLoading(true);
     Promise.all([
       moviesApi.getMovies(),

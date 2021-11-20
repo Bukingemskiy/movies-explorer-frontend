@@ -65,7 +65,7 @@ function MoviesCardList(props) {
       }
     }
     console.log(cardList);
-  }, [cardList, numberOfMovies]);
+  }, [cardList, numberOfMovies, props.renderMovies]);
 
   function openButtonMore() {
     setNumberOfMovies(openMore.openMore(width, numberOfMovies, cardList));

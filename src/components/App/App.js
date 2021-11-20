@@ -80,7 +80,7 @@ function App() {
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [loggedIn]);
 
   React.useEffect(() => {
     savedMovies.length > 0

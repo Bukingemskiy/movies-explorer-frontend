@@ -1,9 +1,10 @@
 import "./Navigation.css";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import IconProfile from "../../images/Profile.svg";
 
 function Navigation(props) {
+  const location = useLocation();
   const [popupVisible, setPopupVisible] = React.useState("none");
   const [, setOptionsVisible] = React.useState("none");
 
@@ -20,10 +21,24 @@ function Navigation(props) {
   return (
     <nav className="navigation">
       <div className="navigation__links">
-        <Link to="/movies" className="navigation__link">
+        <Link
+          to="/movies"
+          className={
+            location.pathname === "/movies"
+              ? "navigation__link navigation__link_selected"
+              : "navigation__link"
+          }
+        >
           Фильмы
         </Link>
-        <Link to="/saved-movies" className="navigation__link">
+        <Link
+          to="/saved-movies"
+          className={
+            location.pathname === "/saved-movies"
+              ? "navigation__link navigation__link_selected"
+              : "navigation__link"
+          }
+        >
           Сохранённые фильмы
         </Link>
       </div>
@@ -51,13 +66,34 @@ function Navigation(props) {
             +
           </button>
           <div className="navigation__popup-links">
-            <Link to="/" className="navigation__popup-link">
+            <Link
+              to="/"
+              className={
+                location.pathname === "/"
+                  ? "navigation__popup-link navigation__popup-link_selected"
+                  : "navigation__popup-link"
+              }
+            >
               Главная
             </Link>
-            <Link to="/movies" className="navigation__popup-link">
+            <Link
+              to="/movies"
+              className={
+                location.pathname === "/movies"
+                  ? "navigation__popup-link navigation__popup-link_selected"
+                  : "navigation__popup-link"
+              }
+            >
               Фильмы
             </Link>
-            <Link to="/saved-movies" className="navigation__popup-link">
+            <Link
+              to="/saved-movies"
+              className={
+                location.pathname === "/saved-movies"
+                  ? "navigation__popup-link navigation__popup-link_selected"
+                  : "navigation__popup-link"
+              }
+            >
               Сохранённые фильмы
             </Link>
           </div>

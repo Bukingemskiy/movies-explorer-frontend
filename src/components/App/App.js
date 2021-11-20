@@ -39,7 +39,6 @@ function App() {
   );
 
   React.useEffect(() => {
-    console.log("loading");
     if (loggedIn) {
       setIsLoading(true);
       Promise.all([

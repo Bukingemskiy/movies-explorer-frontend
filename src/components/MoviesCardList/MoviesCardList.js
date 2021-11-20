@@ -7,6 +7,8 @@ import * as openMore from "../../utils/OpenMore.js";
 import { BIG_WINDOW_WIDTH, SMALL_WINDOW_WIDTH } from "../../utils/config.js";
 
 function MoviesCardList(props) {
+  console.log(props.renderMovies);
+
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const [isMoreButton, setMoreButton] = React.useState(

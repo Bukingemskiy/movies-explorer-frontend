@@ -48,7 +48,9 @@ function MoviesCard(props) {
       const items = props.cacheMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
       );
+      console.log(items);
       localStorage.setItem("localMovies", JSON.stringify(items));
+      console.log(props.cacheMovies);
       const foundItems = props.foundMovies.map((i) =>
         i.id === movie.movieId ? Object.assign(i, { saved: true }) : i
       );

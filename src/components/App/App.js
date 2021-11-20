@@ -163,7 +163,7 @@ function App() {
       setSavedMovies(filterd);
       localStorage.setItem(
         "localSavedNotFoundMovies",
-        JSON.stringify(filterd.length === 0 ? [] : null)
+        JSON.stringify(filterd.length === 0 ? null : [])
       );
       setIsLoading(false);
     } else {

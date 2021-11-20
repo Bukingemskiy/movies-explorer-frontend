@@ -174,7 +174,7 @@ function App() {
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",
-        JSON.stringify(filterd.length === 0 ? [] : null)
+        JSON.stringify(filterd.length === 0 ? [] : filterd)
       );
       setIsLoading(false);
     }

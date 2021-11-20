@@ -217,6 +217,11 @@ function App() {
             ? Object.assign(i, { saved: false })
             : i
         );
+        foundMovies.map((i) =>
+          i.nameEN === nameEN && i.director === director
+            ? Object.assign(i, { saved: false })
+            : i
+        );
         setFoundMovies(deleteFoundItems);
         localStorage.setItem(
           "localFoundMovies",

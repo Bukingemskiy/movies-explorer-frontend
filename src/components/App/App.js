@@ -30,9 +30,6 @@ function App() {
   const cacheSavedNotFoundMovies = JSON.parse(
     localStorage.getItem("localSavedNotFoundMovies")
   );
-  const cacheFoundNotFoundMovies = JSON.parse(
-    localStorage.getItem("localFoundNotFoundMovies")
-  );
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [moviesItems, setMoviesItems] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState("");
@@ -179,10 +176,6 @@ function App() {
         "localFoundMovies",
         JSON.stringify(filterd.length === 0 ? [] : filterd)
       );
-      localStorage.setItem(
-        "localFoundNotFoundMovies",
-        JSON.stringify(filterd.length === 0 ? [] : null)
-      );
       setIsLoading(false);
     }
   }
@@ -258,7 +251,6 @@ function App() {
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
             cacheFoundMovies={cacheFoundMovies}
-            cacheFoundNotFoundMovies={cacheFoundNotFoundMovies}
             setSavedMovies={setSavedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}

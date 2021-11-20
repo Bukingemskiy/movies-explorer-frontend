@@ -39,7 +39,7 @@ function App() {
   );
 
   React.useEffect(() => {
-    console.log("loading");
+    console.log("current");
     setIsLoading(true);
     mainApi
       .getUserData()
@@ -58,29 +58,27 @@ function App() {
 
   React.useEffect(() => {
     console.log("loading");
-    if (loggedIn) {
-      setIsLoading(true);
-      Promise.all([
-        moviesApi.getMovies(),
-        mainApi.getSavedMovies(),
-        mainApi.getUserData(),
-      ])
-        .then(([movies, savedItems, user]) => {
-          setSavedMovies(savedItems.data);
-          setCurrentUser(user.data);
-          localStorage.setItem(
-            "localSavedMovies",
-            JSON.stringify(savedItems.data)
-          );
-          setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
-        })
-        .catch((err) => {
-          setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
-          console.log(`${err}`);
-        })
-        .finally(() => setIsLoading(false));
-    }
-  }, [loggedIn]);
+    setIsLoading(true);
+    Promise.all([
+      moviesApi.getMovies(),
+      mainApi.getSavedMovies(),
+      mainApi.getUserData(),
+    ])
+      .then(([movies, savedItems, user]) => {
+        setSavedMovies(savedItems.data);
+        setCurrentUser(user.data);
+        localStorage.setItem(
+          "localSavedMovies",
+          JSON.stringify(savedItems.data)
+        );
+        setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
+      })
+      .catch((err) => {
+        setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
 
   React.useEffect(() => {
     savedMovies.length > 0

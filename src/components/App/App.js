@@ -160,7 +160,10 @@ function App() {
         searchCheckbox
       );
       setSavedMovies(filterd);
-      localStorage.setItem("localSavedNotFoundMovies", JSON.stringify(filterd));
+      localStorage.setItem(
+        "localSavedNotFoundMovies",
+        JSON.stringify(filterd.length === 0 ? [] : null)
+      );
       setIsLoading(false);
     } else {
       let filterd = filterMovies.filterMovies(

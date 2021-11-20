@@ -92,7 +92,7 @@ function App() {
     setIsLoading(true);
     auth
       .signIn(email, password)
-      .then(({ data }) => {
+      .then((data) => {
         console.log(data);
         if (data) {
           setCurrentUser(data);

@@ -81,9 +81,11 @@ function App() {
             i.id === el.movieId ? Object.assign(i, { saved: true }) : i
           );
           localStorage.setItem("localMovies", JSON.stringify(items));
+          console.log(cacheMovies);
         })
       : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
-  }, [moviesItems, savedMovies, cacheMovies]);
+    console.log(cacheMovies);
+  }, [moviesItems, savedMovies]);
 
   function handleLogin(email, password) {
     setIsLoading(true);

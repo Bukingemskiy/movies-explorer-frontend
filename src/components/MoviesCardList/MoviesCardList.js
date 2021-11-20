@@ -75,16 +75,14 @@ function MoviesCardList(props) {
       console.log(props.cacheFoundMovies);
       if (
         props.cacheSavedNotFoundMovies === [] ||
-        props.cacheFoundMovies === []
-      ) {
+        props.cacheFoundMovies === null
+      )
         return setTitle("Ничего не найдено");
-      }
-      if (isSavedMovies) {
-        return setTitle("Вам ещё ничего не понравилось");
-      }
-      if (!isSavedMovies || props.cacheFoundMovies !== null) {
-        return setTitle("Вы ещё ничего не искали");
-      }
+
+      if (isSavedMovies) return setTitle("Вам ещё ничего не понравилось");
+
+      if (!isSavedMovies) return setTitle("Вы ещё ничего не искали");
+      else return setTitle("");
     }
   }, [
     isMovies,

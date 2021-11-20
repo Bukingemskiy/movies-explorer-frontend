@@ -60,13 +60,16 @@ function App() {
     setIsLoading(true);
     Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
       .then(([movies, savedItems]) => {
+        console.log(movies);
         setSavedMovies(savedItems.data);
         localStorage.setItem(
           "localSavedMovies",
           JSON.stringify(savedItems.data)
         );
         console.log(moviesItems);
-        setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
+        setMoviesItems(
+          movies.map((i) => (i ? Object.assign(i, { saved: false }) : i))
+        );
         console.log(moviesItems);
       })
       .catch((err) => {

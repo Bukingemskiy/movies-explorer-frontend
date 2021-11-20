@@ -61,19 +61,17 @@ function App() {
     console.log(loggedIn);
     console.log(newLoggedIn);
     setIsLoading(true);
-    Promise.all([
-      moviesApi.getMovies(),
-      mainApi.getSavedMovies(),
-      mainApi.getUserData(),
-    ])
-      .then(([movies, savedItems, user]) => {
+    Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
+      .then(([movies, savedItems]) => {
         setSavedMovies(savedItems.data);
-        setCurrentUser(user.data);
+        console.log(movies);
+        console.log(savedItems);
         localStorage.setItem(
           "localSavedMovies",
           JSON.stringify(savedItems.data)
         );
         setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
+        console.log(moviesItems);
       })
       .catch((err) => {
         setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
@@ -89,8 +87,10 @@ function App() {
             i.id === el.movieId ? Object.assign(i, { saved: true }) : i
           );
           localStorage.setItem("localMovies", JSON.stringify(items));
+          console.log(cacheMovies);
         })
       : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
+    console.log(cacheMovies);
   }, [moviesItems, savedMovies]);
 
   function handleLogin(email, password) {

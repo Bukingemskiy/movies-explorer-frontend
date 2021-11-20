@@ -160,6 +160,7 @@ function App() {
         searchCheckbox
       );
       setSavedMovies(filterd);
+      console.log(filterd.length);
       localStorage.setItem(
         "localSavedNotFoundMovies",
         JSON.stringify(filterd.length === 0 ? [] : null)
@@ -172,7 +173,11 @@ function App() {
         searchCheckbox
       );
       setFoundMovies(filterd);
-      localStorage.setItem("localFoundMovies", JSON.stringify(filterd));
+      console.log(filterd.length);
+      localStorage.setItem(
+        "localFoundMovies",
+        JSON.stringify(filterd.length === 0 ? null : [])
+      );
       setIsLoading(false);
     }
   }

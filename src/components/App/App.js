@@ -178,6 +178,7 @@ function App() {
         search,
         searchCheckbox
       );
+      console.log(cacheMovies);
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",
@@ -222,7 +223,10 @@ function App() {
             ? Object.assign(el, { saved: false })
             : el
         );
+        console.log(cacheMovies);
+        console.log(deleteCacheMovies);
         localStorage.setItem("localMovies", JSON.stringify(deleteCacheMovies));
+        console.log(cacheMovies);
         setFoundMovies(deleteFoundItems);
         localStorage.setItem(
           "localFoundMovies",

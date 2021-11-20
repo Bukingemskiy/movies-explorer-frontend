@@ -38,6 +38,9 @@ function App() {
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
 
+  console.log(loggedIn);
+  console.log(newLoggedIn);
+
   React.useEffect(() => {
     console.log("current");
     setIsLoading(true);
@@ -45,6 +48,8 @@ function App() {
       .getUserData()
       .then((user) => {
         setCurrentUser(user.data);
+        localStorage.setItem("localLoggedIn", "true");
+        setLoggedIn(true);
       })
       .catch((err) => {
         setErrorMessage(
@@ -98,7 +103,7 @@ function App() {
         localStorage.setItem("localLoggedIn", "true");
         setLoggedIn(true);
         history.push("/movies");
-        //  history.go(0);
+        history.go(0);
       })
       .catch((err) => {
         if (err === "Ошибка: 401")

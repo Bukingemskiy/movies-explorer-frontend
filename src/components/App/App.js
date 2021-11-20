@@ -217,11 +217,12 @@ function App() {
             ? Object.assign(i, { saved: false })
             : i
         );
-        cacheMovies.map((el) =>
+        const deleteCacheMovies = cacheMovies.map((el) =>
           el.nameEN === nameEN && el.director === director
             ? Object.assign(el, { saved: false })
             : el
         );
+        localStorage.setItem("localMovies", JSON.stringify(deleteCacheMovies));
         setFoundMovies(deleteFoundItems);
         localStorage.setItem(
           "localFoundMovies",

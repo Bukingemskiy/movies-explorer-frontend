@@ -38,9 +38,6 @@ function App() {
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
 
-  console.log(newLoggedIn);
-  console.log(loggedIn);
-
   React.useEffect(() => {
     console.log("current");
     setIsLoading(true);
@@ -48,8 +45,6 @@ function App() {
       .getUserData()
       .then((user) => {
         setCurrentUser(user.data);
-        setLoggedIn(true);
-        localStorage.setItem("localLoggedIn", "true");
       })
       .catch((err) => {
         setErrorMessage(

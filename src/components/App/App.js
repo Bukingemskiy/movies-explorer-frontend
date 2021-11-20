@@ -82,6 +82,7 @@ function App() {
         setLoggedIn(true);
         localStorage.setItem("localLoggedIn", "true");
         history.push("/movies");
+        history.go(0);
       })
       .catch((err) => {
         if (err === "Ошибка: 401")

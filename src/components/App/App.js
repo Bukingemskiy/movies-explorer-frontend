@@ -212,12 +212,12 @@ function App() {
         const newMovies = savedMovies.filter(
           (savedMovie) => savedMovie._id !== id
         );
-        const deleteFoundItems = cacheMovies.map((i) =>
+        const deleteFoundItems = foundMovies.map((i) =>
           i.nameEN === nameEN && i.director === director
             ? Object.assign(i, { saved: false })
             : i
         );
-        foundMovies.map((i) =>
+        cacheMovies.map((i) =>
           i.nameEN === nameEN && i.director === director
             ? Object.assign(i, { saved: false })
             : i

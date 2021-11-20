@@ -38,8 +38,6 @@ function App() {
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
 
-  console.log(cacheMovies);
-
   React.useEffect(() => {
     setIsLoading(true);
     mainApi
@@ -85,7 +83,7 @@ function App() {
           localStorage.setItem("localMovies", JSON.stringify(items));
         })
       : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
-  }, [moviesItems, savedMovies]);
+  }, [moviesItems, savedMovies, cacheMovies]);
 
   function handleLogin(email, password) {
     setIsLoading(true);
@@ -218,10 +216,10 @@ function App() {
         );
         setSavedMovies(newMovies);
         localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
-        const deleteCacheMovies = cacheMovies.map((el) =>
-          el.nameEN === nameEN && el.director === director
-            ? Object.assign(el, { saved: false })
-            : el
+        const deleteCacheMovies = cacheMovies.map((i) =>
+          i.nameEN === nameEN && i.director === director
+            ? Object.assign(i, { saved: false })
+            : i
         );
         console.log(cacheMovies);
         console.log(deleteCacheMovies);

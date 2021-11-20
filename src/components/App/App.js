@@ -38,6 +38,8 @@ function App() {
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
 
+  console.log(moviesItems);
+
   React.useEffect(() => {
     setIsLoading(true);
     mainApi
@@ -75,11 +77,13 @@ function App() {
   }, [loggedIn]);
 
   React.useEffect(() => {
+    console.log(savedMovies.length);
     savedMovies.length > 0
       ? savedMovies.forEach((el) => {
           const items = moviesItems.map((i) =>
             i.id === el.movieId ? Object.assign(i, { saved: true }) : i
           );
+          console.log(cacheMovies);
           localStorage.setItem("localMovies", JSON.stringify(items));
           console.log(cacheMovies);
         })

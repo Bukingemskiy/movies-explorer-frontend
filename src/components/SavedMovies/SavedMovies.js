@@ -18,6 +18,7 @@ function SavedMovies(props) {
         createMovie={props.createMovie}
         savedMovies={props.savedMovies}
         cacheSavedMovies={props.cacheSavedMovies}
+        cacheSavedNotFoundMovies={props.cacheSavedNotFoundMovies}
         renderMovies={props.renderMovies}
         isLoading={props.isLoading}
         errorMessage={props.errorMessage}

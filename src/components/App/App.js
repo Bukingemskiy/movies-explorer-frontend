@@ -27,6 +27,9 @@ function App() {
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));
   const cacheFoundMovies = JSON.parse(localStorage.getItem("localFoundMovies"));
   const cacheSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
+  const cacheSavedNotFoundMovies = JSON.parse(
+    localStorage.getItem("localSavedNotFoundMovies")
+  );
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [moviesItems, setMoviesItems] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState("");
@@ -157,6 +160,10 @@ function App() {
         searchCheckbox
       );
       setSavedMovies(filterd);
+      localStorage.setItem(
+        "localSavedNotFoundMovies",
+        JSON.stringify(filterd.length === 0 ? null : [])
+      );
       setIsLoading(false);
     } else {
       let filterd = filterMovies.filterMovies(
@@ -260,6 +267,7 @@ function App() {
             disabledInput={disabledInput}
             savedMovies={savedMovies}
             cacheSavedMovies={cacheSavedMovies}
+            cacheSavedNotFoundMovies={cacheSavedNotFoundMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}

@@ -70,9 +70,14 @@ function MoviesCardList(props) {
 
   React.useEffect(() => {
     if (props.renderMovies.length === 0) {
+      console.log(props.cacheSavedNotFoundMovies);
       console.log(props.cacheSavedMovies);
       console.log(props.cacheFoundMovies);
-      if (isSavedMovies && props.cacheSavedMovies.length === 0)
+      if (
+        isSavedMovies &&
+        props.cacheSavedMovies.length === 0 &&
+        props.cacheSavedNotFoundMovies === null
+      )
         return setTitle("Вам ещё ничего не понравилось");
       if (!isSavedMovies && props.cacheFoundMovies === null)
         return setTitle("Вы ещё ничего не искали");
@@ -82,6 +87,7 @@ function MoviesCardList(props) {
     isSavedMovies,
     props.cacheFoundMovies,
     props.cacheSavedMovies,
+    props.cacheSavedNotFoundMovies,
     props.renderMovies.length,
   ]);
 

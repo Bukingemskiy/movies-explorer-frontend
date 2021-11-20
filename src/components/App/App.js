@@ -159,7 +159,6 @@ function App() {
         search,
         searchCheckbox
       );
-      console.log(filterd.length);
       setSavedMovies(filterd);
       localStorage.setItem(
         "localSavedNotFoundMovies",
@@ -172,7 +171,6 @@ function App() {
         search,
         searchCheckbox
       );
-      console.log(filterd.length);
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",

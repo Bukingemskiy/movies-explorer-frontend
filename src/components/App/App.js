@@ -230,6 +230,7 @@ function App() {
       setSavedMovies(cacheSavedMovies);
     }
     setErrorMessage("");
+    localStorage.setItem("localSavedNotFoundMovies", JSON.stringify(null));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 

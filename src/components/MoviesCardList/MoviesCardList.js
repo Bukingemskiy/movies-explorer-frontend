@@ -11,6 +11,7 @@ function MoviesCardList(props) {
   const [isMoreButton, setMoreButton] = React.useState(
     "more__button_invisible"
   );
+  const [isTitle, setTitle] = React.useState("");
   const cardList = document.getElementsByClassName("movie");
   const [width, setWidth] = React.useState(window.innerWidth);
   const [numberOfMovies, setNumberOfMovies] = React.useState(() => {
@@ -67,6 +68,26 @@ function MoviesCardList(props) {
     setNumberOfMovies(openMore.openMore(width, numberOfMovies, cardList));
   }
 
+  React.useEffect(() => {
+    if (props.renderMovies.length === 0) {
+      if (isSavedMovies || props.cacheSavedNotFoundMovies === null) {
+        return setTitle("Вам ещё ничего не понравилось");
+      }
+      if (!isSavedMovies || props.cacheFoundMovies === null) {
+        return setTitle("Вы ещё ничего не искали");
+      } else {
+        setTitle("Ничего не найдено");
+      }
+    } else {
+      setTitle("");
+    }
+  }, [
+    isSavedMovies,
+    props.cacheFoundMovies,
+    props.cacheSavedNotFoundMovies,
+    props.renderMovies.length,
+  ]);
+
   return (
     <>
       <Preloader isLoading={props.isLoading} />
@@ -83,9 +104,7 @@ function MoviesCardList(props) {
             props.renderMovies.length === 0 ? "movies__not-found_visible" : ""
           }`}
         >
-          {isSavedMovies
-            ? "Вам ещё ничего не понравилось"
-            : "Ничего не найдено"}
+          {isTitle}
         </span>
       </div>
       <section className="movies">

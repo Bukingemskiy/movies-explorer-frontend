@@ -68,9 +68,8 @@ function App() {
           JSON.stringify(savedItems.data)
         );
         console.log(moviesItems);
-        const items = movies.map((i) => Object.assign(i, { saved: false }));
-        console.log(items);
-        setMoviesItems(items);
+
+        setMoviesItems(movies);
         console.log(moviesItems);
       })
       .catch((err) => {

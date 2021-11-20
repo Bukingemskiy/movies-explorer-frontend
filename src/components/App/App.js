@@ -21,7 +21,7 @@ function App() {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
   const newLoggedIn = localStorage.getItem("localLoggedIn");
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(newLoggedIn);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const cacheMovies = JSON.parse(localStorage.getItem("localMovies"));

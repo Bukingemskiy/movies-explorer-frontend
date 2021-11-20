@@ -73,10 +73,10 @@ function MoviesCardList(props) {
     if (props.renderMovies.length === 0) {
       console.log(props.cacheSavedNotFoundMovies);
       console.log(props.cacheFoundMovies);
-      if (isSavedMovies || props.cacheSavedNotFoundMovies === null) {
+      if (isSavedMovies || props.cacheSavedNotFoundMovies !== null) {
         return setTitle("Вам ещё ничего не понравилось");
       }
-      if (isMovies || props.cacheFoundMovies === null) {
+      if (isMovies || props.cacheFoundMovies !== null) {
         return setTitle("Вы ещё ничего не искали");
       } else {
         setTitle("Ничего не найдено");

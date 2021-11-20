@@ -39,6 +39,7 @@ function App() {
   );
 
   React.useEffect(() => {
+    console.log("loading");
     if (loggedIn) {
       setIsLoading(true);
       Promise.all([
@@ -62,10 +63,6 @@ function App() {
         .finally(() => setIsLoading(false));
     }
   }, [loggedIn]);
-
-  React.useEffect(() => {
-    newLoggedIn && currentUser ? setLoggedIn(true) : setLoggedIn(false);
-  }, [currentUser, newLoggedIn]);
 
   React.useEffect(() => {
     savedMovies.length > 0

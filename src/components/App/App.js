@@ -58,34 +58,14 @@ function App() {
 
   React.useEffect(() => {
     setIsLoading(true);
-    moviesApi
-      .getMovies()
-      .then((movies) => {
-        console.log(movies);
-        console.log(moviesItems);
-        const items = movies.map((i) => Object.assign(i, { saved: false }));
-        console.log(items);
-        setMoviesItems(movies);
-        console.log(moviesItems);
-      })
-      .catch((err) => {
-        setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
-        console.log(`${err}`);
-      })
-      .finally(() => setIsLoading(false));
-  }, [loggedIn]);
-
-  React.useEffect(() => {
-    console.log("movies");
-    setIsLoading(true);
-    mainApi
-      .getSavedMovies()
-      .then((savedItems) => {
+    Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
+      .then(([movies, savedItems]) => {
         setSavedMovies(savedItems.data);
         localStorage.setItem(
           "localSavedMovies",
           JSON.stringify(savedItems.data)
         );
+        setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
       })
       .catch((err) => {
         setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
@@ -95,20 +75,14 @@ function App() {
   }, [loggedIn]);
 
   React.useEffect(() => {
-    console.log(savedMovies.length);
-    console.log(moviesItems);
     savedMovies.length > 0
       ? savedMovies.forEach((el) => {
           const items = moviesItems.map((i) =>
             i.id === el.movieId ? Object.assign(i, { saved: true }) : i
           );
-          console.log(items);
-          console.log(cacheMovies);
           localStorage.setItem("localMovies", JSON.stringify(items));
-          console.log(cacheMovies);
         })
       : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
-    console.log(cacheMovies);
   }, [moviesItems, savedMovies]);
 
   function handleLogin(email, password) {
@@ -204,8 +178,6 @@ function App() {
         search,
         searchCheckbox
       );
-      console.log(cacheMovies);
-      console.log(filterd);
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",
@@ -247,15 +219,12 @@ function App() {
             ? Object.assign(i, { saved: false })
             : i
         );
-        console.log(cacheMovies);
-        console.log(deleteCacheMovies);
         localStorage.setItem("localMovies", JSON.stringify(deleteCacheMovies));
         const deleteFoundItems = foundMovies.map((i) =>
           i.nameEN === nameEN && i.director === director
             ? Object.assign(i, { saved: false })
             : i
         );
-        console.log(cacheMovies);
         setFoundMovies(deleteFoundItems);
         localStorage.setItem(
           "localFoundMovies",

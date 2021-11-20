@@ -268,6 +268,7 @@ function App() {
             isLoading={isLoading}
             disabledInput={disabledInput}
             savedMovies={savedMovies}
+            cacheSavedMovies={cacheSavedMovies}
             cacheSavedNotFoundMovies={cacheSavedNotFoundMovies}
             renderMovies={savedMovies !== null ? savedMovies : []}
             errorMessage={errorMessage}

@@ -8,7 +8,6 @@ import * as openMore from "../../utils/OpenMore.js";
 function MoviesCardList(props) {
   const location = useLocation();
   const isSavedMovies = location.pathname === "/saved-movies";
-  const isMovies = location.pathname === "/movies";
   const [isMoreButton, setMoreButton] = React.useState(
     "more__button_invisible"
   );
@@ -74,20 +73,19 @@ function MoviesCardList(props) {
       console.log(props.cacheSavedNotFoundMovies);
       console.log(props.cacheFoundMovies);
       if (
-        props.cacheSavedNotFoundMovies !== null &&
-        props.cacheFoundMovies !== null
+        isSavedMovies &&
+        props.cacheSavedNotFoundMovies === null &&
+        props.cacheSavedMovies.length === 0
       )
-        return setTitle("Ничего не найдено");
-
-      if (isSavedMovies) return setTitle("Вам ещё ничего не понравилось");
-
-      if (!isSavedMovies) return setTitle("Вы ещё ничего не искали");
-      else return setTitle("");
+        return setTitle("Вам ещё ничего не понравилось");
+      if (!isSavedMovies && props.cacheFoundMovies === null)
+        return setTitle("Вы ещё ничего не искали");
+      else return setTitle("Ничего не найдено");
     }
   }, [
-    isMovies,
     isSavedMovies,
     props.cacheFoundMovies,
+    props.cacheSavedMovies.length,
     props.cacheSavedNotFoundMovies,
     props.renderMovies.length,
   ]);

@@ -246,6 +246,7 @@ function App() {
             disabledInput={disabledInput}
             cacheMovies={cacheMovies}
             savedMovies={savedMovies}
+            cacheFoundMovies={cacheFoundMovies}
             setSavedMovies={setSavedMovies}
             foundMovies={foundMovies}
             renderMovies={foundMovies !== null ? foundMovies : []}

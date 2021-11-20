@@ -79,7 +79,7 @@ function MoviesCardList(props) {
         props.cacheSavedNotFoundMovies === null
       )
         return setTitle("Вам ещё ничего не понравилось");
-      if (!isSavedMovies && props.cacheFoundMovies !== [])
+      if (!isSavedMovies && props.cacheFoundMovies.length !== 0)
         return setTitle("Вы ещё ничего не искали");
       else return setTitle("Ничего не найдено");
     }

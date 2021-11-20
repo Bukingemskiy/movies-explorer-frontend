@@ -39,7 +39,6 @@ function App() {
   );
 
   React.useEffect(() => {
-    console.log(currentUser);
     setIsLoading(true);
     mainApi
       .getUserData()
@@ -58,20 +57,15 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    console.log(loggedIn);
-    console.log(newLoggedIn);
     setIsLoading(true);
     Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
       .then(([movies, savedItems]) => {
         setSavedMovies(savedItems.data);
-        console.log(movies);
-        console.log(savedItems);
         localStorage.setItem(
           "localSavedMovies",
           JSON.stringify(savedItems.data)
         );
         setMoviesItems(movies.map((i) => Object.assign(i, { saved: false })));
-        console.log(moviesItems);
       })
       .catch((err) => {
         setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
@@ -87,10 +81,8 @@ function App() {
             i.id === el.movieId ? Object.assign(i, { saved: true }) : i
           );
           localStorage.setItem("localMovies", JSON.stringify(items));
-          console.log(cacheMovies);
         })
       : localStorage.setItem("localMovies", JSON.stringify(moviesItems));
-    console.log(cacheMovies);
   }, [moviesItems, savedMovies]);
 
   function handleLogin(email, password) {
@@ -186,9 +178,6 @@ function App() {
         search,
         searchCheckbox
       );
-      console.log(filterd);
-      console.log(cacheMovies);
-      console.log(searchCheckbox);
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",

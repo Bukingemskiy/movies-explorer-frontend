@@ -37,7 +37,7 @@ function App() {
   const [foundMovies, setFoundMovies] = React.useState(
     cacheFoundMovies !== null ? cacheFoundMovies : []
   );
-
+  console.log(loggedIn);
   console.log(newLoggedIn);
 
   React.useEffect(() => {

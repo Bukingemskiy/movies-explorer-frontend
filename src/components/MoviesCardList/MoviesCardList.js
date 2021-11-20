@@ -91,6 +91,10 @@ function MoviesCardList(props) {
     props.renderMovies.length,
   ]);
 
+  React.useEffect(() => {
+    setTitle("");
+  }, [location.pathname]);
+
   return (
     <>
       <Preloader isLoading={props.isLoading} />

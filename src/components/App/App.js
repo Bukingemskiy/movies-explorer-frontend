@@ -181,6 +181,7 @@ function App() {
         searchCheckbox
       );
       console.log(cacheMovies);
+      console.log(filterd);
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",
@@ -215,11 +216,8 @@ function App() {
         const newMovies = savedMovies.filter(
           (savedMovie) => savedMovie._id !== id
         );
-        const deleteFoundItems = foundMovies.map((i) =>
-          i.nameEN === nameEN && i.director === director
-            ? Object.assign(i, { saved: false })
-            : i
-        );
+        setSavedMovies(newMovies);
+        localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
         const deleteCacheMovies = cacheMovies.map((el) =>
           el.nameEN === nameEN && el.director === director
             ? Object.assign(el, { saved: false })
@@ -228,14 +226,17 @@ function App() {
         console.log(cacheMovies);
         console.log(deleteCacheMovies);
         localStorage.setItem("localMovies", JSON.stringify(deleteCacheMovies));
+        const deleteFoundItems = foundMovies.map((i) =>
+          i.nameEN === nameEN && i.director === director
+            ? Object.assign(i, { saved: false })
+            : i
+        );
         console.log(cacheMovies);
         setFoundMovies(deleteFoundItems);
         localStorage.setItem(
           "localFoundMovies",
           JSON.stringify(deleteFoundItems)
         );
-        setSavedMovies(newMovies);
-        localStorage.setItem("localSavedMovies", JSON.stringify(newMovies));
       })
       .catch((err) => {
         setErrorMessage(`При отправке запроса произошла ошибка ${err}.`);

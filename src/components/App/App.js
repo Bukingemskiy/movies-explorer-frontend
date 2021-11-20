@@ -183,6 +183,9 @@ function App() {
         search,
         searchCheckbox
       );
+      console.log(filterd);
+      console.log(cacheMovies);
+      console.log(searchCheckbox);
       setFoundMovies(filterd);
       localStorage.setItem(
         "localFoundMovies",

@@ -57,20 +57,35 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    setIsLoading(true);
+    moviesApi
+      .getMovies()
+      .then((movies) => {
+        console.log(movies);
+        console.log(moviesItems);
+        const items = movies.map((i) => Object.assign(i, { saved: false }));
+        console.log(items);
+        setMoviesItems(movies);
+        console.log(moviesItems);
+      })
+      .catch((err) => {
+        setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
+  }, [loggedIn]);
+
+  React.useEffect(() => {
     console.log("movies");
     setIsLoading(true);
-    Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies()])
-      .then(([movies, savedItems]) => {
-        console.log(movies);
+    mainApi
+      .getSavedMovies()
+      .then((savedItems) => {
         setSavedMovies(savedItems.data);
         localStorage.setItem(
           "localSavedMovies",
           JSON.stringify(savedItems.data)
         );
-        console.log(moviesItems);
-
-        setMoviesItems(movies);
-        console.log(moviesItems);
       })
       .catch((err) => {
         setErrorMessage(`При загрузке страницы произошла ошибка ${err}.`);

@@ -96,8 +96,8 @@ function App() {
       .signIn(email, password)
       .then(() => {
         localStorage.setItem("localLoggedIn", "true");
-        history.push("/movies");
         setLoggedIn(true);
+        history.push("/movies");
         //  history.go(0);
       })
       .catch((err) => {

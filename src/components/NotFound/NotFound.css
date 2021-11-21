@@ -33,9 +33,13 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
+  background-color: #202020;
   text-decoration: none;
   color: #4285f4;
   margin: 184px auto 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .not-found__link:hover {

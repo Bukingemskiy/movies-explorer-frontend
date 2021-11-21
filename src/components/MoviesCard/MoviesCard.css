@@ -11,6 +11,10 @@
   font-weight: 500;
   font-size: 15px;
   line-height: 18px;
+  width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .movie__subtitle {
@@ -48,20 +52,33 @@
   background-color: #313131;
 }
 
+.movie__link:hover {
+  opacity: 0.6;
+}
+
 .movie__image {
   margin: 14px auto 0;
   object-fit: cover;
   width: 364px;
+  height: 203px;
 }
 
 @media (max-width: 1279px) {
   .movie__image {
     width: 339px;
+    height: 190px;
+  }
+  .movie__title {
+    width: 280px;
   }
 }
 
 @media (max-width: 767px) {
   .movie__image {
     width: 300px;
+    height: 168px;
+  }
+  .movie__title {
+    width: 240px;
   }
 }

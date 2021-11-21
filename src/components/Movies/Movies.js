@@ -4,12 +4,26 @@ import SearchForm from "../SearchForm/SearchForm.js";
 import MoviesCardList from "../MoviesCardList/MoviesCardList.js";
 import Footer from "../Footer/Footer.js";
 
-function Movies() {
+function Movies(props) {
   return (
     <>
       <Header />
-      <SearchForm />
-      <MoviesCardList />
+      <SearchForm
+        disabledInput={props.disabledInput}
+        movies={props.foundMovies}
+        onSearchMovies={props.onSearchMovies}
+      />
+      <MoviesCardList
+        foundMovies={props.foundMovies}
+        cacheFoundMovies={props.cacheFoundMovies}
+        deleteMovie={props.deleteMovie}
+        createMovie={props.createMovie}
+        cacheMovies={props.cacheMovies}
+        savedMovies={props.savedMovies}
+        renderMovies={props.renderMovies}
+        isLoading={props.isLoading}
+        errorMessage={props.errorMessage}
+      />
       <Footer />
     </>
   );

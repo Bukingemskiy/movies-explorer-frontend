@@ -10,10 +10,15 @@
 
 .search__filter-icon {
   background-color: #3ddc84;
+  background-color: #ebebeb;
   border-radius: 20px;
   width: 36px;
   height: 20px;
   cursor: pointer;
+}
+
+.search__filter-icon_on {
+  background-color: #3ddc84;
 }
 
 .search__filter-icon:hover {
@@ -26,6 +31,11 @@
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
   width: 16px;
   height: 16px;
+  margin: 2px 2px 2px auto;
+  margin: 2px auto 2px 2px;
+}
+
+.search__icon-ring_on {
   margin: 2px 2px 2px auto;
 }
 

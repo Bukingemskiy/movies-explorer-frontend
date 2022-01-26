@@ -29,4 +29,4 @@
 
 ---
 
-##### Проект "Mesto Russia" выполнен с использованием: Hyper Text Mark Langyage, Cascading Style Sheets и JavaScript исключительно в развлекательных целях.
+##### Проект выполнен с использованием: Hyper Text Mark Langyage, Cascading Style Sheets и JavaScript исключительно в развлекательных целях.
